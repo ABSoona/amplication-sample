@@ -98,7 +98,7 @@ model Document {
   demandeId      Int?
   id             String        @id @default(cuid())
   typeDocument   TypeDocument? @relation(fields: [typeDocumentId], references: [id])
-  typeDocumentId String?
+  typeDocumentId Int?
   updatedAt      DateTime      @updatedAt
 }
 
@@ -126,7 +126,7 @@ model Invitation {
 model TypeDocument {
   createdAt DateTime   @default(now())
   documents Document[]
-  id        String     @id @default(cuid())
+  id        Int        @id @default(autoincrement())
   updatedAt DateTime   @updatedAt
 }
 

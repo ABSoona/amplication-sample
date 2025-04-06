@@ -14,7 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { StringFilter } from "../../util/StringFilter";
+import { IntFilter } from "../../util/IntFilter";
 
 @InputType()
 class TypeDocumentWhereInput {
@@ -32,14 +32,14 @@ class TypeDocumentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringFilter,
+    type: IntFilter,
   })
-  @Type(() => StringFilter)
+  @Type(() => IntFilter)
   @IsOptional()
-  @Field(() => StringFilter, {
+  @Field(() => IntFilter, {
     nullable: true,
   })
-  id?: StringFilter;
+  id?: IntFilter;
 }
 
 export { TypeDocumentWhereInput as TypeDocumentWhereInput };
