@@ -52,7 +52,7 @@ export class TypeDocumentServiceBase {
   }
 
   async findDocuments(
-    parentId: string,
+    parentId: number,
     args: Prisma.DocumentFindManyArgs
   ): Promise<PrismaDocument[]> {
     return this.prisma.typeDocument
