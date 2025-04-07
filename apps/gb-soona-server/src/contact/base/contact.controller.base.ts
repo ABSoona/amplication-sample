@@ -387,6 +387,7 @@ export class ContactControllerBase {
         apl: true,
         autresAides: true,
         autresCharges: true,
+        categorieDemandeur: true,
 
         contact: {
           select: {
