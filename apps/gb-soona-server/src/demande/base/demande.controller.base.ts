@@ -64,6 +64,7 @@ export class DemandeControllerBase {
         apl: true,
         autresAides: true,
         autresCharges: true,
+        categorieDemandeur: true,
 
         contact: {
           select: {
@@ -112,6 +113,7 @@ export class DemandeControllerBase {
         apl: true,
         autresAides: true,
         autresCharges: true,
+        categorieDemandeur: true,
 
         contact: {
           select: {
@@ -161,6 +163,7 @@ export class DemandeControllerBase {
         apl: true,
         autresAides: true,
         autresCharges: true,
+        categorieDemandeur: true,
 
         contact: {
           select: {
@@ -225,6 +228,7 @@ export class DemandeControllerBase {
           apl: true,
           autresAides: true,
           autresCharges: true,
+          categorieDemandeur: true,
 
           contact: {
             select: {
@@ -282,6 +286,7 @@ export class DemandeControllerBase {
           apl: true,
           autresAides: true,
           autresCharges: true,
+          categorieDemandeur: true,
 
           contact: {
             select: {
