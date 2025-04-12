@@ -35,6 +35,7 @@ model Demande {
   contactId                Int
   createdAt                DateTime?                      @default(now())
   dateVisite               DateTime?
+  demandeStatusHistories   DemandeStatusHistory[]
   dettes                   Int?
   documents                Document[]
   facturesEnergie          Int?
@@ -113,22 +114,20 @@ model UserNotificationPreference {
   userId    String
 }
 
-model Invitation {
-  createdAt DateTime @default(now())
-  email     String
-  id        String   @id @default(cuid())
-  message   String?
-  role      String
-  token     String
-  updatedAt DateTime @updatedAt
-  used      Boolean
-}
-
 model TypeDocument {
   createdAt DateTime   @default(now())
   documents Document[]
   id        Int        @id @default(autoincrement())
   updatedAt DateTime   @updatedAt
+}
+
+model DemandeStatusHistory {
+  createdAt DateTime @default(now())
+  demande   Demande  @relation(fields: [demandeId], references: [id])
+  demandeId Int
+  id        Int      @id @default(autoincrement())
+  status    String
+  updatedAt DateTime @updatedAt
 }
 
 enum EnumAideCrediteur {

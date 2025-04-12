@@ -11,46 +11,46 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { InvitationWhereInput } from "./InvitationWhereInput";
+import { DemandeStatusHistoryWhereInput } from "./DemandeStatusHistoryWhereInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
 @InputType()
-class InvitationListRelationFilter {
+class DemandeStatusHistoryListRelationFilter {
   @ApiProperty({
     required: false,
-    type: () => InvitationWhereInput,
+    type: () => DemandeStatusHistoryWhereInput,
   })
   @ValidateNested()
-  @Type(() => InvitationWhereInput)
+  @Type(() => DemandeStatusHistoryWhereInput)
   @IsOptional()
-  @Field(() => InvitationWhereInput, {
+  @Field(() => DemandeStatusHistoryWhereInput, {
     nullable: true,
   })
-  every?: InvitationWhereInput;
+  every?: DemandeStatusHistoryWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => InvitationWhereInput,
+    type: () => DemandeStatusHistoryWhereInput,
   })
   @ValidateNested()
-  @Type(() => InvitationWhereInput)
+  @Type(() => DemandeStatusHistoryWhereInput)
   @IsOptional()
-  @Field(() => InvitationWhereInput, {
+  @Field(() => DemandeStatusHistoryWhereInput, {
     nullable: true,
   })
-  some?: InvitationWhereInput;
+  some?: DemandeStatusHistoryWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => InvitationWhereInput,
+    type: () => DemandeStatusHistoryWhereInput,
   })
   @ValidateNested()
-  @Type(() => InvitationWhereInput)
+  @Type(() => DemandeStatusHistoryWhereInput)
   @IsOptional()
-  @Field(() => InvitationWhereInput, {
+  @Field(() => DemandeStatusHistoryWhereInput, {
     nullable: true,
   })
-  none?: InvitationWhereInput;
+  none?: DemandeStatusHistoryWhereInput;
 }
-export { InvitationListRelationFilter as InvitationListRelationFilter };
+export { DemandeStatusHistoryListRelationFilter as DemandeStatusHistoryListRelationFilter };

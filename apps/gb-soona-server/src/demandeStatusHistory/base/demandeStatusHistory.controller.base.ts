@@ -18,106 +18,123 @@ import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
-import { InvitationService } from "../invitation.service";
+import { DemandeStatusHistoryService } from "../demandeStatusHistory.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { InvitationCreateInput } from "./InvitationCreateInput";
-import { Invitation } from "./Invitation";
-import { InvitationFindManyArgs } from "./InvitationFindManyArgs";
-import { InvitationWhereUniqueInput } from "./InvitationWhereUniqueInput";
-import { InvitationUpdateInput } from "./InvitationUpdateInput";
+import { DemandeStatusHistoryCreateInput } from "./DemandeStatusHistoryCreateInput";
+import { DemandeStatusHistory } from "./DemandeStatusHistory";
+import { DemandeStatusHistoryFindManyArgs } from "./DemandeStatusHistoryFindManyArgs";
+import { DemandeStatusHistoryWhereUniqueInput } from "./DemandeStatusHistoryWhereUniqueInput";
+import { DemandeStatusHistoryUpdateInput } from "./DemandeStatusHistoryUpdateInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
-export class InvitationControllerBase {
+export class DemandeStatusHistoryControllerBase {
   constructor(
-    protected readonly service: InvitationService,
+    protected readonly service: DemandeStatusHistoryService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
-  @swagger.ApiCreatedResponse({ type: Invitation })
+  @swagger.ApiCreatedResponse({ type: DemandeStatusHistory })
   @nestAccessControl.UseRoles({
-    resource: "Invitation",
+    resource: "DemandeStatusHistory",
     action: "create",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async createInvitation(
-    @common.Body() data: InvitationCreateInput
-  ): Promise<Invitation> {
-    return await this.service.createInvitation({
-      data: data,
+  async createDemandeStatusHistory(
+    @common.Body() data: DemandeStatusHistoryCreateInput
+  ): Promise<DemandeStatusHistory> {
+    return await this.service.createDemandeStatusHistory({
+      data: {
+        ...data,
+
+        demande: {
+          connect: data.demande,
+        },
+      },
       select: {
         createdAt: true,
-        email: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
-        message: true,
-        role: true,
-        token: true,
+        status: true,
         updatedAt: true,
-        used: true,
       },
     });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get()
-  @swagger.ApiOkResponse({ type: [Invitation] })
-  @ApiNestedQuery(InvitationFindManyArgs)
+  @swagger.ApiOkResponse({ type: [DemandeStatusHistory] })
+  @ApiNestedQuery(DemandeStatusHistoryFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "Invitation",
+    resource: "DemandeStatusHistory",
     action: "read",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async invitations(@common.Req() request: Request): Promise<Invitation[]> {
-    const args = plainToClass(InvitationFindManyArgs, request.query);
-    return this.service.invitations({
+  async demandeStatusHistories(
+    @common.Req() request: Request
+  ): Promise<DemandeStatusHistory[]> {
+    const args = plainToClass(DemandeStatusHistoryFindManyArgs, request.query);
+    return this.service.demandeStatusHistories({
       ...args,
       select: {
         createdAt: true,
-        email: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
-        message: true,
-        role: true,
-        token: true,
+        status: true,
         updatedAt: true,
-        used: true,
       },
     });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id")
-  @swagger.ApiOkResponse({ type: Invitation })
+  @swagger.ApiOkResponse({ type: DemandeStatusHistory })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Invitation",
+    resource: "DemandeStatusHistory",
     action: "read",
     possession: "own",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async invitation(
-    @common.Param() params: InvitationWhereUniqueInput
-  ): Promise<Invitation | null> {
-    const result = await this.service.invitation({
+  async demandeStatusHistory(
+    @common.Param() params: DemandeStatusHistoryWhereUniqueInput
+  ): Promise<DemandeStatusHistory | null> {
+    const result = await this.service.demandeStatusHistory({
       where: params,
       select: {
         createdAt: true,
-        email: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
         id: true,
-        message: true,
-        role: true,
-        token: true,
+        status: true,
         updatedAt: true,
-        used: true,
       },
     });
     if (result === null) {
@@ -130,33 +147,42 @@ export class InvitationControllerBase {
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Patch("/:id")
-  @swagger.ApiOkResponse({ type: Invitation })
+  @swagger.ApiOkResponse({ type: DemandeStatusHistory })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Invitation",
+    resource: "DemandeStatusHistory",
     action: "update",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async updateInvitation(
-    @common.Param() params: InvitationWhereUniqueInput,
-    @common.Body() data: InvitationUpdateInput
-  ): Promise<Invitation | null> {
+  async updateDemandeStatusHistory(
+    @common.Param() params: DemandeStatusHistoryWhereUniqueInput,
+    @common.Body() data: DemandeStatusHistoryUpdateInput
+  ): Promise<DemandeStatusHistory | null> {
     try {
-      return await this.service.updateInvitation({
+      return await this.service.updateDemandeStatusHistory({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          demande: {
+            connect: data.demande,
+          },
+        },
         select: {
           createdAt: true,
-          email: true,
+
+          demande: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
-          message: true,
-          role: true,
-          token: true,
+          status: true,
           updatedAt: true,
-          used: true,
         },
       });
     } catch (error) {
@@ -170,31 +196,34 @@ export class InvitationControllerBase {
   }
 
   @common.Delete("/:id")
-  @swagger.ApiOkResponse({ type: Invitation })
+  @swagger.ApiOkResponse({ type: DemandeStatusHistory })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Invitation",
+    resource: "DemandeStatusHistory",
     action: "delete",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async deleteInvitation(
-    @common.Param() params: InvitationWhereUniqueInput
-  ): Promise<Invitation | null> {
+  async deleteDemandeStatusHistory(
+    @common.Param() params: DemandeStatusHistoryWhereUniqueInput
+  ): Promise<DemandeStatusHistory | null> {
     try {
-      return await this.service.deleteInvitation({
+      return await this.service.deleteDemandeStatusHistory({
         where: params,
         select: {
           createdAt: true,
-          email: true,
+
+          demande: {
+            select: {
+              id: true,
+            },
+          },
+
           id: true,
-          message: true,
-          role: true,
-          token: true,
+          status: true,
           updatedAt: true,
-          used: true,
         },
       });
     } catch (error) {

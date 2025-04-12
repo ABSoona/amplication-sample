@@ -11,17 +11,29 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
+import { ValidateNested, IsString, MaxLength } from "class-validator";
+import { Type } from "class-transformer";
 
 @InputType()
-class InvitationWhereUniqueInput {
+class DemandeStatusHistoryCreateInput {
+  @ApiProperty({
+    required: true,
+    type: () => DemandeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeWhereUniqueInput)
+  @Field(() => DemandeWhereUniqueInput)
+  demande!: DemandeWhereUniqueInput;
+
   @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
+  @MaxLength(256)
   @Field(() => String)
-  id!: string;
+  status!: string;
 }
 
-export { InvitationWhereUniqueInput as InvitationWhereUniqueInput };
+export { DemandeStatusHistoryCreateInput as DemandeStatusHistoryCreateInput };

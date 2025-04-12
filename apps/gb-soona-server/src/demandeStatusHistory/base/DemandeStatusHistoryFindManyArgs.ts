@@ -11,32 +11,32 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { InvitationWhereInput } from "./InvitationWhereInput";
+import { DemandeStatusHistoryWhereInput } from "./DemandeStatusHistoryWhereInput";
 import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
-import { InvitationOrderByInput } from "./InvitationOrderByInput";
+import { DemandeStatusHistoryOrderByInput } from "./DemandeStatusHistoryOrderByInput";
 
 @ArgsType()
-class InvitationFindManyArgs {
+class DemandeStatusHistoryFindManyArgs {
   @ApiProperty({
     required: false,
-    type: () => InvitationWhereInput,
+    type: () => DemandeStatusHistoryWhereInput,
   })
   @IsOptional()
   @ValidateNested()
-  @Field(() => InvitationWhereInput, { nullable: true })
-  @Type(() => InvitationWhereInput)
-  where?: InvitationWhereInput;
+  @Field(() => DemandeStatusHistoryWhereInput, { nullable: true })
+  @Type(() => DemandeStatusHistoryWhereInput)
+  where?: DemandeStatusHistoryWhereInput;
 
   @ApiProperty({
     required: false,
-    type: [InvitationOrderByInput],
+    type: [DemandeStatusHistoryOrderByInput],
   })
   @IsOptional()
   @ValidateNested({ each: true })
-  @Field(() => [InvitationOrderByInput], { nullable: true })
-  @Type(() => InvitationOrderByInput)
-  orderBy?: Array<InvitationOrderByInput>;
+  @Field(() => [DemandeStatusHistoryOrderByInput], { nullable: true })
+  @Type(() => DemandeStatusHistoryOrderByInput)
+  orderBy?: Array<DemandeStatusHistoryOrderByInput>;
 
   @ApiProperty({
     required: false,
@@ -59,4 +59,4 @@ class InvitationFindManyArgs {
   take?: number;
 }
 
-export { InvitationFindManyArgs as InvitationFindManyArgs };
+export { DemandeStatusHistoryFindManyArgs as DemandeStatusHistoryFindManyArgs };
