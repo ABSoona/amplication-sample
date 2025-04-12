@@ -26,6 +26,9 @@ import { Demande } from "./Demande";
 import { DemandeFindManyArgs } from "./DemandeFindManyArgs";
 import { DemandeWhereUniqueInput } from "./DemandeWhereUniqueInput";
 import { DemandeUpdateInput } from "./DemandeUpdateInput";
+import { DemandeStatusHistoryFindManyArgs } from "../../demandeStatusHistory/base/DemandeStatusHistoryFindManyArgs";
+import { DemandeStatusHistory } from "../../demandeStatusHistory/base/DemandeStatusHistory";
+import { DemandeStatusHistoryWhereUniqueInput } from "../../demandeStatusHistory/base/DemandeStatusHistoryWhereUniqueInput";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
@@ -320,6 +323,109 @@ export class DemandeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/demandeStatusHistories")
+  @ApiNestedQuery(DemandeStatusHistoryFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "DemandeStatusHistory",
+    action: "read",
+    possession: "any",
+  })
+  async findDemandeStatusHistories(
+    @common.Req() request: Request,
+    @common.Param() params: DemandeWhereUniqueInput
+  ): Promise<DemandeStatusHistory[]> {
+    const query = plainToClass(DemandeStatusHistoryFindManyArgs, request.query);
+    const results = await this.service.findDemandeStatusHistories(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        status: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/demandeStatusHistories")
+  @nestAccessControl.UseRoles({
+    resource: "Demande",
+    action: "update",
+    possession: "any",
+  })
+  async connectDemandeStatusHistories(
+    @common.Param() params: DemandeWhereUniqueInput,
+    @common.Body() body: DemandeStatusHistoryWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      demandeStatusHistories: {
+        connect: body,
+      },
+    };
+    await this.service.updateDemande({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/demandeStatusHistories")
+  @nestAccessControl.UseRoles({
+    resource: "Demande",
+    action: "update",
+    possession: "any",
+  })
+  async updateDemandeStatusHistories(
+    @common.Param() params: DemandeWhereUniqueInput,
+    @common.Body() body: DemandeStatusHistoryWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      demandeStatusHistories: {
+        set: body,
+      },
+    };
+    await this.service.updateDemande({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/demandeStatusHistories")
+  @nestAccessControl.UseRoles({
+    resource: "Demande",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectDemandeStatusHistories(
+    @common.Param() params: DemandeWhereUniqueInput,
+    @common.Body() body: DemandeStatusHistoryWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      demandeStatusHistories: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateDemande({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

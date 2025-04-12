@@ -15,4 +15,4 @@ import { ACLModule } from "../../auth/acl.module";
   imports: [ACLModule],
   exports: [ACLModule],
 })
-export class InvitationModuleBase {}
+export class DemandeStatusHistoryModuleBase {}

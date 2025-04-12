@@ -13,15 +13,16 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsDate,
+  ValidateNested,
+  IsInt,
   IsString,
   MaxLength,
-  IsOptional,
-  IsBoolean,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Demande } from "../../demande/base/Demande";
 
 @ObjectType()
-class Invitation {
+class DemandeStatusHistory {
   @ApiProperty({
     required: true,
   })
@@ -32,49 +33,28 @@ class Invitation {
 
   @ApiProperty({
     required: true,
-    type: String,
+    type: () => Demande,
   })
-  @IsString()
-  @Field(() => String)
-  email!: string;
+  @ValidateNested()
+  @Type(() => Demande)
+  demande?: Demande;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsInt()
+  @Field(() => Number)
+  id!: number;
 
   @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
+  @MaxLength(256)
   @Field(() => String)
-  id!: string;
-
-  @ApiProperty({
-    required: false,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  message!: string | null;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @Field(() => String)
-  role!: string;
-
-  @ApiProperty({
-    required: true,
-    type: String,
-  })
-  @IsString()
-  @MaxLength(1000)
-  @Field(() => String)
-  token!: string;
+  status!: string;
 
   @ApiProperty({
     required: true,
@@ -83,14 +63,6 @@ class Invitation {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
-
-  @ApiProperty({
-    required: true,
-    type: Boolean,
-  })
-  @IsBoolean()
-  @Field(() => Boolean)
-  used!: boolean;
 }
 
-export { Invitation as Invitation };
+export { DemandeStatusHistory as DemandeStatusHistory };

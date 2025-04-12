@@ -26,6 +26,7 @@ import {
 import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { Contact } from "../../contact/base/Contact";
 import { Type } from "class-transformer";
+import { DemandeStatusHistory } from "../../demandeStatusHistory/base/DemandeStatusHistory";
 import { Document } from "../../document/base/Document";
 
 @ObjectType()
@@ -118,6 +119,15 @@ class Demande {
     nullable: true,
   })
   dateVisite!: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [DemandeStatusHistory],
+  })
+  @ValidateNested()
+  @Type(() => DemandeStatusHistory)
+  @IsOptional()
+  demandeStatusHistories?: Array<DemandeStatusHistory>;
 
   @ApiProperty({
     required: false,

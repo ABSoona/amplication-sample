@@ -6,8 +6,8 @@ import { ContactModule } from "./contact/contact.module";
 import { UserModule } from "./user/user.module";
 import { DocumentModule } from "./document/document.module";
 import { UserNotificationPreferenceModule } from "./userNotificationPreference/userNotificationPreference.module";
-import { InvitationModule } from "./invitation/invitation.module";
 import { TypeDocumentModule } from "./typeDocument/typeDocument.module";
+import { DemandeStatusHistoryModule } from "./demandeStatusHistory/demandeStatusHistory.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -33,8 +33,8 @@ import { AuthModule } from "./auth/auth.module";
     UserModule,
     DocumentModule,
     UserNotificationPreferenceModule,
-    InvitationModule,
     TypeDocumentModule,
+    DemandeStatusHistoryModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

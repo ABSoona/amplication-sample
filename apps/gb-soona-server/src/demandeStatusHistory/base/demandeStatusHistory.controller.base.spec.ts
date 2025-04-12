@@ -12,60 +12,44 @@ import { ACLModule } from "../../auth/acl.module";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { map } from "rxjs";
-import { InvitationController } from "../invitation.controller";
-import { InvitationService } from "../invitation.service";
+import { DemandeStatusHistoryController } from "../demandeStatusHistory.controller";
+import { DemandeStatusHistoryService } from "../demandeStatusHistory.service";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
-  email: "exampleEmail",
-  id: "exampleId",
-  message: "exampleMessage",
-  role: "exampleRole",
-  token: "exampleToken",
+  id: 42,
+  status: "exampleStatus",
   updatedAt: new Date(),
-  used: "true",
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
-  email: "exampleEmail",
-  id: "exampleId",
-  message: "exampleMessage",
-  role: "exampleRole",
-  token: "exampleToken",
+  id: 42,
+  status: "exampleStatus",
   updatedAt: new Date(),
-  used: "true",
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
-    email: "exampleEmail",
-    id: "exampleId",
-    message: "exampleMessage",
-    role: "exampleRole",
-    token: "exampleToken",
+    id: 42,
+    status: "exampleStatus",
     updatedAt: new Date(),
-    used: "true",
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
-  email: "exampleEmail",
-  id: "exampleId",
-  message: "exampleMessage",
-  role: "exampleRole",
-  token: "exampleToken",
+  id: 42,
+  status: "exampleStatus",
   updatedAt: new Date(),
-  used: "true",
 };
 
 const service = {
-  createInvitation() {
+  createDemandeStatusHistory() {
     return CREATE_RESULT;
   },
-  invitations: () => FIND_MANY_RESULT,
-  invitation: ({ where }: { where: { id: string } }) => {
+  demandeStatusHistories: () => FIND_MANY_RESULT,
+  demandeStatusHistory: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
       case existingId:
         return FIND_ONE_RESULT;
@@ -107,18 +91,18 @@ const aclValidateRequestInterceptor = {
   },
 };
 
-describe("Invitation", () => {
+describe("DemandeStatusHistory", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         {
-          provide: InvitationService,
+          provide: DemandeStatusHistoryService,
           useValue: service,
         },
       ],
-      controllers: [InvitationController],
+      controllers: [DemandeStatusHistoryController],
       imports: [ACLModule],
     })
       .overrideGuard(DefaultAuthGuard)
@@ -135,9 +119,9 @@ describe("Invitation", () => {
     await app.init();
   });
 
-  test("POST /invitations", async () => {
+  test("POST /demandeStatusHistories", async () => {
     await request(app.getHttpServer())
-      .post("/invitations")
+      .post("/demandeStatusHistories")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -147,9 +131,9 @@ describe("Invitation", () => {
       });
   });
 
-  test("GET /invitations", async () => {
+  test("GET /demandeStatusHistories", async () => {
     await request(app.getHttpServer())
-      .get("/invitations")
+      .get("/demandeStatusHistories")
       .expect(HttpStatus.OK)
       .expect([
         {
@@ -160,9 +144,9 @@ describe("Invitation", () => {
       ]);
   });
 
-  test("GET /invitations/:id non existing", async () => {
+  test("GET /demandeStatusHistories/:id non existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/invitations"}/${nonExistingId}`)
+      .get(`${"/demandeStatusHistories"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
       .expect({
         statusCode: HttpStatus.NOT_FOUND,
@@ -171,9 +155,9 @@ describe("Invitation", () => {
       });
   });
 
-  test("GET /invitations/:id existing", async () => {
+  test("GET /demandeStatusHistories/:id existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/invitations"}/${existingId}`)
+      .get(`${"/demandeStatusHistories"}/${existingId}`)
       .expect(HttpStatus.OK)
       .expect({
         ...FIND_ONE_RESULT,
@@ -182,10 +166,10 @@ describe("Invitation", () => {
       });
   });
 
-  test("POST /invitations existing resource", async () => {
+  test("POST /demandeStatusHistories existing resource", async () => {
     const agent = request(app.getHttpServer());
     await agent
-      .post("/invitations")
+      .post("/demandeStatusHistories")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -195,7 +179,7 @@ describe("Invitation", () => {
       })
       .then(function () {
         agent
-          .post("/invitations")
+          .post("/demandeStatusHistories")
           .send(CREATE_INPUT)
           .expect(HttpStatus.CONFLICT)
           .expect({

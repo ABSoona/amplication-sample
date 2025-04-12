@@ -9,20 +9,23 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { ArgsType, Field } from "@nestjs/graphql";
+import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { InvitationWhereInput } from "./InvitationWhereInput";
-import { Type } from "class-transformer";
+import { IsInt } from "class-validator";
+import { Transform } from "class-transformer";
 
-@ArgsType()
-class InvitationCountArgs {
+@InputType()
+class DemandeStatusHistoryWhereUniqueInput {
   @ApiProperty({
-    required: false,
-    type: () => InvitationWhereInput,
+    required: true,
+    type: Number,
   })
-  @Field(() => InvitationWhereInput, { nullable: true })
-  @Type(() => InvitationWhereInput)
-  where?: InvitationWhereInput;
+  @IsInt()
+  @Transform((prop) => parseInt(prop.value), {
+    toClassOnly: true,
+  })
+  @Field(() => Number)
+  id!: number;
 }
 
-export { InvitationCountArgs as InvitationCountArgs };
+export { DemandeStatusHistoryWhereUniqueInput as DemandeStatusHistoryWhereUniqueInput };

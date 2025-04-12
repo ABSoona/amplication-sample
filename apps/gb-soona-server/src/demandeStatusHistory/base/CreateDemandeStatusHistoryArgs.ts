@@ -11,20 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { InvitationCreateInput } from "./InvitationCreateInput";
+import { DemandeStatusHistoryCreateInput } from "./DemandeStatusHistoryCreateInput";
 import { ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 
 @ArgsType()
-class CreateInvitationArgs {
+class CreateDemandeStatusHistoryArgs {
   @ApiProperty({
     required: true,
-    type: () => InvitationCreateInput,
+    type: () => DemandeStatusHistoryCreateInput,
   })
   @ValidateNested()
-  @Type(() => InvitationCreateInput)
-  @Field(() => InvitationCreateInput, { nullable: false })
-  data!: InvitationCreateInput;
+  @Type(() => DemandeStatusHistoryCreateInput)
+  @Field(() => DemandeStatusHistoryCreateInput, { nullable: false })
+  data!: DemandeStatusHistoryCreateInput;
 }
 
-export { CreateInvitationArgs as CreateInvitationArgs };
+export { CreateDemandeStatusHistoryArgs as CreateDemandeStatusHistoryArgs };

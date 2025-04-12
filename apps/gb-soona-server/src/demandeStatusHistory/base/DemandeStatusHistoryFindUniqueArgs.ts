@@ -11,30 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { InvitationWhereUniqueInput } from "./InvitationWhereUniqueInput";
+import { DemandeStatusHistoryWhereUniqueInput } from "./DemandeStatusHistoryWhereUniqueInput";
 import { ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
-import { InvitationUpdateInput } from "./InvitationUpdateInput";
 
 @ArgsType()
-class UpdateInvitationArgs {
+class DemandeStatusHistoryFindUniqueArgs {
   @ApiProperty({
     required: true,
-    type: () => InvitationWhereUniqueInput,
+    type: () => DemandeStatusHistoryWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => InvitationWhereUniqueInput)
-  @Field(() => InvitationWhereUniqueInput, { nullable: false })
-  where!: InvitationWhereUniqueInput;
-
-  @ApiProperty({
-    required: true,
-    type: () => InvitationUpdateInput,
-  })
-  @ValidateNested()
-  @Type(() => InvitationUpdateInput)
-  @Field(() => InvitationUpdateInput, { nullable: false })
-  data!: InvitationUpdateInput;
+  @Type(() => DemandeStatusHistoryWhereUniqueInput)
+  @Field(() => DemandeStatusHistoryWhereUniqueInput, { nullable: false })
+  where!: DemandeStatusHistoryWhereUniqueInput;
 }
 
-export { UpdateInvitationArgs as UpdateInvitationArgs };
+export { DemandeStatusHistoryFindUniqueArgs as DemandeStatusHistoryFindUniqueArgs };
