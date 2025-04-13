@@ -19,33 +19,32 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
-import { Aide } from "./Aide";
-import { AideCountArgs } from "./AideCountArgs";
-import { AideFindManyArgs } from "./AideFindManyArgs";
-import { AideFindUniqueArgs } from "./AideFindUniqueArgs";
-import { CreateAideArgs } from "./CreateAideArgs";
-import { UpdateAideArgs } from "./UpdateAideArgs";
-import { DeleteAideArgs } from "./DeleteAideArgs";
-import { DemandeActivityFindManyArgs } from "../../demandeActivity/base/DemandeActivityFindManyArgs";
-import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
-import { Contact } from "../../contact/base/Contact";
-import { AideService } from "../aide.service";
+import { DemandeActivity } from "./DemandeActivity";
+import { DemandeActivityCountArgs } from "./DemandeActivityCountArgs";
+import { DemandeActivityFindManyArgs } from "./DemandeActivityFindManyArgs";
+import { DemandeActivityFindUniqueArgs } from "./DemandeActivityFindUniqueArgs";
+import { CreateDemandeActivityArgs } from "./CreateDemandeActivityArgs";
+import { UpdateDemandeActivityArgs } from "./UpdateDemandeActivityArgs";
+import { DeleteDemandeActivityArgs } from "./DeleteDemandeActivityArgs";
+import { Aide } from "../../aide/base/Aide";
+import { Demande } from "../../demande/base/Demande";
+import { DemandeActivityService } from "../demandeActivity.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
-@graphql.Resolver(() => Aide)
-export class AideResolverBase {
+@graphql.Resolver(() => DemandeActivity)
+export class DemandeActivityResolverBase {
   constructor(
-    protected readonly service: AideService,
+    protected readonly service: DemandeActivityService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
 
   @graphql.Query(() => MetaQueryPayload)
   @nestAccessControl.UseRoles({
-    resource: "Aide",
+    resource: "DemandeActivity",
     action: "read",
     possession: "any",
   })
-  async _aidesMeta(
-    @graphql.Args() args: AideCountArgs
+  async _demandeActivitiesMeta(
+    @graphql.Args() args: DemandeActivityCountArgs
   ): Promise<MetaQueryPayload> {
     const result = await this.service.count(args);
     return {
@@ -54,25 +53,29 @@ export class AideResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.Query(() => [Aide])
+  @graphql.Query(() => [DemandeActivity])
   @nestAccessControl.UseRoles({
-    resource: "Aide",
+    resource: "DemandeActivity",
     action: "read",
     possession: "any",
   })
-  async aides(@graphql.Args() args: AideFindManyArgs): Promise<Aide[]> {
-    return this.service.aides(args);
+  async demandeActivities(
+    @graphql.Args() args: DemandeActivityFindManyArgs
+  ): Promise<DemandeActivity[]> {
+    return this.service.demandeActivities(args);
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.Query(() => Aide, { nullable: true })
+  @graphql.Query(() => DemandeActivity, { nullable: true })
   @nestAccessControl.UseRoles({
-    resource: "Aide",
+    resource: "DemandeActivity",
     action: "read",
     possession: "own",
   })
-  async aide(@graphql.Args() args: AideFindUniqueArgs): Promise<Aide | null> {
-    const result = await this.service.aide(args);
+  async demandeActivity(
+    @graphql.Args() args: DemandeActivityFindUniqueArgs
+  ): Promise<DemandeActivity | null> {
+    const result = await this.service.demandeActivity(args);
     if (result === null) {
       return null;
     }
@@ -80,41 +83,57 @@ export class AideResolverBase {
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
-  @graphql.Mutation(() => Aide)
+  @graphql.Mutation(() => DemandeActivity)
   @nestAccessControl.UseRoles({
-    resource: "Aide",
+    resource: "DemandeActivity",
     action: "create",
     possession: "any",
   })
-  async createAide(@graphql.Args() args: CreateAideArgs): Promise<Aide> {
-    return await this.service.createAide({
+  async createDemandeActivity(
+    @graphql.Args() args: CreateDemandeActivityArgs
+  ): Promise<DemandeActivity> {
+    return await this.service.createDemandeActivity({
       ...args,
       data: {
         ...args.data,
 
-        contact: {
-          connect: args.data.contact,
+        aide: args.data.aide
+          ? {
+              connect: args.data.aide,
+            }
+          : undefined,
+
+        demande: {
+          connect: args.data.demande,
         },
       },
     });
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
-  @graphql.Mutation(() => Aide)
+  @graphql.Mutation(() => DemandeActivity)
   @nestAccessControl.UseRoles({
-    resource: "Aide",
+    resource: "DemandeActivity",
     action: "update",
     possession: "any",
   })
-  async updateAide(@graphql.Args() args: UpdateAideArgs): Promise<Aide | null> {
+  async updateDemandeActivity(
+    @graphql.Args() args: UpdateDemandeActivityArgs
+  ): Promise<DemandeActivity | null> {
     try {
-      return await this.service.updateAide({
+      return await this.service.updateDemandeActivity({
         ...args,
         data: {
           ...args.data,
 
-          contact: {
-            connect: args.data.contact,
+          aide: args.data.aide
+            ? {
+                connect: args.data.aide,
+              }
+            : undefined,
+
+          demande: {
+            connect: args.data.demande,
           },
         },
       });
@@ -128,15 +147,17 @@ export class AideResolverBase {
     }
   }
 
-  @graphql.Mutation(() => Aide)
+  @graphql.Mutation(() => DemandeActivity)
   @nestAccessControl.UseRoles({
-    resource: "Aide",
+    resource: "DemandeActivity",
     action: "delete",
     possession: "any",
   })
-  async deleteAide(@graphql.Args() args: DeleteAideArgs): Promise<Aide | null> {
+  async deleteDemandeActivity(
+    @graphql.Args() args: DeleteDemandeActivityArgs
+  ): Promise<DemandeActivity | null> {
     try {
-      return await this.service.deleteAide(args);
+      return await this.service.deleteDemandeActivity(args);
     } catch (error) {
       if (isRecordNotFoundError(error)) {
         throw new GraphQLError(
@@ -148,37 +169,40 @@ export class AideResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [DemandeActivity], { name: "demandeActivities" })
+  @graphql.ResolveField(() => Aide, {
+    nullable: true,
+    name: "aide",
+  })
   @nestAccessControl.UseRoles({
-    resource: "DemandeActivity",
+    resource: "Aide",
     action: "read",
     possession: "any",
   })
-  async findDemandeActivities(
-    @graphql.Parent() parent: Aide,
-    @graphql.Args() args: DemandeActivityFindManyArgs
-  ): Promise<DemandeActivity[]> {
-    const results = await this.service.findDemandeActivities(parent.id, args);
+  async getAide(
+    @graphql.Parent() parent: DemandeActivity
+  ): Promise<Aide | null> {
+    const result = await this.service.getAide(parent.id);
 
-    if (!results) {
-      return [];
+    if (!result) {
+      return null;
     }
-
-    return results;
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Contact, {
+  @graphql.ResolveField(() => Demande, {
     nullable: true,
-    name: "contact",
+    name: "demande",
   })
   @nestAccessControl.UseRoles({
-    resource: "Contact",
+    resource: "Demande",
     action: "read",
     possession: "any",
   })
-  async getContact(@graphql.Parent() parent: Aide): Promise<Contact | null> {
-    const result = await this.service.getContact(parent.id);
+  async getDemande(
+    @graphql.Parent() parent: DemandeActivity
+  ): Promise<Demande | null> {
+    const result = await this.service.getDemande(parent.id);
 
     if (!result) {
       return null;

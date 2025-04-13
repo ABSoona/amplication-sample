@@ -11,32 +11,32 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UserNotificationPreferenceWhereInput } from "./UserNotificationPreferenceWhereInput";
+import { DemandeActivityWhereInput } from "./DemandeActivityWhereInput";
 import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
-import { UserNotificationPreferenceOrderByInput } from "./UserNotificationPreferenceOrderByInput";
+import { DemandeActivityOrderByInput } from "./DemandeActivityOrderByInput";
 
 @ArgsType()
-class UserNotificationPreferenceFindManyArgs {
+class DemandeActivityFindManyArgs {
   @ApiProperty({
     required: false,
-    type: () => UserNotificationPreferenceWhereInput,
+    type: () => DemandeActivityWhereInput,
   })
   @IsOptional()
   @ValidateNested()
-  @Field(() => UserNotificationPreferenceWhereInput, { nullable: true })
-  @Type(() => UserNotificationPreferenceWhereInput)
-  where?: UserNotificationPreferenceWhereInput;
+  @Field(() => DemandeActivityWhereInput, { nullable: true })
+  @Type(() => DemandeActivityWhereInput)
+  where?: DemandeActivityWhereInput;
 
   @ApiProperty({
     required: false,
-    type: [UserNotificationPreferenceOrderByInput],
+    type: [DemandeActivityOrderByInput],
   })
   @IsOptional()
   @ValidateNested({ each: true })
-  @Field(() => [UserNotificationPreferenceOrderByInput], { nullable: true })
-  @Type(() => UserNotificationPreferenceOrderByInput)
-  orderBy?: Array<UserNotificationPreferenceOrderByInput>;
+  @Field(() => [DemandeActivityOrderByInput], { nullable: true })
+  @Type(() => DemandeActivityOrderByInput)
+  orderBy?: Array<DemandeActivityOrderByInput>;
 
   @ApiProperty({
     required: false,
@@ -59,4 +59,4 @@ class UserNotificationPreferenceFindManyArgs {
   take?: number;
 }
 
-export { UserNotificationPreferenceFindManyArgs as UserNotificationPreferenceFindManyArgs };
+export { DemandeActivityFindManyArgs as DemandeActivityFindManyArgs };

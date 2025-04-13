@@ -8,21 +8,22 @@ generator client {
 }
 
 model Aide {
-  contact          Contact            @relation(fields: [contactId], references: [id])
-  contactId        Int
-  createdAt        DateTime           @default(now())
-  crediteur        EnumAideCrediteur?
-  dateAide         DateTime?
-  dateExpiration   DateTime?
-  frequence        EnumAideFrequence?
-  id               Int                @id @default(autoincrement())
-  infosCrediteur   String?
-  montant          Int?
-  nombreVersements Int?
-  remarque         String?
-  suspendue        Boolean?
-  typeField        EnumAideTypeField?
-  updatedAt        DateTime           @updatedAt
+  contact           Contact            @relation(fields: [contactId], references: [id])
+  contactId         Int
+  createdAt         DateTime           @default(now())
+  crediteur         EnumAideCrediteur?
+  dateAide          DateTime?
+  dateExpiration    DateTime?
+  demandeActivities DemandeActivity[]
+  frequence         EnumAideFrequence?
+  id                Int                @id @default(autoincrement())
+  infosCrediteur    String?
+  montant           Int?
+  nombreVersements  Int?
+  remarque          String?
+  suspendue         Boolean?
+  typeField         EnumAideTypeField?
+  updatedAt         DateTime           @updatedAt
 }
 
 model Demande {
@@ -35,6 +36,7 @@ model Demande {
   contactId                Int
   createdAt                DateTime?                      @default(now())
   dateVisite               DateTime?
+  demandeActivities        DemandeActivity[]
   demandeStatusHistories   DemandeStatusHistory[]
   dettes                   Int?
   documents                Document[]
@@ -76,19 +78,18 @@ model Contact {
 }
 
 model User {
-  createdAt                   DateTime                     @default(now())
-  email                       String?                      @unique
-  firstName                   String?
-  id                          String                       @id @default(cuid())
-  lastName                    String?
-  password                    String
-  role                        String?
-  roles                       Json
-  status                      String?
-  token                       String?
-  updatedAt                   DateTime                     @updatedAt
-  userNotificationPreferences UserNotificationPreference[]
-  username                    String                       @unique
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  role      String?
+  roles     Json
+  status    String?
+  token     String?
+  updatedAt DateTime @updatedAt
+  username  String   @unique
 }
 
 model Document {
@@ -102,16 +103,6 @@ model Document {
   typeDocument   TypeDocument? @relation(fields: [typeDocumentId], references: [id])
   typeDocumentId Int?
   updatedAt      DateTime      @updatedAt
-}
-
-model UserNotificationPreference {
-  active    Boolean
-  createdAt DateTime                                @default(now())
-  id        Int                                     @id @default(autoincrement())
-  typeField EnumUserNotificationPreferenceTypeField
-  updatedAt DateTime                                @updatedAt
-  user      User                                    @relation(fields: [userId], references: [id])
-  userId    String
 }
 
 model TypeDocument {
@@ -130,6 +121,18 @@ model DemandeStatusHistory {
   updatedAt DateTime @updatedAt
 }
 
+model DemandeActivity {
+  aide      Aide?    @relation(fields: [aideId], references: [id])
+  aideId    Int?
+  createdAt DateTime @default(now())
+  demande   Demande  @relation(fields: [demandeId], references: [id])
+  demandeId Int
+  id        Int      @id @default(autoincrement())
+  message   String?
+  typeField String
+  updatedAt DateTime @updatedAt
+}
+
 enum EnumAideCrediteur {
   LeBNFiciaire
   UnCrAncier
@@ -144,7 +147,7 @@ enum EnumAideFrequence {
 }
 
 enum EnumAideTypeField {
-  Alimentaire
+  AssistanceAdministrative
   FinanciRe
 }
 
@@ -152,13 +155,4 @@ enum EnumDemandeCategorieDemandeur {
   LourdementEndett
   NCessiteux
   Pauvre
-}
-
-enum EnumUserNotificationPreferenceTypeField {
-  NouvelleDemande
-  DemandeEnVisite
-  DemandeEnCommission
-  ContactBan
-  AideExpir
-  ErreursDemandes
 }

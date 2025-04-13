@@ -18,126 +18,150 @@ import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
-import { UserNotificationPreferenceService } from "../userNotificationPreference.service";
+import { DemandeActivityService } from "../demandeActivity.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { UserNotificationPreferenceCreateInput } from "./UserNotificationPreferenceCreateInput";
-import { UserNotificationPreference } from "./UserNotificationPreference";
-import { UserNotificationPreferenceFindManyArgs } from "./UserNotificationPreferenceFindManyArgs";
-import { UserNotificationPreferenceWhereUniqueInput } from "./UserNotificationPreferenceWhereUniqueInput";
-import { UserNotificationPreferenceUpdateInput } from "./UserNotificationPreferenceUpdateInput";
+import { DemandeActivityCreateInput } from "./DemandeActivityCreateInput";
+import { DemandeActivity } from "./DemandeActivity";
+import { DemandeActivityFindManyArgs } from "./DemandeActivityFindManyArgs";
+import { DemandeActivityWhereUniqueInput } from "./DemandeActivityWhereUniqueInput";
+import { DemandeActivityUpdateInput } from "./DemandeActivityUpdateInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
-export class UserNotificationPreferenceControllerBase {
+export class DemandeActivityControllerBase {
   constructor(
-    protected readonly service: UserNotificationPreferenceService,
+    protected readonly service: DemandeActivityService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
-  @swagger.ApiCreatedResponse({ type: UserNotificationPreference })
+  @swagger.ApiCreatedResponse({ type: DemandeActivity })
   @nestAccessControl.UseRoles({
-    resource: "UserNotificationPreference",
+    resource: "DemandeActivity",
     action: "create",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async createUserNotificationPreference(
-    @common.Body() data: UserNotificationPreferenceCreateInput
-  ): Promise<UserNotificationPreference> {
-    return await this.service.createUserNotificationPreference({
+  async createDemandeActivity(
+    @common.Body() data: DemandeActivityCreateInput
+  ): Promise<DemandeActivity> {
+    return await this.service.createDemandeActivity({
       data: {
         ...data,
 
-        user: {
-          connect: data.user,
+        aide: data.aide
+          ? {
+              connect: data.aide,
+            }
+          : undefined,
+
+        demande: {
+          connect: data.demande,
         },
       },
       select: {
-        active: true,
-        createdAt: true,
-        id: true,
-        typeField: true,
-        updatedAt: true,
-
-        user: {
+        aide: {
           select: {
             id: true,
           },
         },
+
+        createdAt: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        message: true,
+        typeField: true,
+        updatedAt: true,
       },
     });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get()
-  @swagger.ApiOkResponse({ type: [UserNotificationPreference] })
-  @ApiNestedQuery(UserNotificationPreferenceFindManyArgs)
+  @swagger.ApiOkResponse({ type: [DemandeActivity] })
+  @ApiNestedQuery(DemandeActivityFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "UserNotificationPreference",
+    resource: "DemandeActivity",
     action: "read",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async userNotificationPreferences(
+  async demandeActivities(
     @common.Req() request: Request
-  ): Promise<UserNotificationPreference[]> {
-    const args = plainToClass(
-      UserNotificationPreferenceFindManyArgs,
-      request.query
-    );
-    return this.service.userNotificationPreferences({
+  ): Promise<DemandeActivity[]> {
+    const args = plainToClass(DemandeActivityFindManyArgs, request.query);
+    return this.service.demandeActivities({
       ...args,
       select: {
-        active: true,
-        createdAt: true,
-        id: true,
-        typeField: true,
-        updatedAt: true,
-
-        user: {
+        aide: {
           select: {
             id: true,
           },
         },
+
+        createdAt: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        message: true,
+        typeField: true,
+        updatedAt: true,
       },
     });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id")
-  @swagger.ApiOkResponse({ type: UserNotificationPreference })
+  @swagger.ApiOkResponse({ type: DemandeActivity })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "UserNotificationPreference",
+    resource: "DemandeActivity",
     action: "read",
     possession: "own",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async userNotificationPreference(
-    @common.Param() params: UserNotificationPreferenceWhereUniqueInput
-  ): Promise<UserNotificationPreference | null> {
-    const result = await this.service.userNotificationPreference({
+  async demandeActivity(
+    @common.Param() params: DemandeActivityWhereUniqueInput
+  ): Promise<DemandeActivity | null> {
+    const result = await this.service.demandeActivity({
       where: params,
       select: {
-        active: true,
-        createdAt: true,
-        id: true,
-        typeField: true,
-        updatedAt: true,
-
-        user: {
+        aide: {
           select: {
             id: true,
           },
         },
+
+        createdAt: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        message: true,
+        typeField: true,
+        updatedAt: true,
       },
     });
     if (result === null) {
@@ -150,42 +174,55 @@ export class UserNotificationPreferenceControllerBase {
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Patch("/:id")
-  @swagger.ApiOkResponse({ type: UserNotificationPreference })
+  @swagger.ApiOkResponse({ type: DemandeActivity })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "UserNotificationPreference",
+    resource: "DemandeActivity",
     action: "update",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async updateUserNotificationPreference(
-    @common.Param() params: UserNotificationPreferenceWhereUniqueInput,
-    @common.Body() data: UserNotificationPreferenceUpdateInput
-  ): Promise<UserNotificationPreference | null> {
+  async updateDemandeActivity(
+    @common.Param() params: DemandeActivityWhereUniqueInput,
+    @common.Body() data: DemandeActivityUpdateInput
+  ): Promise<DemandeActivity | null> {
     try {
-      return await this.service.updateUserNotificationPreference({
+      return await this.service.updateDemandeActivity({
         where: params,
         data: {
           ...data,
 
-          user: {
-            connect: data.user,
+          aide: data.aide
+            ? {
+                connect: data.aide,
+              }
+            : undefined,
+
+          demande: {
+            connect: data.demande,
           },
         },
         select: {
-          active: true,
-          createdAt: true,
-          id: true,
-          typeField: true,
-          updatedAt: true,
-
-          user: {
+          aide: {
             select: {
               id: true,
             },
           },
+
+          createdAt: true,
+
+          demande: {
+            select: {
+              id: true,
+            },
+          },
+
+          id: true,
+          message: true,
+          typeField: true,
+          updatedAt: true,
         },
       });
     } catch (error) {
@@ -199,34 +236,41 @@ export class UserNotificationPreferenceControllerBase {
   }
 
   @common.Delete("/:id")
-  @swagger.ApiOkResponse({ type: UserNotificationPreference })
+  @swagger.ApiOkResponse({ type: DemandeActivity })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "UserNotificationPreference",
+    resource: "DemandeActivity",
     action: "delete",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async deleteUserNotificationPreference(
-    @common.Param() params: UserNotificationPreferenceWhereUniqueInput
-  ): Promise<UserNotificationPreference | null> {
+  async deleteDemandeActivity(
+    @common.Param() params: DemandeActivityWhereUniqueInput
+  ): Promise<DemandeActivity | null> {
     try {
-      return await this.service.deleteUserNotificationPreference({
+      return await this.service.deleteDemandeActivity({
         where: params,
         select: {
-          active: true,
-          createdAt: true,
-          id: true,
-          typeField: true,
-          updatedAt: true,
-
-          user: {
+          aide: {
             select: {
               id: true,
             },
           },
+
+          createdAt: true,
+
+          demande: {
+            select: {
+              id: true,
+            },
+          },
+
+          id: true,
+          message: true,
+          typeField: true,
+          updatedAt: true,
         },
       });
     } catch (error) {

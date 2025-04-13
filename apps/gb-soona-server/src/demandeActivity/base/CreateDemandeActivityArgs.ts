@@ -11,20 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UserNotificationPreferenceCreateInput } from "./UserNotificationPreferenceCreateInput";
+import { DemandeActivityCreateInput } from "./DemandeActivityCreateInput";
 import { ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 
 @ArgsType()
-class CreateUserNotificationPreferenceArgs {
+class CreateDemandeActivityArgs {
   @ApiProperty({
     required: true,
-    type: () => UserNotificationPreferenceCreateInput,
+    type: () => DemandeActivityCreateInput,
   })
   @ValidateNested()
-  @Type(() => UserNotificationPreferenceCreateInput)
-  @Field(() => UserNotificationPreferenceCreateInput, { nullable: false })
-  data!: UserNotificationPreferenceCreateInput;
+  @Type(() => DemandeActivityCreateInput)
+  @Field(() => DemandeActivityCreateInput, { nullable: false })
+  data!: DemandeActivityCreateInput;
 }
 
-export { CreateUserNotificationPreferenceArgs as CreateUserNotificationPreferenceArgs };
+export { CreateDemandeActivityArgs as CreateDemandeActivityArgs };

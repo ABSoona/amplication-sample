@@ -12,44 +12,48 @@ import { ACLModule } from "../../auth/acl.module";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { map } from "rxjs";
-import { UserNotificationPreferenceController } from "../userNotificationPreference.controller";
-import { UserNotificationPreferenceService } from "../userNotificationPreference.service";
+import { DemandeActivityController } from "../demandeActivity.controller";
+import { DemandeActivityService } from "../demandeActivity.service";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
-  active: "true",
   createdAt: new Date(),
   id: 42,
+  message: "exampleMessage",
+  typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
-  active: "true",
   createdAt: new Date(),
   id: 42,
+  message: "exampleMessage",
+  typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
-    active: "true",
     createdAt: new Date(),
     id: 42,
+    message: "exampleMessage",
+    typeField: "exampleTypeField",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
-  active: "true",
   createdAt: new Date(),
   id: 42,
+  message: "exampleMessage",
+  typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
 
 const service = {
-  createUserNotificationPreference() {
+  createDemandeActivity() {
     return CREATE_RESULT;
   },
-  userNotificationPreferences: () => FIND_MANY_RESULT,
-  userNotificationPreference: ({ where }: { where: { id: string } }) => {
+  demandeActivities: () => FIND_MANY_RESULT,
+  demandeActivity: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
       case existingId:
         return FIND_ONE_RESULT;
@@ -91,18 +95,18 @@ const aclValidateRequestInterceptor = {
   },
 };
 
-describe("UserNotificationPreference", () => {
+describe("DemandeActivity", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         {
-          provide: UserNotificationPreferenceService,
+          provide: DemandeActivityService,
           useValue: service,
         },
       ],
-      controllers: [UserNotificationPreferenceController],
+      controllers: [DemandeActivityController],
       imports: [ACLModule],
     })
       .overrideGuard(DefaultAuthGuard)
@@ -119,9 +123,9 @@ describe("UserNotificationPreference", () => {
     await app.init();
   });
 
-  test("POST /userNotificationPreferences", async () => {
+  test("POST /demandeActivities", async () => {
     await request(app.getHttpServer())
-      .post("/userNotificationPreferences")
+      .post("/demandeActivities")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -131,9 +135,9 @@ describe("UserNotificationPreference", () => {
       });
   });
 
-  test("GET /userNotificationPreferences", async () => {
+  test("GET /demandeActivities", async () => {
     await request(app.getHttpServer())
-      .get("/userNotificationPreferences")
+      .get("/demandeActivities")
       .expect(HttpStatus.OK)
       .expect([
         {
@@ -144,9 +148,9 @@ describe("UserNotificationPreference", () => {
       ]);
   });
 
-  test("GET /userNotificationPreferences/:id non existing", async () => {
+  test("GET /demandeActivities/:id non existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/userNotificationPreferences"}/${nonExistingId}`)
+      .get(`${"/demandeActivities"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
       .expect({
         statusCode: HttpStatus.NOT_FOUND,
@@ -155,9 +159,9 @@ describe("UserNotificationPreference", () => {
       });
   });
 
-  test("GET /userNotificationPreferences/:id existing", async () => {
+  test("GET /demandeActivities/:id existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/userNotificationPreferences"}/${existingId}`)
+      .get(`${"/demandeActivities"}/${existingId}`)
       .expect(HttpStatus.OK)
       .expect({
         ...FIND_ONE_RESULT,
@@ -166,10 +170,10 @@ describe("UserNotificationPreference", () => {
       });
   });
 
-  test("POST /userNotificationPreferences existing resource", async () => {
+  test("POST /demandeActivities existing resource", async () => {
     const agent = request(app.getHttpServer());
     await agent
-      .post("/userNotificationPreferences")
+      .post("/demandeActivities")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -179,7 +183,7 @@ describe("UserNotificationPreference", () => {
       })
       .then(function () {
         agent
-          .post("/userNotificationPreferences")
+          .post("/demandeActivities")
           .send(CREATE_INPUT)
           .expect(HttpStatus.CONFLICT)
           .expect({

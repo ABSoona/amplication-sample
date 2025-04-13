@@ -10,19 +10,19 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { InputType, Field } from "@nestjs/graphql";
-import { UserNotificationPreferenceWhereUniqueInput } from "../../userNotificationPreference/base/UserNotificationPreferenceWhereUniqueInput";
+import { DemandeActivityWhereUniqueInput } from "../../demandeActivity/base/DemandeActivityWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
 
 @InputType()
-class UserNotificationPreferenceCreateNestedManyWithoutUsersInput {
-  @Field(() => [UserNotificationPreferenceWhereUniqueInput], {
+class DemandeActivityCreateNestedManyWithoutDemandesInput {
+  @Field(() => [DemandeActivityWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [UserNotificationPreferenceWhereUniqueInput],
+    type: () => [DemandeActivityWhereUniqueInput],
   })
-  connect?: Array<UserNotificationPreferenceWhereUniqueInput>;
+  connect?: Array<DemandeActivityWhereUniqueInput>;
 }
 
-export { UserNotificationPreferenceCreateNestedManyWithoutUsersInput as UserNotificationPreferenceCreateNestedManyWithoutUsersInput };
+export { DemandeActivityCreateNestedManyWithoutDemandesInput as DemandeActivityCreateNestedManyWithoutDemandesInput };

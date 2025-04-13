@@ -26,6 +26,7 @@ import {
 import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { Contact } from "../../contact/base/Contact";
 import { Type } from "class-transformer";
+import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
 import { DemandeStatusHistory } from "../../demandeStatusHistory/base/DemandeStatusHistory";
 import { Document } from "../../document/base/Document";
 
@@ -119,6 +120,15 @@ class Demande {
     nullable: true,
   })
   dateVisite!: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [DemandeActivity],
+  })
+  @ValidateNested()
+  @Type(() => DemandeActivity)
+  @IsOptional()
+  demandeActivities?: Array<DemandeActivity>;
 
   @ApiProperty({
     required: false,

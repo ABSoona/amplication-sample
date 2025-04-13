@@ -17,6 +17,7 @@ import { Type } from "class-transformer";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { EnumAideCrediteur } from "./EnumAideCrediteur";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { DemandeActivityListRelationFilter } from "../../demandeActivity/base/DemandeActivityListRelationFilter";
 import { EnumAideFrequence } from "./EnumAideFrequence";
 import { IntFilter } from "../../util/IntFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
@@ -81,6 +82,18 @@ class AideWhereInput {
     nullable: true,
   })
   dateExpiration?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeActivityListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DemandeActivityListRelationFilter)
+  @IsOptional()
+  @Field(() => DemandeActivityListRelationFilter, {
+    nullable: true,
+  })
+  demandeActivities?: DemandeActivityListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -173,7 +186,7 @@ class AideWhereInput {
   @Field(() => EnumAideTypeField, {
     nullable: true,
   })
-  typeField?: "Alimentaire" | "FinanciRe";
+  typeField?: "AssistanceAdministrative" | "FinanciRe";
 
   @ApiProperty({
     required: false,

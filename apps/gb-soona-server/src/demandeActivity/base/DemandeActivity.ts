@@ -11,26 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { Aide } from "../../aide/base/Aide";
 import {
-  IsBoolean,
+  ValidateNested,
+  IsOptional,
   IsDate,
   IsInt,
-  IsEnum,
-  ValidateNested,
+  IsString,
+  MaxLength,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { EnumUserNotificationPreferenceTypeField } from "./EnumUserNotificationPreferenceTypeField";
-import { User } from "../../user/base/User";
+import { Demande } from "../../demande/base/Demande";
 
 @ObjectType()
-class UserNotificationPreference {
+class DemandeActivity {
   @ApiProperty({
-    required: true,
-    type: Boolean,
+    required: false,
+    type: () => Aide,
   })
-  @IsBoolean()
-  @Field(() => Boolean)
-  active!: boolean;
+  @ValidateNested()
+  @Type(() => Aide)
+  @IsOptional()
+  aide?: Aide | null;
 
   @ApiProperty({
     required: true,
@@ -42,6 +44,14 @@ class UserNotificationPreference {
 
   @ApiProperty({
     required: true,
+    type: () => Demande,
+  })
+  @ValidateNested()
+  @Type(() => Demande)
+  demande?: Demande;
+
+  @ApiProperty({
+    required: true,
     type: Number,
   })
   @IsInt()
@@ -49,20 +59,25 @@ class UserNotificationPreference {
   id!: number;
 
   @ApiProperty({
-    required: true,
-    enum: EnumUserNotificationPreferenceTypeField,
+    required: false,
+    type: String,
   })
-  @IsEnum(EnumUserNotificationPreferenceTypeField)
-  @Field(() => EnumUserNotificationPreferenceTypeField, {
+  @IsString()
+  @MaxLength(3560)
+  @IsOptional()
+  @Field(() => String, {
     nullable: true,
   })
-  typeField?:
-    | "NouvelleDemande"
-    | "DemandeEnVisite"
-    | "DemandeEnCommission"
-    | "ContactBan"
-    | "AideExpir"
-    | "ErreursDemandes";
+  message!: string | null;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
+  typeField!: string;
 
   @ApiProperty({
     required: true,
@@ -71,14 +86,6 @@ class UserNotificationPreference {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
-
-  @ApiProperty({
-    required: true,
-    type: () => User,
-  })
-  @ValidateNested()
-  @Type(() => User)
-  user?: User;
 }
 
-export { UserNotificationPreference as UserNotificationPreference };
+export { DemandeActivity as DemandeActivity };

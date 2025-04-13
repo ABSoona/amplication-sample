@@ -27,6 +27,7 @@ import {
 
 import { Type } from "class-transformer";
 import { EnumAideCrediteur } from "./EnumAideCrediteur";
+import { DemandeActivityCreateNestedManyWithoutAidesInput } from "./DemandeActivityCreateNestedManyWithoutAidesInput";
 import { EnumAideFrequence } from "./EnumAideFrequence";
 import { EnumAideTypeField } from "./EnumAideTypeField";
 
@@ -73,6 +74,18 @@ class AideCreateInput {
     nullable: true,
   })
   dateExpiration?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeActivityCreateNestedManyWithoutAidesInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeActivityCreateNestedManyWithoutAidesInput)
+  @IsOptional()
+  @Field(() => DemandeActivityCreateNestedManyWithoutAidesInput, {
+    nullable: true,
+  })
+  demandeActivities?: DemandeActivityCreateNestedManyWithoutAidesInput;
 
   @ApiProperty({
     required: false,
@@ -159,7 +172,7 @@ class AideCreateInput {
   @Field(() => EnumAideTypeField, {
     nullable: true,
   })
-  typeField?: "Alimentaire" | "FinanciRe" | null;
+  typeField?: "AssistanceAdministrative" | "FinanciRe" | null;
 }
 
 export { AideCreateInput as AideCreateInput };

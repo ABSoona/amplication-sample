@@ -14,6 +14,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Demande as PrismaDemande,
+  DemandeActivity as PrismaDemandeActivity,
   DemandeStatusHistory as PrismaDemandeStatusHistory,
   Document as PrismaDocument,
   Contact as PrismaContact,
@@ -42,6 +43,17 @@ export class DemandeServiceBase {
   }
   async deleteDemande(args: Prisma.DemandeDeleteArgs): Promise<PrismaDemande> {
     return this.prisma.demande.delete(args);
+  }
+
+  async findDemandeActivities(
+    parentId: number,
+    args: Prisma.DemandeActivityFindManyArgs
+  ): Promise<PrismaDemandeActivity[]> {
+    return this.prisma.demande
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .demandeActivities(args);
   }
 
   async findDemandeStatusHistories(
