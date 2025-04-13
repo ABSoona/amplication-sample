@@ -26,6 +26,9 @@ import { Demande } from "./Demande";
 import { DemandeFindManyArgs } from "./DemandeFindManyArgs";
 import { DemandeWhereUniqueInput } from "./DemandeWhereUniqueInput";
 import { DemandeUpdateInput } from "./DemandeUpdateInput";
+import { DemandeActivityFindManyArgs } from "../../demandeActivity/base/DemandeActivityFindManyArgs";
+import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
+import { DemandeActivityWhereUniqueInput } from "../../demandeActivity/base/DemandeActivityWhereUniqueInput";
 import { DemandeStatusHistoryFindManyArgs } from "../../demandeStatusHistory/base/DemandeStatusHistoryFindManyArgs";
 import { DemandeStatusHistory } from "../../demandeStatusHistory/base/DemandeStatusHistory";
 import { DemandeStatusHistoryWhereUniqueInput } from "../../demandeStatusHistory/base/DemandeStatusHistoryWhereUniqueInput";
@@ -323,6 +326,116 @@ export class DemandeControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/demandeActivities")
+  @ApiNestedQuery(DemandeActivityFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "DemandeActivity",
+    action: "read",
+    possession: "any",
+  })
+  async findDemandeActivities(
+    @common.Req() request: Request,
+    @common.Param() params: DemandeWhereUniqueInput
+  ): Promise<DemandeActivity[]> {
+    const query = plainToClass(DemandeActivityFindManyArgs, request.query);
+    const results = await this.service.findDemandeActivities(params.id, {
+      ...query,
+      select: {
+        aide: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        message: true,
+        typeField: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/demandeActivities")
+  @nestAccessControl.UseRoles({
+    resource: "Demande",
+    action: "update",
+    possession: "any",
+  })
+  async connectDemandeActivities(
+    @common.Param() params: DemandeWhereUniqueInput,
+    @common.Body() body: DemandeActivityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      demandeActivities: {
+        connect: body,
+      },
+    };
+    await this.service.updateDemande({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/demandeActivities")
+  @nestAccessControl.UseRoles({
+    resource: "Demande",
+    action: "update",
+    possession: "any",
+  })
+  async updateDemandeActivities(
+    @common.Param() params: DemandeWhereUniqueInput,
+    @common.Body() body: DemandeActivityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      demandeActivities: {
+        set: body,
+      },
+    };
+    await this.service.updateDemande({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/demandeActivities")
+  @nestAccessControl.UseRoles({
+    resource: "Demande",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectDemandeActivities(
+    @common.Param() params: DemandeWhereUniqueInput,
+    @common.Body() body: DemandeActivityWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      demandeActivities: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateDemande({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

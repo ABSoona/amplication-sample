@@ -11,18 +11,18 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UserNotificationPreferenceWhereInput } from "./UserNotificationPreferenceWhereInput";
+import { DemandeActivityWhereInput } from "./DemandeActivityWhereInput";
 import { Type } from "class-transformer";
 
 @ArgsType()
-class UserNotificationPreferenceCountArgs {
+class DemandeActivityCountArgs {
   @ApiProperty({
     required: false,
-    type: () => UserNotificationPreferenceWhereInput,
+    type: () => DemandeActivityWhereInput,
   })
-  @Field(() => UserNotificationPreferenceWhereInput, { nullable: true })
-  @Type(() => UserNotificationPreferenceWhereInput)
-  where?: UserNotificationPreferenceWhereInput;
+  @Field(() => DemandeActivityWhereInput, { nullable: true })
+  @Type(() => DemandeActivityWhereInput)
+  where?: DemandeActivityWhereInput;
 }
 
-export { UserNotificationPreferenceCountArgs as UserNotificationPreferenceCountArgs };
+export { DemandeActivityCountArgs as DemandeActivityCountArgs };

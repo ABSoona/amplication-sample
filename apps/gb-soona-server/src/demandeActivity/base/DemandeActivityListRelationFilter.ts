@@ -11,46 +11,46 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UserNotificationPreferenceWhereInput } from "./UserNotificationPreferenceWhereInput";
+import { DemandeActivityWhereInput } from "./DemandeActivityWhereInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
 @InputType()
-class UserNotificationPreferenceListRelationFilter {
+class DemandeActivityListRelationFilter {
   @ApiProperty({
     required: false,
-    type: () => UserNotificationPreferenceWhereInput,
+    type: () => DemandeActivityWhereInput,
   })
   @ValidateNested()
-  @Type(() => UserNotificationPreferenceWhereInput)
+  @Type(() => DemandeActivityWhereInput)
   @IsOptional()
-  @Field(() => UserNotificationPreferenceWhereInput, {
+  @Field(() => DemandeActivityWhereInput, {
     nullable: true,
   })
-  every?: UserNotificationPreferenceWhereInput;
+  every?: DemandeActivityWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => UserNotificationPreferenceWhereInput,
+    type: () => DemandeActivityWhereInput,
   })
   @ValidateNested()
-  @Type(() => UserNotificationPreferenceWhereInput)
+  @Type(() => DemandeActivityWhereInput)
   @IsOptional()
-  @Field(() => UserNotificationPreferenceWhereInput, {
+  @Field(() => DemandeActivityWhereInput, {
     nullable: true,
   })
-  some?: UserNotificationPreferenceWhereInput;
+  some?: DemandeActivityWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => UserNotificationPreferenceWhereInput,
+    type: () => DemandeActivityWhereInput,
   })
   @ValidateNested()
-  @Type(() => UserNotificationPreferenceWhereInput)
+  @Type(() => DemandeActivityWhereInput)
   @IsOptional()
-  @Field(() => UserNotificationPreferenceWhereInput, {
+  @Field(() => DemandeActivityWhereInput, {
     nullable: true,
   })
-  none?: UserNotificationPreferenceWhereInput;
+  none?: DemandeActivityWhereInput;
 }
-export { UserNotificationPreferenceListRelationFilter as UserNotificationPreferenceListRelationFilter };
+export { DemandeActivityListRelationFilter as DemandeActivityListRelationFilter };

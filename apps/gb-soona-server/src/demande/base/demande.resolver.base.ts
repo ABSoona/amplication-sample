@@ -26,6 +26,8 @@ import { DemandeFindUniqueArgs } from "./DemandeFindUniqueArgs";
 import { CreateDemandeArgs } from "./CreateDemandeArgs";
 import { UpdateDemandeArgs } from "./UpdateDemandeArgs";
 import { DeleteDemandeArgs } from "./DeleteDemandeArgs";
+import { DemandeActivityFindManyArgs } from "../../demandeActivity/base/DemandeActivityFindManyArgs";
+import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
 import { DemandeStatusHistoryFindManyArgs } from "../../demandeStatusHistory/base/DemandeStatusHistoryFindManyArgs";
 import { DemandeStatusHistory } from "../../demandeStatusHistory/base/DemandeStatusHistory";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
@@ -157,6 +159,26 @@ export class DemandeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [DemandeActivity], { name: "demandeActivities" })
+  @nestAccessControl.UseRoles({
+    resource: "DemandeActivity",
+    action: "read",
+    possession: "any",
+  })
+  async findDemandeActivities(
+    @graphql.Parent() parent: Demande,
+    @graphql.Args() args: DemandeActivityFindManyArgs
+  ): Promise<DemandeActivity[]> {
+    const results = await this.service.findDemandeActivities(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

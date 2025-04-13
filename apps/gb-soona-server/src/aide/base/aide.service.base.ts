@@ -10,9 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   Aide as PrismaAide,
+  DemandeActivity as PrismaDemandeActivity,
   Contact as PrismaContact,
 } from "@prisma/client";
 
@@ -37,6 +39,17 @@ export class AideServiceBase {
   }
   async deleteAide(args: Prisma.AideDeleteArgs): Promise<PrismaAide> {
     return this.prisma.aide.delete(args);
+  }
+
+  async findDemandeActivities(
+    parentId: number,
+    args: Prisma.DemandeActivityFindManyArgs
+  ): Promise<PrismaDemandeActivity[]> {
+    return this.prisma.aide
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .demandeActivities(args);
   }
 
   async getContact(parentId: number): Promise<PrismaContact | null> {

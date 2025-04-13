@@ -18,7 +18,7 @@ import { SortOrder } from "../../util/SortOrder";
   isAbstract: true,
   description: undefined,
 })
-class UserNotificationPreferenceOrderByInput {
+class DemandeActivityOrderByInput {
   @ApiProperty({
     required: false,
     enum: ["asc", "desc"],
@@ -28,7 +28,7 @@ class UserNotificationPreferenceOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  active?: SortOrder;
+  aideId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -50,7 +50,29 @@ class UserNotificationPreferenceOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  demandeId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   id?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  message?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -73,17 +95,6 @@ class UserNotificationPreferenceOrderByInput {
     nullable: true,
   })
   updatedAt?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  userId?: SortOrder;
 }
 
-export { UserNotificationPreferenceOrderByInput as UserNotificationPreferenceOrderByInput };
+export { DemandeActivityOrderByInput as DemandeActivityOrderByInput };

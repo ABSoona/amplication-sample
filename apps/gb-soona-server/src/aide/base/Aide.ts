@@ -27,6 +27,7 @@ import {
 
 import { Type } from "class-transformer";
 import { EnumAideCrediteur } from "./EnumAideCrediteur";
+import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
 import { EnumAideFrequence } from "./EnumAideFrequence";
 import { EnumAideTypeField } from "./EnumAideTypeField";
 
@@ -80,6 +81,15 @@ class Aide {
     nullable: true,
   })
   dateExpiration!: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [DemandeActivity],
+  })
+  @ValidateNested()
+  @Type(() => DemandeActivity)
+  @IsOptional()
+  demandeActivities?: Array<DemandeActivity>;
 
   @ApiProperty({
     required: false,
@@ -174,7 +184,7 @@ class Aide {
   @Field(() => EnumAideTypeField, {
     nullable: true,
   })
-  typeField?: "Alimentaire" | "FinanciRe" | null;
+  typeField?: "AssistanceAdministrative" | "FinanciRe" | null;
 
   @ApiProperty({
     required: true,
