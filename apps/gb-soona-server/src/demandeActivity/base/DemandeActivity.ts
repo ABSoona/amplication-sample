@@ -77,6 +77,15 @@ class DemandeActivity {
   @IsString()
   @MaxLength(1000)
   @Field(() => String)
+  titre!: string;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
   typeField!: string;
 
   @ApiProperty({

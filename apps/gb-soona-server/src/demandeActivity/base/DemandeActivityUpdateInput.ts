@@ -69,6 +69,18 @@ class DemandeActivityUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
+  titre?: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
   typeField?: string;
 }
 

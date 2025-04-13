@@ -21,6 +21,7 @@ const CREATE_INPUT = {
   createdAt: new Date(),
   id: 42,
   message: "exampleMessage",
+  titre: "exampleTitre",
   typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
@@ -28,6 +29,7 @@ const CREATE_RESULT = {
   createdAt: new Date(),
   id: 42,
   message: "exampleMessage",
+  titre: "exampleTitre",
   typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
@@ -36,6 +38,7 @@ const FIND_MANY_RESULT = [
     createdAt: new Date(),
     id: 42,
     message: "exampleMessage",
+    titre: "exampleTitre",
     typeField: "exampleTypeField",
     updatedAt: new Date(),
   },
@@ -44,6 +47,7 @@ const FIND_ONE_RESULT = {
   createdAt: new Date(),
   id: 42,
   message: "exampleMessage",
+  titre: "exampleTitre",
   typeField: "exampleTypeField",
   updatedAt: new Date(),
 };
