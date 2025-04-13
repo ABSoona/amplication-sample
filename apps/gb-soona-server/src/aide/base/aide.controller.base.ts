@@ -307,6 +307,7 @@ export class AideControllerBase {
 
         id: true,
         message: true,
+        titre: true,
         typeField: true,
         updatedAt: true,
       },

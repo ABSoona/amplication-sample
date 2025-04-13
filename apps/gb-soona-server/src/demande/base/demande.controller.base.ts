@@ -360,6 +360,7 @@ export class DemandeControllerBase {
 
         id: true,
         message: true,
+        titre: true,
         typeField: true,
         updatedAt: true,
       },

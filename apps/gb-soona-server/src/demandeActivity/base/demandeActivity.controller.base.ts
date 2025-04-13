@@ -79,6 +79,7 @@ export class DemandeActivityControllerBase {
 
         id: true,
         message: true,
+        titre: true,
         typeField: true,
         updatedAt: true,
       },
@@ -120,6 +121,7 @@ export class DemandeActivityControllerBase {
 
         id: true,
         message: true,
+        titre: true,
         typeField: true,
         updatedAt: true,
       },
@@ -160,6 +162,7 @@ export class DemandeActivityControllerBase {
 
         id: true,
         message: true,
+        titre: true,
         typeField: true,
         updatedAt: true,
       },
@@ -221,6 +224,7 @@ export class DemandeActivityControllerBase {
 
           id: true,
           message: true,
+          titre: true,
           typeField: true,
           updatedAt: true,
         },
@@ -269,6 +273,7 @@ export class DemandeActivityControllerBase {
 
           id: true,
           message: true,
+          titre: true,
           typeField: true,
           updatedAt: true,
         },

@@ -76,6 +76,17 @@ class DemandeActivityWhereInput {
   @Field(() => StringFilter, {
     nullable: true,
   })
+  titre?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
   typeField?: StringFilter;
 }
 
