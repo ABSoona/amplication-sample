@@ -14,6 +14,8 @@ model Aide {
   crediteur         EnumAideCrediteur?
   dateAide          DateTime?
   dateExpiration    DateTime?
+  demande           Demande?           @relation(fields: [demandeId], references: [id])
+  demandeId         Int?
   demandeActivities DemandeActivity[]
   frequence         EnumAideFrequence?
   id                Int                @id @default(autoincrement())
@@ -28,6 +30,7 @@ model Aide {
 
 model Demande {
   agesEnfants              String?
+  aides                    Aide[]
   apl                      Int?
   autresAides              String?
   autresCharges            Int?

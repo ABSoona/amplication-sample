@@ -13,7 +13,8 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, IsEnum, ValidateNested } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { AideListRelationFilter } from "../../aide/base/AideListRelationFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
@@ -36,6 +37,18 @@ class DemandeWhereInput {
     nullable: true,
   })
   agesEnfants?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => AideListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => AideListRelationFilter)
+  @IsOptional()
+  @Field(() => AideListRelationFilter, {
+    nullable: true,
+  })
+  aides?: AideListRelationFilter;
 
   @ApiProperty({
     required: false,

@@ -56,6 +56,12 @@ export class AideControllerBase {
         contact: {
           connect: data.contact,
         },
+
+        demande: data.demande
+          ? {
+              connect: data.demande,
+            }
+          : undefined,
       },
       select: {
         contact: {
@@ -68,6 +74,13 @@ export class AideControllerBase {
         crediteur: true,
         dateAide: true,
         dateExpiration: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
         frequence: true,
         id: true,
         infosCrediteur: true,
@@ -108,6 +121,13 @@ export class AideControllerBase {
         crediteur: true,
         dateAide: true,
         dateExpiration: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
         frequence: true,
         id: true,
         infosCrediteur: true,
@@ -149,6 +169,13 @@ export class AideControllerBase {
         crediteur: true,
         dateAide: true,
         dateExpiration: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
         frequence: true,
         id: true,
         infosCrediteur: true,
@@ -193,6 +220,12 @@ export class AideControllerBase {
           contact: {
             connect: data.contact,
           },
+
+          demande: data.demande
+            ? {
+                connect: data.demande,
+              }
+            : undefined,
         },
         select: {
           contact: {
@@ -205,6 +238,13 @@ export class AideControllerBase {
           crediteur: true,
           dateAide: true,
           dateExpiration: true,
+
+          demande: {
+            select: {
+              id: true,
+            },
+          },
+
           frequence: true,
           id: true,
           infosCrediteur: true,
@@ -254,6 +294,13 @@ export class AideControllerBase {
           crediteur: true,
           dateAide: true,
           dateExpiration: true,
+
+          demande: {
+            select: {
+              id: true,
+            },
+          },
+
           frequence: true,
           id: true,
           infosCrediteur: true,

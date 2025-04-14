@@ -26,6 +26,8 @@ import { DemandeFindUniqueArgs } from "./DemandeFindUniqueArgs";
 import { CreateDemandeArgs } from "./CreateDemandeArgs";
 import { UpdateDemandeArgs } from "./UpdateDemandeArgs";
 import { DeleteDemandeArgs } from "./DeleteDemandeArgs";
+import { AideFindManyArgs } from "../../aide/base/AideFindManyArgs";
+import { Aide } from "../../aide/base/Aide";
 import { DemandeActivityFindManyArgs } from "../../demandeActivity/base/DemandeActivityFindManyArgs";
 import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
 import { DemandeStatusHistoryFindManyArgs } from "../../demandeStatusHistory/base/DemandeStatusHistoryFindManyArgs";
@@ -159,6 +161,26 @@ export class DemandeResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Aide], { name: "aides" })
+  @nestAccessControl.UseRoles({
+    resource: "Aide",
+    action: "read",
+    possession: "any",
+  })
+  async findAides(
+    @graphql.Parent() parent: Demande,
+    @graphql.Args() args: AideFindManyArgs
+  ): Promise<Aide[]> {
+    const results = await this.service.findAides(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

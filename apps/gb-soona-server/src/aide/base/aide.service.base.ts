@@ -16,6 +16,7 @@ import {
   Aide as PrismaAide,
   DemandeActivity as PrismaDemandeActivity,
   Contact as PrismaContact,
+  Demande as PrismaDemande,
 } from "@prisma/client";
 
 export class AideServiceBase {
@@ -58,5 +59,13 @@ export class AideServiceBase {
         where: { id: parentId },
       })
       .contact();
+  }
+
+  async getDemande(parentId: number): Promise<PrismaDemande | null> {
+    return this.prisma.aide
+      .findUnique({
+        where: { id: parentId },
+      })
+      .demande();
   }
 }

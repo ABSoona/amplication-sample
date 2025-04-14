@@ -27,6 +27,7 @@ import {
 
 import { Type } from "class-transformer";
 import { EnumAideCrediteur } from "./EnumAideCrediteur";
+import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
 import { DemandeActivityUpdateManyWithoutAidesInput } from "./DemandeActivityUpdateManyWithoutAidesInput";
 import { EnumAideFrequence } from "./EnumAideFrequence";
 import { EnumAideTypeField } from "./EnumAideTypeField";
@@ -77,6 +78,18 @@ class AideUpdateInput {
     nullable: true,
   })
   dateExpiration?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DemandeWhereUniqueInput, {
+    nullable: true,
+  })
+  demande?: DemandeWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

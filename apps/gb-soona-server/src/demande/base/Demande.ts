@@ -16,16 +16,17 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  ValidateNested,
   IsInt,
   Max,
   IsEnum,
-  ValidateNested,
   IsDate,
 } from "class-validator";
 
+import { Aide } from "../../aide/base/Aide";
+import { Type } from "class-transformer";
 import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { Contact } from "../../contact/base/Contact";
-import { Type } from "class-transformer";
 import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
 import { DemandeStatusHistory } from "../../demandeStatusHistory/base/DemandeStatusHistory";
 import { Document } from "../../document/base/Document";
@@ -43,6 +44,15 @@ class Demande {
     nullable: true,
   })
   agesEnfants!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Aide],
+  })
+  @ValidateNested()
+  @Type(() => Aide)
+  @IsOptional()
+  aides?: Array<Aide>;
 
   @ApiProperty({
     required: false,

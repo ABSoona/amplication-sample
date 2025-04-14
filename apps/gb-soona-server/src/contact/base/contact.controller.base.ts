@@ -282,6 +282,13 @@ export class ContactControllerBase {
         crediteur: true,
         dateAide: true,
         dateExpiration: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
         frequence: true,
         id: true,
         infosCrediteur: true,
