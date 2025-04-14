@@ -17,6 +17,7 @@ import { Type } from "class-transformer";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
 import { EnumAideCrediteur } from "./EnumAideCrediteur";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
 import { DemandeActivityListRelationFilter } from "../../demandeActivity/base/DemandeActivityListRelationFilter";
 import { EnumAideFrequence } from "./EnumAideFrequence";
 import { IntFilter } from "../../util/IntFilter";
@@ -82,6 +83,18 @@ class AideWhereInput {
     nullable: true,
   })
   dateExpiration?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DemandeWhereUniqueInput, {
+    nullable: true,
+  })
+  demande?: DemandeWhereUniqueInput;
 
   @ApiProperty({
     required: false,

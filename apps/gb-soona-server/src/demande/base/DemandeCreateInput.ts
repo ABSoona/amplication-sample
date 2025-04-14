@@ -16,16 +16,17 @@ import {
   IsString,
   MaxLength,
   IsOptional,
+  ValidateNested,
   IsInt,
   Max,
   IsEnum,
-  ValidateNested,
   IsDate,
 } from "class-validator";
 
+import { AideCreateNestedManyWithoutDemandesInput } from "./AideCreateNestedManyWithoutDemandesInput";
+import { Type } from "class-transformer";
 import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
-import { Type } from "class-transformer";
 import { DemandeActivityCreateNestedManyWithoutDemandesInput } from "./DemandeActivityCreateNestedManyWithoutDemandesInput";
 import { DemandeStatusHistoryCreateNestedManyWithoutDemandesInput } from "./DemandeStatusHistoryCreateNestedManyWithoutDemandesInput";
 import { DocumentCreateNestedManyWithoutDemandesInput } from "./DocumentCreateNestedManyWithoutDemandesInput";
@@ -43,6 +44,18 @@ class DemandeCreateInput {
     nullable: true,
   })
   agesEnfants?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => AideCreateNestedManyWithoutDemandesInput,
+  })
+  @ValidateNested()
+  @Type(() => AideCreateNestedManyWithoutDemandesInput)
+  @IsOptional()
+  @Field(() => AideCreateNestedManyWithoutDemandesInput, {
+    nullable: true,
+  })
+  aides?: AideCreateNestedManyWithoutDemandesInput;
 
   @ApiProperty({
     required: false,
