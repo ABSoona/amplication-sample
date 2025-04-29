@@ -11,13 +11,32 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, MaxLength } from "class-validator";
+import { DemandeActivityUpdateManyWithoutUsersInput } from "./DemandeActivityUpdateManyWithoutUsersInput";
+import {
+  ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from "class-validator";
+import { Type } from "class-transformer";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 
 @InputType()
 class UserUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => DemandeActivityUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeActivityUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => DemandeActivityUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  demandeActivities?: DemandeActivityUpdateManyWithoutUsersInput;
+
   @ApiProperty({
     required: false,
     type: String,

@@ -61,6 +61,12 @@ export class DemandeActivityControllerBase {
         demande: {
           connect: data.demande,
         },
+
+        user: data.user
+          ? {
+              connect: data.user,
+            }
+          : undefined,
       },
       select: {
         aide: {
@@ -82,6 +88,12 @@ export class DemandeActivityControllerBase {
         titre: true,
         typeField: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -124,6 +136,12 @@ export class DemandeActivityControllerBase {
         titre: true,
         typeField: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -165,6 +183,12 @@ export class DemandeActivityControllerBase {
         titre: true,
         typeField: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -206,6 +230,12 @@ export class DemandeActivityControllerBase {
           demande: {
             connect: data.demande,
           },
+
+          user: data.user
+            ? {
+                connect: data.user,
+              }
+            : undefined,
         },
         select: {
           aide: {
@@ -227,6 +257,12 @@ export class DemandeActivityControllerBase {
           titre: true,
           typeField: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -276,6 +312,12 @@ export class DemandeActivityControllerBase {
           titre: true,
           typeField: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {

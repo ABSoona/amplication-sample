@@ -18,6 +18,7 @@ import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueIn
 import { IntFilter } from "../../util/IntFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class DemandeActivityWhereInput {
@@ -88,6 +89,18 @@ class DemandeActivityWhereInput {
     nullable: true,
   })
   typeField?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  user?: UserWhereUniqueInput;
 }
 
 export { DemandeActivityWhereInput as DemandeActivityWhereInput };

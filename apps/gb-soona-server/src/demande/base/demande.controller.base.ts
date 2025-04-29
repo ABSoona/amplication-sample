@@ -484,6 +484,12 @@ export class DemandeControllerBase {
         titre: true,
         typeField: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (results === null) {
