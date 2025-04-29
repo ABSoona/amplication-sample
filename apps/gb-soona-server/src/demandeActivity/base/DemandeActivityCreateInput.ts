@@ -20,6 +20,7 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class DemandeActivityCreateInput {
@@ -73,6 +74,18 @@ class DemandeActivityCreateInput {
   @MaxLength(1000)
   @Field(() => String)
   typeField!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  user?: UserWhereUniqueInput | null;
 }
 
 export { DemandeActivityCreateInput as DemandeActivityCreateInput };

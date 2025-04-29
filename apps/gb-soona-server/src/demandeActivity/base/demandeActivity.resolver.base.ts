@@ -28,6 +28,7 @@ import { UpdateDemandeActivityArgs } from "./UpdateDemandeActivityArgs";
 import { DeleteDemandeActivityArgs } from "./DeleteDemandeActivityArgs";
 import { Aide } from "../../aide/base/Aide";
 import { Demande } from "../../demande/base/Demande";
+import { User } from "../../user/base/User";
 import { DemandeActivityService } from "../demandeActivity.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => DemandeActivity)
@@ -106,6 +107,12 @@ export class DemandeActivityResolverBase {
         demande: {
           connect: args.data.demande,
         },
+
+        user: args.data.user
+          ? {
+              connect: args.data.user,
+            }
+          : undefined,
       },
     });
   }
@@ -135,6 +142,12 @@ export class DemandeActivityResolverBase {
           demande: {
             connect: args.data.demande,
           },
+
+          user: args.data.user
+            ? {
+                connect: args.data.user,
+              }
+            : undefined,
         },
       });
     } catch (error) {
@@ -203,6 +216,27 @@ export class DemandeActivityResolverBase {
     @graphql.Parent() parent: DemandeActivity
   ): Promise<Demande | null> {
     const result = await this.service.getDemande(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => User, {
+    nullable: true,
+    name: "user",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  async getUser(
+    @graphql.Parent() parent: DemandeActivity
+  ): Promise<User | null> {
+    const result = await this.service.getUser(parent.id);
 
     if (!result) {
       return null;
