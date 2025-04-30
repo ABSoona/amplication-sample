@@ -56,6 +56,10 @@ export class TypeDocumentControllerBase {
       select: {
         createdAt: true,
         id: true,
+        internalCode: true,
+        isInternal: true,
+        label: true,
+        rattachement: true,
         updatedAt: true,
       },
     });
@@ -80,6 +84,10 @@ export class TypeDocumentControllerBase {
       select: {
         createdAt: true,
         id: true,
+        internalCode: true,
+        isInternal: true,
+        label: true,
+        rattachement: true,
         updatedAt: true,
       },
     });
@@ -105,6 +113,10 @@ export class TypeDocumentControllerBase {
       select: {
         createdAt: true,
         id: true,
+        internalCode: true,
+        isInternal: true,
+        label: true,
+        rattachement: true,
         updatedAt: true,
       },
     });
@@ -139,6 +151,10 @@ export class TypeDocumentControllerBase {
         select: {
           createdAt: true,
           id: true,
+          internalCode: true,
+          isInternal: true,
+          label: true,
+          rattachement: true,
           updatedAt: true,
         },
       });
@@ -172,6 +188,10 @@ export class TypeDocumentControllerBase {
         select: {
           createdAt: true,
           id: true,
+          internalCode: true,
+          isInternal: true,
+          label: true,
+          rattachement: true,
           updatedAt: true,
         },
       });

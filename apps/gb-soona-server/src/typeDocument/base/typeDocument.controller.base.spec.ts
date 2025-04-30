@@ -20,23 +20,35 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
   id: 42,
+  internalCode: "exampleInternalCode",
+  isInternal: "true",
+  label: "exampleLabel",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
   id: 42,
+  internalCode: "exampleInternalCode",
+  isInternal: "true",
+  label: "exampleLabel",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
     id: 42,
+    internalCode: "exampleInternalCode",
+    isInternal: "true",
+    label: "exampleLabel",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
   id: 42,
+  internalCode: "exampleInternalCode",
+  isInternal: "true",
+  label: "exampleLabel",
   updatedAt: new Date(),
 };
 

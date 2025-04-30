@@ -12,8 +12,16 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { DocumentUpdateManyWithoutTypeDocumentsInput } from "./DocumentUpdateManyWithoutTypeDocumentsInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsBoolean,
+  IsEnum,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { EnumTypeDocumentRattachement } from "./EnumTypeDocumentRattachement";
 
 @InputType()
 class TypeDocumentUpdateInput {
@@ -28,6 +36,52 @@ class TypeDocumentUpdateInput {
     nullable: true,
   })
   documents?: DocumentUpdateManyWithoutTypeDocumentsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  internalCode?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  isInternal?: boolean;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  label?: string;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumTypeDocumentRattachement,
+  })
+  @IsEnum(EnumTypeDocumentRattachement)
+  @IsOptional()
+  @Field(() => EnumTypeDocumentRattachement, {
+    nullable: true,
+  })
+  rattachement?: "Contact" | "Demande" | "Suivi" | null;
 }
 
 export { TypeDocumentUpdateInput as TypeDocumentUpdateInput };
