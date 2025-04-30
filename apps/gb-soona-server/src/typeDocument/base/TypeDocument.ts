@@ -84,15 +84,14 @@ class TypeDocument {
   label!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     enum: EnumTypeDocumentRattachement,
   })
   @IsEnum(EnumTypeDocumentRattachement)
-  @IsOptional()
   @Field(() => EnumTypeDocumentRattachement, {
     nullable: true,
   })
-  rattachement?: "Contact" | "Demande" | "Suivi" | null;
+  rattachement?: "Contact" | "Demande" | "Suivi";
 
   @ApiProperty({
     required: true,

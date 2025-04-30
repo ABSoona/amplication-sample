@@ -67,15 +67,12 @@ class TypeDocumentCreateInput {
   label!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     enum: EnumTypeDocumentRattachement,
   })
   @IsEnum(EnumTypeDocumentRattachement)
-  @IsOptional()
-  @Field(() => EnumTypeDocumentRattachement, {
-    nullable: true,
-  })
-  rattachement?: "Contact" | "Demande" | "Suivi" | null;
+  @Field(() => EnumTypeDocumentRattachement)
+  rattachement!: "Contact" | "Demande" | "Suivi";
 }
 
 export { TypeDocumentCreateInput as TypeDocumentCreateInput };
