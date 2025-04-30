@@ -175,15 +175,12 @@ class AideCreateInput {
   remarque?: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     enum: EnumAideStatus,
   })
   @IsEnum(EnumAideStatus)
-  @IsOptional()
-  @Field(() => EnumAideStatus, {
-    nullable: true,
-  })
-  status?: "EnCours" | "Expir" | null;
+  @Field(() => EnumAideStatus)
+  status!: "EnCours" | "Expir";
 
   @ApiProperty({
     required: false,

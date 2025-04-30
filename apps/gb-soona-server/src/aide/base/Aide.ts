@@ -184,15 +184,14 @@ class Aide {
   remarque!: string | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     enum: EnumAideStatus,
   })
   @IsEnum(EnumAideStatus)
-  @IsOptional()
   @Field(() => EnumAideStatus, {
     nullable: true,
   })
-  status?: "EnCours" | "Expir" | null;
+  status?: "EnCours" | "Expir";
 
   @ApiProperty({
     required: false,
