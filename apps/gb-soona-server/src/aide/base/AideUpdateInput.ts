@@ -30,6 +30,7 @@ import { EnumAideCrediteur } from "./EnumAideCrediteur";
 import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
 import { DemandeActivityUpdateManyWithoutAidesInput } from "./DemandeActivityUpdateManyWithoutAidesInput";
 import { EnumAideFrequence } from "./EnumAideFrequence";
+import { EnumAideStatus } from "./EnumAideStatus";
 import { EnumAideTypeField } from "./EnumAideTypeField";
 
 @InputType()
@@ -158,6 +159,17 @@ class AideUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @IsOptional()
+  @Field(() => Boolean, {
+    nullable: true,
+  })
+  reetudier?: boolean;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -167,6 +179,17 @@ class AideUpdateInput {
     nullable: true,
   })
   remarque?: string | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumAideStatus,
+  })
+  @IsEnum(EnumAideStatus)
+  @IsOptional()
+  @Field(() => EnumAideStatus, {
+    nullable: true,
+  })
+  status?: "EnCours" | "Expir" | null;
 
   @ApiProperty({
     required: false,

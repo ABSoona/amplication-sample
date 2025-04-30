@@ -23,6 +23,8 @@ import { EnumAideFrequence } from "./EnumAideFrequence";
 import { IntFilter } from "../../util/IntFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { BooleanFilter } from "../../util/BooleanFilter";
+import { EnumAideStatus } from "./EnumAideStatus";
 import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
 import { EnumAideTypeField } from "./EnumAideTypeField";
 
@@ -170,6 +172,17 @@ class AideWhereInput {
 
   @ApiProperty({
     required: false,
+    type: BooleanFilter,
+  })
+  @Type(() => BooleanFilter)
+  @IsOptional()
+  @Field(() => BooleanFilter, {
+    nullable: true,
+  })
+  reetudier?: BooleanFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -178,6 +191,17 @@ class AideWhereInput {
     nullable: true,
   })
   remarque?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumAideStatus,
+  })
+  @IsEnum(EnumAideStatus)
+  @IsOptional()
+  @Field(() => EnumAideStatus, {
+    nullable: true,
+  })
+  status?: "EnCours" | "Expir";
 
   @ApiProperty({
     required: false,
