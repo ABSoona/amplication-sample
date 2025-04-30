@@ -30,6 +30,7 @@ import { EnumAideCrediteur } from "./EnumAideCrediteur";
 import { Demande } from "../../demande/base/Demande";
 import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
 import { EnumAideFrequence } from "./EnumAideFrequence";
+import { EnumAideStatus } from "./EnumAideStatus";
 import { EnumAideTypeField } from "./EnumAideTypeField";
 
 @ObjectType()
@@ -163,6 +164,14 @@ class Aide {
   nombreVersements!: number | null;
 
   @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  reetudier!: boolean;
+
+  @ApiProperty({
     required: false,
     type: String,
   })
@@ -173,6 +182,17 @@ class Aide {
     nullable: true,
   })
   remarque!: string | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumAideStatus,
+  })
+  @IsEnum(EnumAideStatus)
+  @IsOptional()
+  @Field(() => EnumAideStatus, {
+    nullable: true,
+  })
+  status?: "EnCours" | "Expir" | null;
 
   @ApiProperty({
     required: false,

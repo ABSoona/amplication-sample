@@ -22,7 +22,9 @@ model Aide {
   infosCrediteur    String?
   montant           Int?
   nombreVersements  Int?
+  reetudier         Boolean            @default(false)
   remarque          String?
+  status            EnumAideStatus?
   suspendue         Boolean?
   typeField         EnumAideTypeField?
   updatedAt         DateTime           @updatedAt
@@ -155,6 +157,11 @@ enum EnumAideFrequence {
   Trimestrielle
   Hebdomadaire
   Unefois
+}
+
+enum EnumAideStatus {
+  EnCours
+  Expir
 }
 
 enum EnumAideTypeField {
