@@ -189,7 +189,7 @@ class AideUpdateInput {
   @Field(() => EnumAideStatus, {
     nullable: true,
   })
-  status?: "EnCours" | "Expir" | null;
+  status?: "EnCours" | "Expir";
 
   @ApiProperty({
     required: false,

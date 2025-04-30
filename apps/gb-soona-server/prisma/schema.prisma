@@ -24,7 +24,7 @@ model Aide {
   nombreVersements  Int?
   reetudier         Boolean            @default(false)
   remarque          String?
-  status            EnumAideStatus?
+  status            EnumAideStatus
   suspendue         Boolean?
   typeField         EnumAideTypeField?
   updatedAt         DateTime           @updatedAt
