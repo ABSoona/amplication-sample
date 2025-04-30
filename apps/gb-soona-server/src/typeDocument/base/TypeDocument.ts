@@ -11,9 +11,21 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, ValidateNested, IsOptional, IsInt } from "class-validator";
+
+import {
+  IsDate,
+  ValidateNested,
+  IsOptional,
+  IsInt,
+  IsString,
+  MaxLength,
+  IsBoolean,
+  IsEnum,
+} from "class-validator";
+
 import { Type } from "class-transformer";
 import { Document } from "../../document/base/Document";
+import { EnumTypeDocumentRattachement } from "./EnumTypeDocumentRattachement";
 
 @ObjectType()
 class TypeDocument {
@@ -41,6 +53,46 @@ class TypeDocument {
   @IsInt()
   @Field(() => Number)
   id!: number;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  internalCode!: string | null;
+
+  @ApiProperty({
+    required: true,
+    type: Boolean,
+  })
+  @IsBoolean()
+  @Field(() => Boolean)
+  isInternal!: boolean;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @Field(() => String)
+  label!: string;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumTypeDocumentRattachement,
+  })
+  @IsEnum(EnumTypeDocumentRattachement)
+  @IsOptional()
+  @Field(() => EnumTypeDocumentRattachement, {
+    nullable: true,
+  })
+  rattachement?: "Contact" | "Demande" | "Suivi" | null;
 
   @ApiProperty({
     required: true,
