@@ -113,7 +113,7 @@ model TypeDocument {
   createdAt    DateTime                     @default(now())
   documents    Document[]
   id           Int                          @id @default(autoincrement())
-  internalCode String?
+  internalCode String?                      @unique
   isInternal   Boolean                      @default(false)
   label        String
   rattachement EnumTypeDocumentRattachement
