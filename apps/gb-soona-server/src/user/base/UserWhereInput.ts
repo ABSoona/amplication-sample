@@ -11,14 +11,50 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DemandeActivityListRelationFilter } from "../../demandeActivity/base/DemandeActivityListRelationFilter";
-import { ValidateNested, IsOptional } from "class-validator";
-import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { Type } from "class-transformer";
+import { IsOptional, ValidateNested } from "class-validator";
+import { DemandeActivityListRelationFilter } from "../../demandeActivity/base/DemandeActivityListRelationFilter";
+import { DemandeListRelationFilter } from "../../demande/base/DemandeListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
+import { UserListRelationFilter } from "./UserListRelationFilter";
+import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 
 @InputType()
 class UserWhereInput {
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  adresseCodePostal?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  adresseRue?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  adresseVille?: StringNullableFilter;
+
   @ApiProperty({
     required: false,
     type: () => DemandeActivityListRelationFilter,
@@ -30,6 +66,30 @@ class UserWhereInput {
     nullable: true,
   })
   demandeActivities?: DemandeActivityListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DemandeListRelationFilter)
+  @IsOptional()
+  @Field(() => DemandeListRelationFilter, {
+    nullable: true,
+  })
+  demandesActeurs?: DemandeListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DemandeListRelationFilter)
+  @IsOptional()
+  @Field(() => DemandeListRelationFilter, {
+    nullable: true,
+  })
+  demandesEnPropriete?: DemandeListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -96,6 +156,30 @@ class UserWhereInput {
     nullable: true,
   })
   status?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => UserListRelationFilter)
+  @IsOptional()
+  @Field(() => UserListRelationFilter, {
+    nullable: true,
+  })
+  subordonnes?: UserListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  superieur?: UserWhereUniqueInput;
 
   @ApiProperty({
     required: false,

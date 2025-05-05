@@ -64,11 +64,29 @@ export class DemandeControllerBase {
       data: {
         ...data,
 
+        acteur: data.acteur
+          ? {
+              connect: data.acteur,
+            }
+          : undefined,
+
         contact: {
           connect: data.contact,
         },
+
+        proprietaire: data.proprietaire
+          ? {
+              connect: data.proprietaire,
+            }
+          : undefined,
       },
       select: {
+        acteur: {
+          select: {
+            id: true,
+          },
+        },
+
         agesEnfants: true,
         apl: true,
         autresAides: true,
@@ -89,6 +107,13 @@ export class DemandeControllerBase {
         loyer: true,
         natureDettes: true,
         nombreEnfants: true,
+
+        proprietaire: {
+          select: {
+            id: true,
+          },
+        },
+
         remarques: true,
         revenus: true,
         revenusConjoint: true,
@@ -118,6 +143,12 @@ export class DemandeControllerBase {
     return this.service.demandes({
       ...args,
       select: {
+        acteur: {
+          select: {
+            id: true,
+          },
+        },
+
         agesEnfants: true,
         apl: true,
         autresAides: true,
@@ -138,6 +169,13 @@ export class DemandeControllerBase {
         loyer: true,
         natureDettes: true,
         nombreEnfants: true,
+
+        proprietaire: {
+          select: {
+            id: true,
+          },
+        },
+
         remarques: true,
         revenus: true,
         revenusConjoint: true,
@@ -168,6 +206,12 @@ export class DemandeControllerBase {
     const result = await this.service.demande({
       where: params,
       select: {
+        acteur: {
+          select: {
+            id: true,
+          },
+        },
+
         agesEnfants: true,
         apl: true,
         autresAides: true,
@@ -188,6 +232,13 @@ export class DemandeControllerBase {
         loyer: true,
         natureDettes: true,
         nombreEnfants: true,
+
+        proprietaire: {
+          select: {
+            id: true,
+          },
+        },
+
         remarques: true,
         revenus: true,
         revenusConjoint: true,
@@ -228,11 +279,29 @@ export class DemandeControllerBase {
         data: {
           ...data,
 
+          acteur: data.acteur
+            ? {
+                connect: data.acteur,
+              }
+            : undefined,
+
           contact: {
             connect: data.contact,
           },
+
+          proprietaire: data.proprietaire
+            ? {
+                connect: data.proprietaire,
+              }
+            : undefined,
         },
         select: {
+          acteur: {
+            select: {
+              id: true,
+            },
+          },
+
           agesEnfants: true,
           apl: true,
           autresAides: true,
@@ -253,6 +322,13 @@ export class DemandeControllerBase {
           loyer: true,
           natureDettes: true,
           nombreEnfants: true,
+
+          proprietaire: {
+            select: {
+              id: true,
+            },
+          },
+
           remarques: true,
           revenus: true,
           revenusConjoint: true,
@@ -291,6 +367,12 @@ export class DemandeControllerBase {
       return await this.service.deleteDemande({
         where: params,
         select: {
+          acteur: {
+            select: {
+              id: true,
+            },
+          },
+
           agesEnfants: true,
           apl: true,
           autresAides: true,
@@ -311,6 +393,13 @@ export class DemandeControllerBase {
           loyer: true,
           natureDettes: true,
           nombreEnfants: true,
+
+          proprietaire: {
+            select: {
+              id: true,
+            },
+          },
+
           remarques: true,
           revenus: true,
           revenusConjoint: true,

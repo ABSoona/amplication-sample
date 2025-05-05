@@ -11,20 +11,21 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 import {
+  ValidateNested,
+  IsOptional,
   IsString,
   MaxLength,
-  IsOptional,
-  ValidateNested,
   IsInt,
   Max,
   IsEnum,
   IsDate,
 } from "class-validator";
 
-import { AideUpdateManyWithoutDemandesInput } from "./AideUpdateManyWithoutDemandesInput";
 import { Type } from "class-transformer";
+import { AideUpdateManyWithoutDemandesInput } from "./AideUpdateManyWithoutDemandesInput";
 import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
 import { DemandeActivityUpdateManyWithoutDemandesInput } from "./DemandeActivityUpdateManyWithoutDemandesInput";
@@ -33,6 +34,18 @@ import { DocumentUpdateManyWithoutDemandesInput } from "./DocumentUpdateManyWith
 
 @InputType()
 class DemandeUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  acteur?: UserWhereUniqueInput | null;
+
   @ApiProperty({
     required: false,
     type: String,
@@ -222,6 +235,18 @@ class DemandeUpdateInput {
     nullable: true,
   })
   nombreEnfants?: number | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  proprietaire?: UserWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

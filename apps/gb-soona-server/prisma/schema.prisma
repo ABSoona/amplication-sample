@@ -24,13 +24,15 @@ model Aide {
   nombreVersements  Int?
   reetudier         Boolean            @default(false)
   remarque          String?
-  status            EnumAideStatus
+  status            EnumAideStatus     @default(EnCours)
   suspendue         Boolean?
   typeField         EnumAideTypeField?
   updatedAt         DateTime           @updatedAt
 }
 
 model Demande {
+  acteur                   User?                          @relation(name: "acteur", fields: [acteurId], references: [id])
+  acteurId                 String?
   agesEnfants              String?
   aides                    Aide[]
   apl                      Int?
@@ -50,6 +52,8 @@ model Demande {
   loyer                    Int?
   natureDettes             String?
   nombreEnfants            Int?
+  proprietaire             User?                          @relation(name: "demandesEnPropriete", fields: [proprietaireId], references: [id])
+  proprietaireId           String?
   remarques                String?
   revenus                  Int?
   revenusConjoint          Int?
@@ -83,19 +87,27 @@ model Contact {
 }
 
 model User {
-  createdAt         DateTime          @default(now())
-  demandeActivities DemandeActivity[]
-  email             String?           @unique
-  firstName         String?
-  id                String            @id @default(cuid())
-  lastName          String?
-  password          String
-  role              String?
-  roles             Json
-  status            String?
-  token             String?
-  updatedAt         DateTime          @updatedAt
-  username          String            @unique
+  adresseCodePostal   String?
+  adresseRue          String?
+  adresseVille        String?
+  createdAt           DateTime          @default(now())
+  demandeActivities   DemandeActivity[]
+  demandesActeurs     Demande[]         @relation(name: "acteur")
+  demandesEnPropriete Demande[]         @relation(name: "demandesEnPropriete")
+  email               String?           @unique
+  firstName           String?
+  id                  String            @id @default(cuid())
+  lastName            String?
+  password            String
+  role                String?
+  roles               Json
+  status              String?
+  subordonnes         User[]            @relation(name: "subordonnes")
+  superieur           User?             @relation(name: "subordonnes", fields: [superieurId], references: [id])
+  superieurId         String?
+  token               String?
+  updatedAt           DateTime          @updatedAt
+  username            String            @unique
 }
 
 model Document {

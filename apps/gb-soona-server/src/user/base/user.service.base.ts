@@ -10,11 +10,14 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   User as PrismaUser,
   DemandeActivity as PrismaDemandeActivity,
+  Demande as PrismaDemande,
 } from "@prisma/client";
+
 import { PasswordService } from "../../auth/password.service";
 import { transformStringFieldUpdateInput } from "../../prisma.util";
 
@@ -73,5 +76,46 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .demandeActivities(args);
+  }
+
+  async findDemandesActeurs(
+    parentId: string,
+    args: Prisma.DemandeFindManyArgs
+  ): Promise<PrismaDemande[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .demandesActeurs(args);
+  }
+
+  async findDemandesEnPropriete(
+    parentId: string,
+    args: Prisma.DemandeFindManyArgs
+  ): Promise<PrismaDemande[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .demandesEnPropriete(args);
+  }
+
+  async findSubordonnes(
+    parentId: string,
+    args: Prisma.UserFindManyArgs
+  ): Promise<PrismaUser[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .subordonnes(args);
+  }
+
+  async getSuperieur(parentId: string): Promise<PrismaUser | null> {
+    return this.prisma.user
+      .findUnique({
+        where: { id: parentId },
+      })
+      .superieur();
   }
 }

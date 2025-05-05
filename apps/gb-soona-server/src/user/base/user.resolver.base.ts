@@ -28,6 +28,8 @@ import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
 import { DemandeActivityFindManyArgs } from "../../demandeActivity/base/DemandeActivityFindManyArgs";
 import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
+import { DemandeFindManyArgs } from "../../demande/base/DemandeFindManyArgs";
+import { Demande } from "../../demande/base/Demande";
 import { UserService } from "../user.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => User)
@@ -88,7 +90,15 @@ export class UserResolverBase {
   async createUser(@graphql.Args() args: CreateUserArgs): Promise<User> {
     return await this.service.createUser({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        superieur: args.data.superieur
+          ? {
+              connect: args.data.superieur,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -103,7 +113,15 @@ export class UserResolverBase {
     try {
       return await this.service.updateUser({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          superieur: args.data.superieur
+            ? {
+                connect: args.data.superieur,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -152,5 +170,84 @@ export class UserResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Demande], { name: "demandesActeurs" })
+  @nestAccessControl.UseRoles({
+    resource: "Demande",
+    action: "read",
+    possession: "any",
+  })
+  async findDemandesActeurs(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: DemandeFindManyArgs
+  ): Promise<Demande[]> {
+    const results = await this.service.findDemandesActeurs(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Demande], { name: "demandesEnPropriete" })
+  @nestAccessControl.UseRoles({
+    resource: "Demande",
+    action: "read",
+    possession: "any",
+  })
+  async findDemandesEnPropriete(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: DemandeFindManyArgs
+  ): Promise<Demande[]> {
+    const results = await this.service.findDemandesEnPropriete(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [User], { name: "subordonnes" })
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  async findSubordonnes(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: UserFindManyArgs
+  ): Promise<User[]> {
+    const results = await this.service.findSubordonnes(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => User, {
+    nullable: true,
+    name: "superieur",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  async getSuperieur(@graphql.Parent() parent: User): Promise<User | null> {
+    const result = await this.service.getSuperieur(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

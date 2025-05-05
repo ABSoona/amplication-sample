@@ -392,6 +392,12 @@ export class ContactControllerBase {
     const results = await this.service.findDemandes(params.id, {
       ...query,
       select: {
+        acteur: {
+          select: {
+            id: true,
+          },
+        },
+
         agesEnfants: true,
         apl: true,
         autresAides: true,
@@ -412,6 +418,13 @@ export class ContactControllerBase {
         loyer: true,
         natureDettes: true,
         nombreEnfants: true,
+
+        proprietaire: {
+          select: {
+            id: true,
+          },
+        },
+
         remarques: true,
         revenus: true,
         revenusConjoint: true,
