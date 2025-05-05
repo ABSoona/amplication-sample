@@ -18,7 +18,6 @@ import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
-import { TypeDocumentWhereUniqueInput } from "../../typeDocument/base/TypeDocumentWhereUniqueInput";
 
 @InputType()
 class DocumentUpdateInput {
@@ -55,18 +54,6 @@ class DocumentUpdateInput {
     nullable: true,
   })
   demande?: DemandeWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => TypeDocumentWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => TypeDocumentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => TypeDocumentWhereUniqueInput, {
-    nullable: true,
-  })
-  typeDocument?: TypeDocumentWhereUniqueInput | null;
 }
 
 export { DocumentUpdateInput as DocumentUpdateInput };

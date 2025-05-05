@@ -11,32 +11,32 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { TypeDocumentWhereInput } from "./TypeDocumentWhereInput";
+import { UserNotificationPreferenceWhereInput } from "./UserNotificationPreferenceWhereInput";
 import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
-import { TypeDocumentOrderByInput } from "./TypeDocumentOrderByInput";
+import { UserNotificationPreferenceOrderByInput } from "./UserNotificationPreferenceOrderByInput";
 
 @ArgsType()
-class TypeDocumentFindManyArgs {
+class UserNotificationPreferenceFindManyArgs {
   @ApiProperty({
     required: false,
-    type: () => TypeDocumentWhereInput,
+    type: () => UserNotificationPreferenceWhereInput,
   })
   @IsOptional()
   @ValidateNested()
-  @Field(() => TypeDocumentWhereInput, { nullable: true })
-  @Type(() => TypeDocumentWhereInput)
-  where?: TypeDocumentWhereInput;
+  @Field(() => UserNotificationPreferenceWhereInput, { nullable: true })
+  @Type(() => UserNotificationPreferenceWhereInput)
+  where?: UserNotificationPreferenceWhereInput;
 
   @ApiProperty({
     required: false,
-    type: [TypeDocumentOrderByInput],
+    type: [UserNotificationPreferenceOrderByInput],
   })
   @IsOptional()
   @ValidateNested({ each: true })
-  @Field(() => [TypeDocumentOrderByInput], { nullable: true })
-  @Type(() => TypeDocumentOrderByInput)
-  orderBy?: Array<TypeDocumentOrderByInput>;
+  @Field(() => [UserNotificationPreferenceOrderByInput], { nullable: true })
+  @Type(() => UserNotificationPreferenceOrderByInput)
+  orderBy?: Array<UserNotificationPreferenceOrderByInput>;
 
   @ApiProperty({
     required: false,
@@ -59,4 +59,4 @@ class TypeDocumentFindManyArgs {
   take?: number;
 }
 
-export { TypeDocumentFindManyArgs as TypeDocumentFindManyArgs };
+export { UserNotificationPreferenceFindManyArgs as UserNotificationPreferenceFindManyArgs };

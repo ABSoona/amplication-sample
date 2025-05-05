@@ -3,15 +3,15 @@ import * as nestAccessControl from "nest-access-control";
 import * as gqlACGuard from "../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
-import { TypeDocumentResolverBase } from "./base/typeDocument.resolver.base";
-import { TypeDocument } from "./base/TypeDocument";
-import { TypeDocumentService } from "./typeDocument.service";
+import { UserNotificationPreferenceResolverBase } from "./base/userNotificationPreference.resolver.base";
+import { UserNotificationPreference } from "./base/UserNotificationPreference";
+import { UserNotificationPreferenceService } from "./userNotificationPreference.service";
 
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
-@graphql.Resolver(() => TypeDocument)
-export class TypeDocumentResolver extends TypeDocumentResolverBase {
+@graphql.Resolver(() => UserNotificationPreference)
+export class UserNotificationPreferenceResolver extends UserNotificationPreferenceResolverBase {
   constructor(
-    protected readonly service: TypeDocumentService,
+    protected readonly service: UserNotificationPreferenceService,
     @nestAccessControl.InjectRolesBuilder()
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {

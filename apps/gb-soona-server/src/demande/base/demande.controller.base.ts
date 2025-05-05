@@ -792,13 +792,6 @@ export class DemandeControllerBase {
         },
 
         id: true,
-
-        typeDocument: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });

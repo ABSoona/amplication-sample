@@ -11,20 +11,18 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { TypeDocumentWhereUniqueInput } from "./TypeDocumentWhereUniqueInput";
-import { ValidateNested } from "class-validator";
+import { UserNotificationPreferenceWhereInput } from "./UserNotificationPreferenceWhereInput";
 import { Type } from "class-transformer";
 
 @ArgsType()
-class TypeDocumentFindUniqueArgs {
+class UserNotificationPreferenceCountArgs {
   @ApiProperty({
-    required: true,
-    type: () => TypeDocumentWhereUniqueInput,
+    required: false,
+    type: () => UserNotificationPreferenceWhereInput,
   })
-  @ValidateNested()
-  @Type(() => TypeDocumentWhereUniqueInput)
-  @Field(() => TypeDocumentWhereUniqueInput, { nullable: false })
-  where!: TypeDocumentWhereUniqueInput;
+  @Field(() => UserNotificationPreferenceWhereInput, { nullable: true })
+  @Type(() => UserNotificationPreferenceWhereInput)
+  where?: UserNotificationPreferenceWhereInput;
 }
 
-export { TypeDocumentFindUniqueArgs as TypeDocumentFindUniqueArgs };
+export { UserNotificationPreferenceCountArgs as UserNotificationPreferenceCountArgs };
