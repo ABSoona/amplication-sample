@@ -11,20 +11,59 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DemandeActivityUpdateManyWithoutUsersInput } from "./DemandeActivityUpdateManyWithoutUsersInput";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
+  ValidateNested,
 } from "class-validator";
+import { DemandeActivityUpdateManyWithoutUsersInput } from "./DemandeActivityUpdateManyWithoutUsersInput";
 import { Type } from "class-transformer";
+import { DemandeUpdateManyWithoutUsersInput } from "./DemandeUpdateManyWithoutUsersInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { UserUpdateManyWithoutUsersInput } from "./UserUpdateManyWithoutUsersInput";
+import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 
 @InputType()
 class UserUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  adresseCodePostal?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  adresseRue?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  adresseVille?: string | null;
+
   @ApiProperty({
     required: false,
     type: () => DemandeActivityUpdateManyWithoutUsersInput,
@@ -36,6 +75,30 @@ class UserUpdateInput {
     nullable: true,
   })
   demandeActivities?: DemandeActivityUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => DemandeUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  demandesActeurs?: DemandeUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => DemandeUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  demandesEnPropriete?: DemandeUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,
@@ -116,6 +179,30 @@ class UserUpdateInput {
     nullable: true,
   })
   status?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => UserUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => UserUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  subordonnes?: UserUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  superieur?: UserWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

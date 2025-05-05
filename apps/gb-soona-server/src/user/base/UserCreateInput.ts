@@ -11,20 +11,59 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DemandeActivityCreateNestedManyWithoutUsersInput } from "./DemandeActivityCreateNestedManyWithoutUsersInput";
 import {
-  ValidateNested,
-  IsOptional,
   IsString,
   MaxLength,
+  IsOptional,
+  ValidateNested,
 } from "class-validator";
+import { DemandeActivityCreateNestedManyWithoutUsersInput } from "./DemandeActivityCreateNestedManyWithoutUsersInput";
 import { Type } from "class-transformer";
+import { DemandeCreateNestedManyWithoutUsersInput } from "./DemandeCreateNestedManyWithoutUsersInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { UserCreateNestedManyWithoutUsersInput } from "./UserCreateNestedManyWithoutUsersInput";
+import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 
 @InputType()
 class UserCreateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  adresseCodePostal?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  adresseRue?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  adresseVille?: string | null;
+
   @ApiProperty({
     required: false,
     type: () => DemandeActivityCreateNestedManyWithoutUsersInput,
@@ -36,6 +75,30 @@ class UserCreateInput {
     nullable: true,
   })
   demandeActivities?: DemandeActivityCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => DemandeCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  demandesActeurs?: DemandeCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => DemandeCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  demandesEnPropriete?: DemandeCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,
@@ -110,6 +173,30 @@ class UserCreateInput {
     nullable: true,
   })
   status?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => UserCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => UserCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  subordonnes?: UserCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  superieur?: UserWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
