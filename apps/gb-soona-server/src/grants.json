@@ -451,96 +451,6 @@
   },
   {
     "role": "admin",
-    "resource": "TypeDocument",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "external",
-    "resource": "TypeDocument",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "TypeDocument",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "TypeDocument",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "external",
-    "resource": "TypeDocument",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "TypeDocument",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "TypeDocument",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "external",
-    "resource": "TypeDocument",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "TypeDocument",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "TypeDocument",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "external",
-    "resource": "TypeDocument",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "TypeDocument",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "TypeDocument",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "external",
-    "resource": "TypeDocument",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "TypeDocument",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
     "resource": "DemandeStatusHistory",
     "action": "read:own",
     "attributes": "*"
@@ -716,6 +626,96 @@
   {
     "role": "user",
     "resource": "DemandeActivity",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "UserNotificationPreference",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "external",
+    "resource": "UserNotificationPreference",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "UserNotificationPreference",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "UserNotificationPreference",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "external",
+    "resource": "UserNotificationPreference",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "UserNotificationPreference",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "UserNotificationPreference",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "external",
+    "resource": "UserNotificationPreference",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "UserNotificationPreference",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "UserNotificationPreference",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "external",
+    "resource": "UserNotificationPreference",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "UserNotificationPreference",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "UserNotificationPreference",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "external",
+    "resource": "UserNotificationPreference",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "UserNotificationPreference",
     "action": "read:any",
     "attributes": "*"
   }

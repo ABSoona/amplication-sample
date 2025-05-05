@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
-import { TypeDocumentServiceBase } from "./base/typeDocument.service.base";
+import { UserNotificationPreferenceServiceBase } from "./base/userNotificationPreference.service.base";
 
 @Injectable()
-export class TypeDocumentService extends TypeDocumentServiceBase {
+export class UserNotificationPreferenceService extends UserNotificationPreferenceServiceBase {
   constructor(protected readonly prisma: PrismaService) {
     super(prisma);
   }

@@ -11,46 +11,46 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { TypeDocumentWhereInput } from "./TypeDocumentWhereInput";
+import { UserNotificationPreferenceWhereInput } from "./UserNotificationPreferenceWhereInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
 @InputType()
-class TypeDocumentListRelationFilter {
+class UserNotificationPreferenceListRelationFilter {
   @ApiProperty({
     required: false,
-    type: () => TypeDocumentWhereInput,
+    type: () => UserNotificationPreferenceWhereInput,
   })
   @ValidateNested()
-  @Type(() => TypeDocumentWhereInput)
+  @Type(() => UserNotificationPreferenceWhereInput)
   @IsOptional()
-  @Field(() => TypeDocumentWhereInput, {
+  @Field(() => UserNotificationPreferenceWhereInput, {
     nullable: true,
   })
-  every?: TypeDocumentWhereInput;
+  every?: UserNotificationPreferenceWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => TypeDocumentWhereInput,
+    type: () => UserNotificationPreferenceWhereInput,
   })
   @ValidateNested()
-  @Type(() => TypeDocumentWhereInput)
+  @Type(() => UserNotificationPreferenceWhereInput)
   @IsOptional()
-  @Field(() => TypeDocumentWhereInput, {
+  @Field(() => UserNotificationPreferenceWhereInput, {
     nullable: true,
   })
-  some?: TypeDocumentWhereInput;
+  some?: UserNotificationPreferenceWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => TypeDocumentWhereInput,
+    type: () => UserNotificationPreferenceWhereInput,
   })
   @ValidateNested()
-  @Type(() => TypeDocumentWhereInput)
+  @Type(() => UserNotificationPreferenceWhereInput)
   @IsOptional()
-  @Field(() => TypeDocumentWhereInput, {
+  @Field(() => UserNotificationPreferenceWhereInput, {
     nullable: true,
   })
-  none?: TypeDocumentWhereInput;
+  none?: UserNotificationPreferenceWhereInput;
 }
-export { TypeDocumentListRelationFilter as TypeDocumentListRelationFilter };
+export { UserNotificationPreferenceListRelationFilter as UserNotificationPreferenceListRelationFilter };

@@ -17,7 +17,6 @@ import { Type } from "class-transformer";
 import { JsonFilter } from "../../util/JsonFilter";
 import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
-import { TypeDocumentWhereUniqueInput } from "../../typeDocument/base/TypeDocumentWhereUniqueInput";
 
 @InputType()
 class DocumentWhereInput {
@@ -66,18 +65,6 @@ class DocumentWhereInput {
     nullable: true,
   })
   id?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => TypeDocumentWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => TypeDocumentWhereUniqueInput)
-  @IsOptional()
-  @Field(() => TypeDocumentWhereUniqueInput, {
-    nullable: true,
-  })
-  typeDocument?: TypeDocumentWhereUniqueInput;
 }
 
 export { DocumentWhereInput as DocumentWhereInput };

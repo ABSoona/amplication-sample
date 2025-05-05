@@ -12,52 +12,40 @@ import { ACLModule } from "../../auth/acl.module";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { map } from "rxjs";
-import { TypeDocumentController } from "../typeDocument.controller";
-import { TypeDocumentService } from "../typeDocument.service";
+import { UserNotificationPreferenceController } from "../userNotificationPreference.controller";
+import { UserNotificationPreferenceService } from "../userNotificationPreference.service";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
-  id: 42,
-  internalCode: "exampleInternalCode",
-  isInternal: "true",
-  label: "exampleLabel",
+  id: "exampleId",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
-  id: 42,
-  internalCode: "exampleInternalCode",
-  isInternal: "true",
-  label: "exampleLabel",
+  id: "exampleId",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
-    id: 42,
-    internalCode: "exampleInternalCode",
-    isInternal: "true",
-    label: "exampleLabel",
+    id: "exampleId",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
-  id: 42,
-  internalCode: "exampleInternalCode",
-  isInternal: "true",
-  label: "exampleLabel",
+  id: "exampleId",
   updatedAt: new Date(),
 };
 
 const service = {
-  createTypeDocument() {
+  createUserNotificationPreference() {
     return CREATE_RESULT;
   },
-  typeDocuments: () => FIND_MANY_RESULT,
-  typeDocument: ({ where }: { where: { id: string } }) => {
+  userNotificationPreferences: () => FIND_MANY_RESULT,
+  userNotificationPreference: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
       case existingId:
         return FIND_ONE_RESULT;
@@ -99,18 +87,18 @@ const aclValidateRequestInterceptor = {
   },
 };
 
-describe("TypeDocument", () => {
+describe("UserNotificationPreference", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         {
-          provide: TypeDocumentService,
+          provide: UserNotificationPreferenceService,
           useValue: service,
         },
       ],
-      controllers: [TypeDocumentController],
+      controllers: [UserNotificationPreferenceController],
       imports: [ACLModule],
     })
       .overrideGuard(DefaultAuthGuard)
@@ -127,9 +115,9 @@ describe("TypeDocument", () => {
     await app.init();
   });
 
-  test("POST /typeDocuments", async () => {
+  test("POST /userNotificationPreferences", async () => {
     await request(app.getHttpServer())
-      .post("/typeDocuments")
+      .post("/userNotificationPreferences")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -139,9 +127,9 @@ describe("TypeDocument", () => {
       });
   });
 
-  test("GET /typeDocuments", async () => {
+  test("GET /userNotificationPreferences", async () => {
     await request(app.getHttpServer())
-      .get("/typeDocuments")
+      .get("/userNotificationPreferences")
       .expect(HttpStatus.OK)
       .expect([
         {
@@ -152,9 +140,9 @@ describe("TypeDocument", () => {
       ]);
   });
 
-  test("GET /typeDocuments/:id non existing", async () => {
+  test("GET /userNotificationPreferences/:id non existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/typeDocuments"}/${nonExistingId}`)
+      .get(`${"/userNotificationPreferences"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
       .expect({
         statusCode: HttpStatus.NOT_FOUND,
@@ -163,9 +151,9 @@ describe("TypeDocument", () => {
       });
   });
 
-  test("GET /typeDocuments/:id existing", async () => {
+  test("GET /userNotificationPreferences/:id existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/typeDocuments"}/${existingId}`)
+      .get(`${"/userNotificationPreferences"}/${existingId}`)
       .expect(HttpStatus.OK)
       .expect({
         ...FIND_ONE_RESULT,
@@ -174,10 +162,10 @@ describe("TypeDocument", () => {
       });
   });
 
-  test("POST /typeDocuments existing resource", async () => {
+  test("POST /userNotificationPreferences existing resource", async () => {
     const agent = request(app.getHttpServer());
     await agent
-      .post("/typeDocuments")
+      .post("/userNotificationPreferences")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -187,7 +175,7 @@ describe("TypeDocument", () => {
       })
       .then(function () {
         agent
-          .post("/typeDocuments")
+          .post("/userNotificationPreferences")
           .send(CREATE_INPUT)
           .expect(HttpStatus.CONFLICT)
           .expect({

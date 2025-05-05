@@ -541,13 +541,6 @@ export class ContactControllerBase {
         },
 
         id: true,
-
-        typeDocument: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });

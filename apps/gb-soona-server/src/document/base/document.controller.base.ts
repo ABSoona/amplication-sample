@@ -64,12 +64,6 @@ export class DocumentControllerBase {
               connect: data.demande,
             }
           : undefined,
-
-        typeDocument: data.typeDocument
-          ? {
-              connect: data.typeDocument,
-            }
-          : undefined,
       },
       select: {
         contact: {
@@ -88,13 +82,6 @@ export class DocumentControllerBase {
         },
 
         id: true,
-
-        typeDocument: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -133,13 +120,6 @@ export class DocumentControllerBase {
         },
 
         id: true,
-
-        typeDocument: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -179,13 +159,6 @@ export class DocumentControllerBase {
         },
 
         id: true,
-
-        typeDocument: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -230,12 +203,6 @@ export class DocumentControllerBase {
                 connect: data.demande,
               }
             : undefined,
-
-          typeDocument: data.typeDocument
-            ? {
-                connect: data.typeDocument,
-              }
-            : undefined,
         },
         select: {
           contact: {
@@ -254,13 +221,6 @@ export class DocumentControllerBase {
           },
 
           id: true,
-
-          typeDocument: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -308,13 +268,6 @@ export class DocumentControllerBase {
           },
 
           id: true,
-
-          typeDocument: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
