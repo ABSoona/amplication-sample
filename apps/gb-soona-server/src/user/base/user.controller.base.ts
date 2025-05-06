@@ -448,12 +448,15 @@ export class UserControllerBase {
 
         createdAt: true,
         dateVisite: true,
+        dernierContact: true,
+        derniereRelance: true,
         dettes: true,
         facturesEnergie: true,
         id: true,
         loyer: true,
         natureDettes: true,
         nombreEnfants: true,
+        nombreRelances: true,
 
         proprietaire: {
           select: {
@@ -461,6 +464,7 @@ export class UserControllerBase {
           },
         },
 
+        recommandation: true,
         remarques: true,
         revenus: true,
         revenusConjoint: true,
@@ -581,12 +585,15 @@ export class UserControllerBase {
 
         createdAt: true,
         dateVisite: true,
+        dernierContact: true,
+        derniereRelance: true,
         dettes: true,
         facturesEnergie: true,
         id: true,
         loyer: true,
         natureDettes: true,
         nombreEnfants: true,
+        nombreRelances: true,
 
         proprietaire: {
           select: {
@@ -594,6 +601,7 @@ export class UserControllerBase {
           },
         },
 
+        recommandation: true,
         remarques: true,
         revenus: true,
         revenusConjoint: true,

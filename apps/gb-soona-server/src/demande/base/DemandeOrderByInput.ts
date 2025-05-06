@@ -127,6 +127,28 @@ class DemandeOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  dernierContact?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  derniereRelance?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   dettes?: SortOrder;
 
   @ApiProperty({
@@ -193,7 +215,29 @@ class DemandeOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  nombreRelances?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   proprietaireId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  recommandation?: SortOrder;
 
   @ApiProperty({
     required: false,
