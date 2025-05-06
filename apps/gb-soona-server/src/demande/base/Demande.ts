@@ -161,6 +161,28 @@ class Demande {
 
   @ApiProperty({
     required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  dernierContact!: Date | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  derniereRelance!: Date | null;
+
+  @ApiProperty({
+    required: false,
     type: Number,
   })
   @IsInt()
@@ -238,12 +260,36 @@ class Demande {
 
   @ApiProperty({
     required: false,
+    type: Number,
+  })
+  @IsInt()
+  @Max(100)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  nombreRelances!: number | null;
+
+  @ApiProperty({
+    required: false,
     type: () => User,
   })
   @ValidateNested()
   @Type(() => User)
   @IsOptional()
   proprietaire?: User | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  recommandation!: string | null;
 
   @ApiProperty({
     required: false,

@@ -45,6 +45,8 @@ model Demande {
   dateVisite               DateTime?
   demandeActivities        DemandeActivity[]
   demandeStatusHistories   DemandeStatusHistory[]
+  dernierContact           DateTime?
+  derniereRelance          DateTime?
   dettes                   Int?
   documents                Document[]
   facturesEnergie          Int?
@@ -52,8 +54,10 @@ model Demande {
   loyer                    Int?
   natureDettes             String?
   nombreEnfants            Int?
+  nombreRelances           Int?
   proprietaire             User?                          @relation(name: "demandesEnPropriete", fields: [proprietaireId], references: [id])
   proprietaireId           String?
+  recommandation           String?
   remarques                String?
   revenus                  Int?
   revenusConjoint          Int?
