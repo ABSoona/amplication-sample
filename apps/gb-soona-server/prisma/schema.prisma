@@ -54,7 +54,7 @@ model Demande {
   loyer                    Int?
   natureDettes             String?
   nombreEnfants            Int?
-  nombreRelances           Int?
+  nombreRelances           Int?                           @default(0)
   proprietaire             User?                          @relation(name: "demandesEnPropriete", fields: [proprietaireId], references: [id])
   proprietaireId           String?
   recommandation           String?
@@ -100,6 +100,7 @@ model User {
   demandesEnPropriete         Demande[]                    @relation(name: "demandesEnPropriete")
   email                       String?                      @unique
   firstName                   String?
+  hasAccess                   Boolean                      @default(true)
   id                          String                       @id @default(cuid())
   lastName                    String?
   password                    String
