@@ -25,7 +25,6 @@ import { Demande } from "../../demande/base/Demande";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
-import { UserNotificationPreference } from "../../userNotificationPreference/base/UserNotificationPreference";
 
 @ObjectType()
 class User {
@@ -219,15 +218,6 @@ class User {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: () => [UserNotificationPreference],
-  })
-  @ValidateNested()
-  @Type(() => UserNotificationPreference)
-  @IsOptional()
-  userNotificationPreferences?: Array<UserNotificationPreference>;
 
   @ApiProperty({
     required: true,

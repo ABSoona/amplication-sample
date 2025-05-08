@@ -18,7 +18,7 @@ import { SortOrder } from "../../util/SortOrder";
   isAbstract: true,
   description: undefined,
 })
-class UserNotificationPreferenceOrderByInput {
+class TypeDocumentOrderByInput {
   @ApiProperty({
     required: false,
     enum: ["asc", "desc"],
@@ -51,17 +51,6 @@ class UserNotificationPreferenceOrderByInput {
     nullable: true,
   })
   updatedAt?: SortOrder;
-
-  @ApiProperty({
-    required: false,
-    enum: ["asc", "desc"],
-  })
-  @IsOptional()
-  @IsEnum(SortOrder)
-  @Field(() => SortOrder, {
-    nullable: true,
-  })
-  userId?: SortOrder;
 }
 
-export { UserNotificationPreferenceOrderByInput as UserNotificationPreferenceOrderByInput };
+export { TypeDocumentOrderByInput as TypeDocumentOrderByInput };

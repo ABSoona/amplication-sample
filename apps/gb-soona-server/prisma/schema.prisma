@@ -17,6 +17,7 @@ model Aide {
   demande           Demande?           @relation(fields: [demandeId], references: [id])
   demandeId         Int?
   demandeActivities DemandeActivity[]
+  documents         Document[]
   frequence         EnumAideFrequence?
   id                Int                @id @default(autoincrement())
   infosCrediteur    String?
@@ -91,40 +92,43 @@ model Contact {
 }
 
 model User {
-  adresseCodePostal           String?
-  adresseRue                  String?
-  adresseVille                String?
-  createdAt                   DateTime                     @default(now())
-  demandeActivities           DemandeActivity[]
-  demandesActeurs             Demande[]                    @relation(name: "acteur")
-  demandesEnPropriete         Demande[]                    @relation(name: "demandesEnPropriete")
-  email                       String?                      @unique
-  firstName                   String?
-  hasAccess                   Boolean                      @default(true)
-  id                          String                       @id @default(cuid())
-  lastName                    String?
-  password                    String
-  role                        String?
-  roles                       Json
-  status                      String?
-  subordonnes                 User[]                       @relation(name: "subordonnes")
-  superieur                   User?                        @relation(name: "subordonnes", fields: [superieurId], references: [id])
-  superieurId                 String?
-  token                       String?
-  updatedAt                   DateTime                     @updatedAt
-  userNotificationPreferences UserNotificationPreference[]
-  username                    String                       @unique
+  adresseCodePostal   String?
+  adresseRue          String?
+  adresseVille        String?
+  createdAt           DateTime          @default(now())
+  demandeActivities   DemandeActivity[]
+  demandesActeurs     Demande[]         @relation(name: "acteur")
+  demandesEnPropriete Demande[]         @relation(name: "demandesEnPropriete")
+  email               String?           @unique
+  firstName           String?
+  hasAccess           Boolean           @default(true)
+  id                  String            @id @default(cuid())
+  lastName            String?
+  password            String
+  role                String?
+  roles               Json
+  status              String?
+  subordonnes         User[]            @relation(name: "subordonnes")
+  superieur           User?             @relation(name: "subordonnes", fields: [superieurId], references: [id])
+  superieurId         String?
+  token               String?
+  updatedAt           DateTime          @updatedAt
+  username            String            @unique
 }
 
 model Document {
-  contact   Contact? @relation(fields: [contactId], references: [id])
-  contactId Int?
-  contenu   Json?
-  createdAt DateTime @default(now())
-  demande   Demande? @relation(fields: [demandeId], references: [id])
-  demandeId Int?
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
+  aide           Aide?         @relation(fields: [aideId], references: [id])
+  aideId         Int?
+  contact        Contact?      @relation(fields: [contactId], references: [id])
+  contactId      Int?
+  contenu        Json?
+  createdAt      DateTime      @default(now())
+  demande        Demande?      @relation(fields: [demandeId], references: [id])
+  demandeId      Int?
+  id             String        @id @default(cuid())
+  typeDocument   TypeDocument? @relation(fields: [typeDocumentId], references: [id])
+  typeDocumentId String?
+  updatedAt      DateTime      @updatedAt
 }
 
 model DemandeStatusHistory {
@@ -151,12 +155,11 @@ model DemandeActivity {
   userId    String?
 }
 
-model UserNotificationPreference {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-  user      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+model TypeDocument {
+  createdAt DateTime   @default(now())
+  documents Document[]
+  id        String     @id @default(cuid())
+  updatedAt DateTime   @updatedAt
 }
 
 enum EnumAideCrediteur {

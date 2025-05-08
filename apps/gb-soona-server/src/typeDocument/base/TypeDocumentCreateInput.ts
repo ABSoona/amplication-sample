@@ -11,23 +11,23 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { DocumentCreateNestedManyWithoutTypeDocumentsInput } from "./DocumentCreateNestedManyWithoutTypeDocumentsInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
 @InputType()
-class UserNotificationPreferenceUpdateInput {
+class TypeDocumentCreateInput {
   @ApiProperty({
     required: false,
-    type: () => UserWhereUniqueInput,
+    type: () => DocumentCreateNestedManyWithoutTypeDocumentsInput,
   })
   @ValidateNested()
-  @Type(() => UserWhereUniqueInput)
+  @Type(() => DocumentCreateNestedManyWithoutTypeDocumentsInput)
   @IsOptional()
-  @Field(() => UserWhereUniqueInput, {
+  @Field(() => DocumentCreateNestedManyWithoutTypeDocumentsInput, {
     nullable: true,
   })
-  user?: UserWhereUniqueInput | null;
+  documents?: DocumentCreateNestedManyWithoutTypeDocumentsInput;
 }
 
-export { UserNotificationPreferenceUpdateInput as UserNotificationPreferenceUpdateInput };
+export { TypeDocumentCreateInput as TypeDocumentCreateInput };

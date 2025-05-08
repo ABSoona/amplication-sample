@@ -20,7 +20,6 @@ import { BooleanFilter } from "../../util/BooleanFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { UserListRelationFilter } from "./UserListRelationFilter";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
-import { UserNotificationPreferenceListRelationFilter } from "../../userNotificationPreference/base/UserNotificationPreferenceListRelationFilter";
 
 @InputType()
 class UserWhereInput {
@@ -204,18 +203,6 @@ class UserWhereInput {
     nullable: true,
   })
   token?: StringNullableFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserNotificationPreferenceListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => UserNotificationPreferenceListRelationFilter)
-  @IsOptional()
-  @Field(() => UserNotificationPreferenceListRelationFilter, {
-    nullable: true,
-  })
-  userNotificationPreferences?: UserNotificationPreferenceListRelationFilter;
 
   @ApiProperty({
     required: false,

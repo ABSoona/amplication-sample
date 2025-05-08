@@ -11,16 +11,30 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
+import { AideWhereUniqueInput } from "../../aide/base/AideWhereUniqueInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
+import { TypeDocumentWhereUniqueInput } from "../../typeDocument/base/TypeDocumentWhereUniqueInput";
 
 @InputType()
 class DocumentCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => AideWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => AideWhereUniqueInput)
+  @IsOptional()
+  @Field(() => AideWhereUniqueInput, {
+    nullable: true,
+  })
+  aide?: AideWhereUniqueInput | null;
+
   @ApiProperty({
     required: false,
     type: () => ContactWhereUniqueInput,
@@ -54,6 +68,18 @@ class DocumentCreateInput {
     nullable: true,
   })
   demande?: DemandeWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => TypeDocumentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => TypeDocumentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => TypeDocumentWhereUniqueInput, {
+    nullable: true,
+  })
+  typeDocument?: TypeDocumentWhereUniqueInput | null;
 }
 
 export { DocumentCreateInput as DocumentCreateInput };

@@ -28,8 +28,10 @@ import { DocumentFindUniqueArgs } from "./DocumentFindUniqueArgs";
 import { CreateDocumentArgs } from "./CreateDocumentArgs";
 import { UpdateDocumentArgs } from "./UpdateDocumentArgs";
 import { DeleteDocumentArgs } from "./DeleteDocumentArgs";
+import { Aide } from "../../aide/base/Aide";
 import { Contact } from "../../contact/base/Contact";
 import { Demande } from "../../demande/base/Demande";
+import { TypeDocument } from "../../typeDocument/base/TypeDocument";
 import { DocumentService } from "../document.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Document)
@@ -99,6 +101,12 @@ export class DocumentResolverBase {
       data: {
         ...args.data,
 
+        aide: args.data.aide
+          ? {
+              connect: args.data.aide,
+            }
+          : undefined,
+
         contact: args.data.contact
           ? {
               connect: args.data.contact,
@@ -108,6 +116,12 @@ export class DocumentResolverBase {
         demande: args.data.demande
           ? {
               connect: args.data.demande,
+            }
+          : undefined,
+
+        typeDocument: args.data.typeDocument
+          ? {
+              connect: args.data.typeDocument,
             }
           : undefined,
       },
@@ -130,6 +144,12 @@ export class DocumentResolverBase {
         data: {
           ...args.data,
 
+          aide: args.data.aide
+            ? {
+                connect: args.data.aide,
+              }
+            : undefined,
+
           contact: args.data.contact
             ? {
                 connect: args.data.contact,
@@ -139,6 +159,12 @@ export class DocumentResolverBase {
           demande: args.data.demande
             ? {
                 connect: args.data.demande,
+              }
+            : undefined,
+
+          typeDocument: args.data.typeDocument
+            ? {
+                connect: args.data.typeDocument,
               }
             : undefined,
         },
@@ -196,6 +222,25 @@ export class DocumentResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Aide, {
+    nullable: true,
+    name: "aide",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Aide",
+    action: "read",
+    possession: "any",
+  })
+  async getAide(@graphql.Parent() parent: Document): Promise<Aide | null> {
+    const result = await this.service.getAide(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => Contact, {
     nullable: true,
     name: "contact",
@@ -230,6 +275,27 @@ export class DocumentResolverBase {
     @graphql.Parent() parent: Document
   ): Promise<Demande | null> {
     const result = await this.service.getDemande(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => TypeDocument, {
+    nullable: true,
+    name: "typeDocument",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "TypeDocument",
+    action: "read",
+    possession: "any",
+  })
+  async getTypeDocument(
+    @graphql.Parent() parent: Document
+  ): Promise<TypeDocument | null> {
+    const result = await this.service.getTypeDocument(parent.id);
 
     if (!result) {
       return null;

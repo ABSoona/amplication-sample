@@ -26,7 +26,6 @@ import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { UserUpdateManyWithoutUsersInput } from "./UserUpdateManyWithoutUsersInput";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
-import { UserNotificationPreferenceUpdateManyWithoutUsersInput } from "./UserNotificationPreferenceUpdateManyWithoutUsersInput";
 
 @InputType()
 class UserUpdateInput {
@@ -228,18 +227,6 @@ class UserUpdateInput {
     nullable: true,
   })
   token?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserNotificationPreferenceUpdateManyWithoutUsersInput,
-  })
-  @ValidateNested()
-  @Type(() => UserNotificationPreferenceUpdateManyWithoutUsersInput)
-  @IsOptional()
-  @Field(() => UserNotificationPreferenceUpdateManyWithoutUsersInput, {
-    nullable: true,
-  })
-  userNotificationPreferences?: UserNotificationPreferenceUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

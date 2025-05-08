@@ -11,13 +11,25 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
-import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
+import { StringFilter } from "../../util/StringFilter";
 
 @InputType()
-class UserNotificationPreferenceWhereInput {
+class TypeDocumentWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => DocumentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => DocumentListRelationFilter)
+  @IsOptional()
+  @Field(() => DocumentListRelationFilter, {
+    nullable: true,
+  })
+  documents?: DocumentListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: StringFilter,
@@ -28,18 +40,6 @@ class UserNotificationPreferenceWhereInput {
     nullable: true,
   })
   id?: StringFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => UserWhereUniqueInput)
-  @IsOptional()
-  @Field(() => UserWhereUniqueInput, {
-    nullable: true,
-  })
-  user?: UserWhereUniqueInput;
 }
 
-export { UserNotificationPreferenceWhereInput as UserNotificationPreferenceWhereInput };
+export { TypeDocumentWhereInput as TypeDocumentWhereInput };
