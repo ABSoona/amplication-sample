@@ -796,6 +796,12 @@ export class DemandeControllerBase {
     const results = await this.service.findDocuments(params.id, {
       ...query,
       select: {
+        aide: {
+          select: {
+            id: true,
+          },
+        },
+
         contact: {
           select: {
             id: true,
@@ -812,6 +818,13 @@ export class DemandeControllerBase {
         },
 
         id: true,
+
+        typeDocument: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });

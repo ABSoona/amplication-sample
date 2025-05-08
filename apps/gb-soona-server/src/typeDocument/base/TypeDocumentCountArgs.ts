@@ -11,20 +11,18 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UserNotificationPreferenceCreateInput } from "./UserNotificationPreferenceCreateInput";
-import { ValidateNested } from "class-validator";
+import { TypeDocumentWhereInput } from "./TypeDocumentWhereInput";
 import { Type } from "class-transformer";
 
 @ArgsType()
-class CreateUserNotificationPreferenceArgs {
+class TypeDocumentCountArgs {
   @ApiProperty({
-    required: true,
-    type: () => UserNotificationPreferenceCreateInput,
+    required: false,
+    type: () => TypeDocumentWhereInput,
   })
-  @ValidateNested()
-  @Type(() => UserNotificationPreferenceCreateInput)
-  @Field(() => UserNotificationPreferenceCreateInput, { nullable: false })
-  data!: UserNotificationPreferenceCreateInput;
+  @Field(() => TypeDocumentWhereInput, { nullable: true })
+  @Type(() => TypeDocumentWhereInput)
+  where?: TypeDocumentWhereInput;
 }
 
-export { CreateUserNotificationPreferenceArgs as CreateUserNotificationPreferenceArgs };
+export { TypeDocumentCountArgs as TypeDocumentCountArgs };

@@ -11,12 +11,12 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
+import { IsDate, ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { User } from "../../user/base/User";
+import { Document } from "../../document/base/Document";
 
 @ObjectType()
-class UserNotificationPreference {
+class TypeDocument {
   @ApiProperty({
     required: true,
   })
@@ -24,6 +24,15 @@ class UserNotificationPreference {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Document],
+  })
+  @ValidateNested()
+  @Type(() => Document)
+  @IsOptional()
+  documents?: Array<Document>;
 
   @ApiProperty({
     required: true,
@@ -40,15 +49,6 @@ class UserNotificationPreference {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: () => User,
-  })
-  @ValidateNested()
-  @Type(() => User)
-  @IsOptional()
-  user?: User | null;
 }
 
-export { UserNotificationPreference as UserNotificationPreference };
+export { TypeDocument as TypeDocument };

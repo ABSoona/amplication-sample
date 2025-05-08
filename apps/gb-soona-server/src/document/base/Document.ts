@@ -11,16 +11,27 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Contact } from "../../contact/base/Contact";
+import { Aide } from "../../aide/base/Aide";
 import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { Contact } from "../../contact/base/Contact";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Demande } from "../../demande/base/Demande";
+import { TypeDocument } from "../../typeDocument/base/TypeDocument";
 
 @ObjectType()
 class Document {
+  @ApiProperty({
+    required: false,
+    type: () => Aide,
+  })
+  @ValidateNested()
+  @Type(() => Aide)
+  @IsOptional()
+  aide?: Aide | null;
+
   @ApiProperty({
     required: false,
     type: () => Contact,
@@ -64,6 +75,15 @@ class Document {
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => TypeDocument,
+  })
+  @ValidateNested()
+  @Type(() => TypeDocument)
+  @IsOptional()
+  typeDocument?: TypeDocument | null;
 
   @ApiProperty({
     required: true,

@@ -9,10 +9,19 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { Module } from "@nestjs/common";
-import { ACLModule } from "../../auth/acl.module";
-@Module({
-  imports: [ACLModule],
-  exports: [ACLModule],
-})
-export class UserNotificationPreferenceModuleBase {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsString } from "class-validator";
+
+@InputType()
+class TypeDocumentWhereUniqueInput {
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String)
+  id!: string;
+}
+
+export { TypeDocumentWhereUniqueInput as TypeDocumentWhereUniqueInput };

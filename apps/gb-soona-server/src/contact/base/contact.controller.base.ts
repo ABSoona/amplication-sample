@@ -529,6 +529,12 @@ export class ContactControllerBase {
     const results = await this.service.findDocuments(params.id, {
       ...query,
       select: {
+        aide: {
+          select: {
+            id: true,
+          },
+        },
+
         contact: {
           select: {
             id: true,
@@ -545,6 +551,13 @@ export class ContactControllerBase {
         },
 
         id: true,
+
+        typeDocument: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });

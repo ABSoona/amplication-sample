@@ -16,7 +16,6 @@ import {
   User as PrismaUser,
   DemandeActivity as PrismaDemandeActivity,
   Demande as PrismaDemande,
-  UserNotificationPreference as PrismaUserNotificationPreference,
 } from "@prisma/client";
 
 import { PasswordService } from "../../auth/password.service";
@@ -110,17 +109,6 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .subordonnes(args);
-  }
-
-  async findUserNotificationPreferences(
-    parentId: string,
-    args: Prisma.UserNotificationPreferenceFindManyArgs
-  ): Promise<PrismaUserNotificationPreference[]> {
-    return this.prisma.user
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .userNotificationPreferences(args);
   }
 
   async getSuperieur(parentId: string): Promise<PrismaUser | null> {

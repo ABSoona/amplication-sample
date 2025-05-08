@@ -14,8 +14,10 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   Document as PrismaDocument,
+  Aide as PrismaAide,
   Contact as PrismaContact,
   Demande as PrismaDemande,
+  TypeDocument as PrismaTypeDocument,
 } from "@prisma/client";
 
 import { LocalStorageService } from "src/storage/providers/local/local.storage.service";
@@ -115,6 +117,14 @@ export class DocumentServiceBase {
     });
   }
 
+  async getAide(parentId: string): Promise<PrismaAide | null> {
+    return this.prisma.document
+      .findUnique({
+        where: { id: parentId },
+      })
+      .aide();
+  }
+
   async getContact(parentId: string): Promise<PrismaContact | null> {
     return this.prisma.document
       .findUnique({
@@ -129,5 +139,13 @@ export class DocumentServiceBase {
         where: { id: parentId },
       })
       .demande();
+  }
+
+  async getTypeDocument(parentId: string): Promise<PrismaTypeDocument | null> {
+    return this.prisma.document
+      .findUnique({
+        where: { id: parentId },
+      })
+      .typeDocument();
   }
 }

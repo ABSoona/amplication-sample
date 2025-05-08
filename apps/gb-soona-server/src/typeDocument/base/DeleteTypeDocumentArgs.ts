@@ -11,20 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { UserNotificationPreferenceWhereUniqueInput } from "./UserNotificationPreferenceWhereUniqueInput";
+import { TypeDocumentWhereUniqueInput } from "./TypeDocumentWhereUniqueInput";
 import { ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 
 @ArgsType()
-class DeleteUserNotificationPreferenceArgs {
+class DeleteTypeDocumentArgs {
   @ApiProperty({
     required: true,
-    type: () => UserNotificationPreferenceWhereUniqueInput,
+    type: () => TypeDocumentWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => UserNotificationPreferenceWhereUniqueInput)
-  @Field(() => UserNotificationPreferenceWhereUniqueInput, { nullable: false })
-  where!: UserNotificationPreferenceWhereUniqueInput;
+  @Type(() => TypeDocumentWhereUniqueInput)
+  @Field(() => TypeDocumentWhereUniqueInput, { nullable: false })
+  where!: TypeDocumentWhereUniqueInput;
 }
 
-export { DeleteUserNotificationPreferenceArgs as DeleteUserNotificationPreferenceArgs };
+export { DeleteTypeDocumentArgs as DeleteTypeDocumentArgs };

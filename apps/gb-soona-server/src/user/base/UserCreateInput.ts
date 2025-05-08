@@ -26,7 +26,6 @@ import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { UserCreateNestedManyWithoutUsersInput } from "./UserCreateNestedManyWithoutUsersInput";
 import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
-import { UserNotificationPreferenceCreateNestedManyWithoutUsersInput } from "./UserNotificationPreferenceCreateNestedManyWithoutUsersInput";
 
 @InputType()
 class UserCreateInput {
@@ -219,18 +218,6 @@ class UserCreateInput {
     nullable: true,
   })
   token?: string | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => UserNotificationPreferenceCreateNestedManyWithoutUsersInput,
-  })
-  @ValidateNested()
-  @Type(() => UserNotificationPreferenceCreateNestedManyWithoutUsersInput)
-  @IsOptional()
-  @Field(() => UserNotificationPreferenceCreateNestedManyWithoutUsersInput, {
-    nullable: true,
-  })
-  userNotificationPreferences?: UserNotificationPreferenceCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: true,

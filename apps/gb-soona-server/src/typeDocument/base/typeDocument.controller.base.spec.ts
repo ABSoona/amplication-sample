@@ -12,8 +12,8 @@ import { ACLModule } from "../../auth/acl.module";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { map } from "rxjs";
-import { UserNotificationPreferenceController } from "../userNotificationPreference.controller";
-import { UserNotificationPreferenceService } from "../userNotificationPreference.service";
+import { TypeDocumentController } from "../typeDocument.controller";
+import { TypeDocumentService } from "../typeDocument.service";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
@@ -41,11 +41,11 @@ const FIND_ONE_RESULT = {
 };
 
 const service = {
-  createUserNotificationPreference() {
+  createTypeDocument() {
     return CREATE_RESULT;
   },
-  userNotificationPreferences: () => FIND_MANY_RESULT,
-  userNotificationPreference: ({ where }: { where: { id: string } }) => {
+  typeDocuments: () => FIND_MANY_RESULT,
+  typeDocument: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
       case existingId:
         return FIND_ONE_RESULT;
@@ -87,18 +87,18 @@ const aclValidateRequestInterceptor = {
   },
 };
 
-describe("UserNotificationPreference", () => {
+describe("TypeDocument", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         {
-          provide: UserNotificationPreferenceService,
+          provide: TypeDocumentService,
           useValue: service,
         },
       ],
-      controllers: [UserNotificationPreferenceController],
+      controllers: [TypeDocumentController],
       imports: [ACLModule],
     })
       .overrideGuard(DefaultAuthGuard)
@@ -115,9 +115,9 @@ describe("UserNotificationPreference", () => {
     await app.init();
   });
 
-  test("POST /userNotificationPreferences", async () => {
+  test("POST /typeDocuments", async () => {
     await request(app.getHttpServer())
-      .post("/userNotificationPreferences")
+      .post("/typeDocuments")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -127,9 +127,9 @@ describe("UserNotificationPreference", () => {
       });
   });
 
-  test("GET /userNotificationPreferences", async () => {
+  test("GET /typeDocuments", async () => {
     await request(app.getHttpServer())
-      .get("/userNotificationPreferences")
+      .get("/typeDocuments")
       .expect(HttpStatus.OK)
       .expect([
         {
@@ -140,9 +140,9 @@ describe("UserNotificationPreference", () => {
       ]);
   });
 
-  test("GET /userNotificationPreferences/:id non existing", async () => {
+  test("GET /typeDocuments/:id non existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/userNotificationPreferences"}/${nonExistingId}`)
+      .get(`${"/typeDocuments"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
       .expect({
         statusCode: HttpStatus.NOT_FOUND,
@@ -151,9 +151,9 @@ describe("UserNotificationPreference", () => {
       });
   });
 
-  test("GET /userNotificationPreferences/:id existing", async () => {
+  test("GET /typeDocuments/:id existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/userNotificationPreferences"}/${existingId}`)
+      .get(`${"/typeDocuments"}/${existingId}`)
       .expect(HttpStatus.OK)
       .expect({
         ...FIND_ONE_RESULT,
@@ -162,10 +162,10 @@ describe("UserNotificationPreference", () => {
       });
   });
 
-  test("POST /userNotificationPreferences existing resource", async () => {
+  test("POST /typeDocuments existing resource", async () => {
     const agent = request(app.getHttpServer());
     await agent
-      .post("/userNotificationPreferences")
+      .post("/typeDocuments")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
@@ -175,7 +175,7 @@ describe("UserNotificationPreference", () => {
       })
       .then(function () {
         agent
-          .post("/userNotificationPreferences")
+          .post("/typeDocuments")
           .send(CREATE_INPUT)
           .expect(HttpStatus.CONFLICT)
           .expect({
