@@ -29,6 +29,7 @@ model Aide {
   suspendue         Boolean?
   typeField         EnumAideTypeField?
   updatedAt         DateTime           @updatedAt
+  versements        Versement[]
 }
 
 model Demande {
@@ -45,7 +46,6 @@ model Demande {
   createdAt                DateTime?                      @default(now())
   dateVisite               DateTime?
   demandeActivities        DemandeActivity[]
-  demandeStatusHistories   DemandeStatusHistory[]
   dernierContact           DateTime?
   derniereRelance          DateTime?
   dettes                   Int?
@@ -129,15 +129,8 @@ model Document {
   typeDocument   TypeDocument? @relation(fields: [typeDocumentId], references: [id])
   typeDocumentId String?
   updatedAt      DateTime      @updatedAt
-}
-
-model DemandeStatusHistory {
-  createdAt DateTime @default(now())
-  demande   Demande  @relation(fields: [demandeId], references: [id])
-  demandeId Int
-  id        Int      @id @default(autoincrement())
-  status    String
-  updatedAt DateTime @updatedAt
+  versements     Versement?    @relation(fields: [versementsId], references: [id])
+  versementsId   Int?          @unique
 }
 
 model DemandeActivity {
@@ -160,6 +153,17 @@ model TypeDocument {
   documents Document[]
   id        String     @id @default(cuid())
   updatedAt DateTime   @updatedAt
+}
+
+model Versement {
+  aide          Aide                @relation(fields: [aideId], references: [id])
+  aideId        Int
+  createdAt     DateTime            @default(now())
+  dataVersement DateTime
+  document      Document?
+  id            Int                 @id @default(autoincrement())
+  status        EnumVersementStatus
+  updatedAt     DateTime            @updatedAt
 }
 
 enum EnumAideCrediteur {
@@ -189,4 +193,9 @@ enum EnumDemandeCategorieDemandeur {
   LourdementEndett
   NCessiteux
   Pauvre
+}
+
+enum EnumVersementStatus {
+  AVerser
+  Verse
 }

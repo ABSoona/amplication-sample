@@ -11,18 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { Aide } from "../../aide/base/Aide";
 import {
-  IsDate,
   ValidateNested,
+  IsDate,
+  IsOptional,
   IsInt,
-  IsString,
-  MaxLength,
+  IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
-import { Demande } from "../../demande/base/Demande";
+import { Document } from "../../document/base/Document";
+import { EnumVersementStatus } from "./EnumVersementStatus";
 
 @ObjectType()
-class DemandeStatusHistory {
+class Versement {
+  @ApiProperty({
+    required: true,
+    type: () => Aide,
+  })
+  @ValidateNested()
+  @Type(() => Aide)
+  aide?: Aide;
+
   @ApiProperty({
     required: true,
   })
@@ -33,11 +43,20 @@ class DemandeStatusHistory {
 
   @ApiProperty({
     required: true,
-    type: () => Demande,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @Field(() => Date)
+  dataVersement!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => Document,
   })
   @ValidateNested()
-  @Type(() => Demande)
-  demande?: Demande;
+  @Type(() => Document)
+  @IsOptional()
+  document?: Document | null;
 
   @ApiProperty({
     required: true,
@@ -49,12 +68,13 @@ class DemandeStatusHistory {
 
   @ApiProperty({
     required: true,
-    type: String,
+    enum: EnumVersementStatus,
   })
-  @IsString()
-  @MaxLength(256)
-  @Field(() => String)
-  status!: string;
+  @IsEnum(EnumVersementStatus)
+  @Field(() => EnumVersementStatus, {
+    nullable: true,
+  })
+  status?: "AVerser" | "Verse";
 
   @ApiProperty({
     required: true,
@@ -65,4 +85,4 @@ class DemandeStatusHistory {
   updatedAt!: Date;
 }
 
-export { DemandeStatusHistory as DemandeStatusHistory };
+export { Versement as Versement };

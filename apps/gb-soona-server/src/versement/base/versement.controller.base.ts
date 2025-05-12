@@ -18,48 +18,61 @@ import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
-import { DemandeStatusHistoryService } from "../demandeStatusHistory.service";
+import { VersementService } from "../versement.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { DemandeStatusHistoryCreateInput } from "./DemandeStatusHistoryCreateInput";
-import { DemandeStatusHistory } from "./DemandeStatusHistory";
-import { DemandeStatusHistoryFindManyArgs } from "./DemandeStatusHistoryFindManyArgs";
-import { DemandeStatusHistoryWhereUniqueInput } from "./DemandeStatusHistoryWhereUniqueInput";
-import { DemandeStatusHistoryUpdateInput } from "./DemandeStatusHistoryUpdateInput";
+import { VersementCreateInput } from "./VersementCreateInput";
+import { Versement } from "./Versement";
+import { VersementFindManyArgs } from "./VersementFindManyArgs";
+import { VersementWhereUniqueInput } from "./VersementWhereUniqueInput";
+import { VersementUpdateInput } from "./VersementUpdateInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
-export class DemandeStatusHistoryControllerBase {
+export class VersementControllerBase {
   constructor(
-    protected readonly service: DemandeStatusHistoryService,
+    protected readonly service: VersementService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
-  @swagger.ApiCreatedResponse({ type: DemandeStatusHistory })
+  @swagger.ApiCreatedResponse({ type: Versement })
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "create",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async createDemandeStatusHistory(
-    @common.Body() data: DemandeStatusHistoryCreateInput
-  ): Promise<DemandeStatusHistory> {
-    return await this.service.createDemandeStatusHistory({
+  async createVersement(
+    @common.Body() data: VersementCreateInput
+  ): Promise<Versement> {
+    return await this.service.createVersement({
       data: {
         ...data,
 
-        demande: {
-          connect: data.demande,
+        aide: {
+          connect: data.aide,
         },
+
+        document: data.document
+          ? {
+              connect: data.document,
+            }
+          : undefined,
       },
       select: {
-        createdAt: true,
+        aide: {
+          select: {
+            id: true,
+          },
+        },
 
-        demande: {
+        createdAt: true,
+        dataVersement: true,
+
+        document: {
           select: {
             id: true,
           },
@@ -74,26 +87,31 @@ export class DemandeStatusHistoryControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get()
-  @swagger.ApiOkResponse({ type: [DemandeStatusHistory] })
-  @ApiNestedQuery(DemandeStatusHistoryFindManyArgs)
+  @swagger.ApiOkResponse({ type: [Versement] })
+  @ApiNestedQuery(VersementFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "read",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async demandeStatusHistories(
-    @common.Req() request: Request
-  ): Promise<DemandeStatusHistory[]> {
-    const args = plainToClass(DemandeStatusHistoryFindManyArgs, request.query);
-    return this.service.demandeStatusHistories({
+  async versements(@common.Req() request: Request): Promise<Versement[]> {
+    const args = plainToClass(VersementFindManyArgs, request.query);
+    return this.service.versements({
       ...args,
       select: {
-        createdAt: true,
+        aide: {
+          select: {
+            id: true,
+          },
+        },
 
-        demande: {
+        createdAt: true,
+        dataVersement: true,
+
+        document: {
           select: {
             id: true,
           },
@@ -108,25 +126,32 @@ export class DemandeStatusHistoryControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id")
-  @swagger.ApiOkResponse({ type: DemandeStatusHistory })
+  @swagger.ApiOkResponse({ type: Versement })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "read",
     possession: "own",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async demandeStatusHistory(
-    @common.Param() params: DemandeStatusHistoryWhereUniqueInput
-  ): Promise<DemandeStatusHistory | null> {
-    const result = await this.service.demandeStatusHistory({
+  async versement(
+    @common.Param() params: VersementWhereUniqueInput
+  ): Promise<Versement | null> {
+    const result = await this.service.versement({
       where: params,
       select: {
-        createdAt: true,
+        aide: {
+          select: {
+            id: true,
+          },
+        },
 
-        demande: {
+        createdAt: true,
+        dataVersement: true,
+
+        document: {
           select: {
             id: true,
           },
@@ -147,34 +172,47 @@ export class DemandeStatusHistoryControllerBase {
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Patch("/:id")
-  @swagger.ApiOkResponse({ type: DemandeStatusHistory })
+  @swagger.ApiOkResponse({ type: Versement })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "update",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async updateDemandeStatusHistory(
-    @common.Param() params: DemandeStatusHistoryWhereUniqueInput,
-    @common.Body() data: DemandeStatusHistoryUpdateInput
-  ): Promise<DemandeStatusHistory | null> {
+  async updateVersement(
+    @common.Param() params: VersementWhereUniqueInput,
+    @common.Body() data: VersementUpdateInput
+  ): Promise<Versement | null> {
     try {
-      return await this.service.updateDemandeStatusHistory({
+      return await this.service.updateVersement({
         where: params,
         data: {
           ...data,
 
-          demande: {
-            connect: data.demande,
+          aide: {
+            connect: data.aide,
           },
+
+          document: data.document
+            ? {
+                connect: data.document,
+              }
+            : undefined,
         },
         select: {
-          createdAt: true,
+          aide: {
+            select: {
+              id: true,
+            },
+          },
 
-          demande: {
+          createdAt: true,
+          dataVersement: true,
+
+          document: {
             select: {
               id: true,
             },
@@ -196,26 +234,33 @@ export class DemandeStatusHistoryControllerBase {
   }
 
   @common.Delete("/:id")
-  @swagger.ApiOkResponse({ type: DemandeStatusHistory })
+  @swagger.ApiOkResponse({ type: Versement })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "delete",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async deleteDemandeStatusHistory(
-    @common.Param() params: DemandeStatusHistoryWhereUniqueInput
-  ): Promise<DemandeStatusHistory | null> {
+  async deleteVersement(
+    @common.Param() params: VersementWhereUniqueInput
+  ): Promise<Versement | null> {
     try {
-      return await this.service.deleteDemandeStatusHistory({
+      return await this.service.deleteVersement({
         where: params,
         select: {
-          createdAt: true,
+          aide: {
+            select: {
+              id: true,
+            },
+          },
 
-          demande: {
+          createdAt: true,
+          dataVersement: true,
+
+          document: {
             select: {
               id: true,
             },

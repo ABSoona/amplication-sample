@@ -29,7 +29,6 @@ import { AideCreateNestedManyWithoutDemandesInput } from "./AideCreateNestedMany
 import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
 import { DemandeActivityCreateNestedManyWithoutDemandesInput } from "./DemandeActivityCreateNestedManyWithoutDemandesInput";
-import { DemandeStatusHistoryCreateNestedManyWithoutDemandesInput } from "./DemandeStatusHistoryCreateNestedManyWithoutDemandesInput";
 import { DocumentCreateNestedManyWithoutDemandesInput } from "./DocumentCreateNestedManyWithoutDemandesInput";
 
 @InputType()
@@ -148,18 +147,6 @@ class DemandeCreateInput {
     nullable: true,
   })
   demandeActivities?: DemandeActivityCreateNestedManyWithoutDemandesInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => DemandeStatusHistoryCreateNestedManyWithoutDemandesInput,
-  })
-  @ValidateNested()
-  @Type(() => DemandeStatusHistoryCreateNestedManyWithoutDemandesInput)
-  @IsOptional()
-  @Field(() => DemandeStatusHistoryCreateNestedManyWithoutDemandesInput, {
-    nullable: true,
-  })
-  demandeStatusHistories?: DemandeStatusHistoryCreateNestedManyWithoutDemandesInput;
 
   @ApiProperty({
     required: false,

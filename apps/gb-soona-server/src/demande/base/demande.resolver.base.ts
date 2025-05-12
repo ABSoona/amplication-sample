@@ -30,8 +30,6 @@ import { AideFindManyArgs } from "../../aide/base/AideFindManyArgs";
 import { Aide } from "../../aide/base/Aide";
 import { DemandeActivityFindManyArgs } from "../../demandeActivity/base/DemandeActivityFindManyArgs";
 import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
-import { DemandeStatusHistoryFindManyArgs } from "../../demandeStatusHistory/base/DemandeStatusHistoryFindManyArgs";
-import { DemandeStatusHistory } from "../../demandeStatusHistory/base/DemandeStatusHistory";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
 import { User } from "../../user/base/User";
@@ -220,31 +218,6 @@ export class DemandeResolverBase {
     @graphql.Args() args: DemandeActivityFindManyArgs
   ): Promise<DemandeActivity[]> {
     const results = await this.service.findDemandeActivities(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [DemandeStatusHistory], {
-    name: "demandeStatusHistories",
-  })
-  @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
-    action: "read",
-    possession: "any",
-  })
-  async findDemandeStatusHistories(
-    @graphql.Parent() parent: Demande,
-    @graphql.Args() args: DemandeStatusHistoryFindManyArgs
-  ): Promise<DemandeStatusHistory[]> {
-    const results = await this.service.findDemandeStatusHistories(
-      parent.id,
-      args
-    );
 
     if (!results) {
       return [];

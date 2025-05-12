@@ -18,6 +18,7 @@ import {
   Contact as PrismaContact,
   Demande as PrismaDemande,
   TypeDocument as PrismaTypeDocument,
+  Versement as PrismaVersement,
 } from "@prisma/client";
 
 import { LocalStorageService } from "src/storage/providers/local/local.storage.service";
@@ -147,5 +148,13 @@ export class DocumentServiceBase {
         where: { id: parentId },
       })
       .typeDocument();
+  }
+
+  async getVersements(parentId: string): Promise<PrismaVersement | null> {
+    return this.prisma.document
+      .findUnique({
+        where: { id: parentId },
+      })
+      .versements();
   }
 }

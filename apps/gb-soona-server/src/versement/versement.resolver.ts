@@ -3,15 +3,15 @@ import * as nestAccessControl from "nest-access-control";
 import * as gqlACGuard from "../auth/gqlAC.guard";
 import { GqlDefaultAuthGuard } from "../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
-import { DemandeStatusHistoryResolverBase } from "./base/demandeStatusHistory.resolver.base";
-import { DemandeStatusHistory } from "./base/DemandeStatusHistory";
-import { DemandeStatusHistoryService } from "./demandeStatusHistory.service";
+import { VersementResolverBase } from "./base/versement.resolver.base";
+import { Versement } from "./base/Versement";
+import { VersementService } from "./versement.service";
 
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
-@graphql.Resolver(() => DemandeStatusHistory)
-export class DemandeStatusHistoryResolver extends DemandeStatusHistoryResolverBase {
+@graphql.Resolver(() => Versement)
+export class VersementResolver extends VersementResolverBase {
   constructor(
-    protected readonly service: DemandeStatusHistoryService,
+    protected readonly service: VersementService,
     @nestAccessControl.InjectRolesBuilder()
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {

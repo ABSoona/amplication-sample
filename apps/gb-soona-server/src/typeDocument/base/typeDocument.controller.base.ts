@@ -231,6 +231,12 @@ export class TypeDocumentControllerBase {
         },
 
         updatedAt: true,
+
+        versements: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (results === null) {

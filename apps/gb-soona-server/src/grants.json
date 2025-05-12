@@ -451,96 +451,6 @@
   },
   {
     "role": "admin",
-    "resource": "DemandeStatusHistory",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "external",
-    "resource": "DemandeStatusHistory",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DemandeStatusHistory",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "DemandeStatusHistory",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "external",
-    "resource": "DemandeStatusHistory",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DemandeStatusHistory",
-    "action": "create:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "DemandeStatusHistory",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "external",
-    "resource": "DemandeStatusHistory",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DemandeStatusHistory",
-    "action": "update:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "DemandeStatusHistory",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "external",
-    "resource": "DemandeStatusHistory",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DemandeStatusHistory",
-    "action": "delete:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
-    "resource": "DemandeStatusHistory",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "external",
-    "resource": "DemandeStatusHistory",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "user",
-    "resource": "DemandeStatusHistory",
-    "action": "read:any",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
     "resource": "DemandeActivity",
     "action": "read:own",
     "attributes": "*"
@@ -716,6 +626,96 @@
   {
     "role": "user",
     "resource": "TypeDocument",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Versement",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "external",
+    "resource": "Versement",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Versement",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Versement",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "external",
+    "resource": "Versement",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Versement",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Versement",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "external",
+    "resource": "Versement",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Versement",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Versement",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "external",
+    "resource": "Versement",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Versement",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Versement",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "external",
+    "resource": "Versement",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Versement",
     "action": "read:any",
     "attributes": "*"
   }

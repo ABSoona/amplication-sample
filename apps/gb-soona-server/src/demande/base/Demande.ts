@@ -29,7 +29,6 @@ import { Aide } from "../../aide/base/Aide";
 import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { Contact } from "../../contact/base/Contact";
 import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
-import { DemandeStatusHistory } from "../../demandeStatusHistory/base/DemandeStatusHistory";
 import { Document } from "../../document/base/Document";
 
 @ObjectType()
@@ -149,15 +148,6 @@ class Demande {
   @Type(() => DemandeActivity)
   @IsOptional()
   demandeActivities?: Array<DemandeActivity>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [DemandeStatusHistory],
-  })
-  @ValidateNested()
-  @Type(() => DemandeStatusHistory)
-  @IsOptional()
-  demandeStatusHistories?: Array<DemandeStatusHistory>;
 
   @ApiProperty({
     required: false,
