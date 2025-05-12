@@ -615,6 +615,7 @@ export class AideControllerBase {
         },
 
         id: true,
+        montant: true,
         status: true,
         updatedAt: true,
       },

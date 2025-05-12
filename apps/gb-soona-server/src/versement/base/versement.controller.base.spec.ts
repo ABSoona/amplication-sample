@@ -21,12 +21,14 @@ const CREATE_INPUT = {
   createdAt: new Date(),
   dataVersement: new Date(),
   id: 42,
+  montant: 42,
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
   dataVersement: new Date(),
   id: 42,
+  montant: 42,
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
@@ -34,6 +36,7 @@ const FIND_MANY_RESULT = [
     createdAt: new Date(),
     dataVersement: new Date(),
     id: 42,
+    montant: 42,
     updatedAt: new Date(),
   },
 ];
@@ -41,6 +44,7 @@ const FIND_ONE_RESULT = {
   createdAt: new Date(),
   dataVersement: new Date(),
   id: 42,
+  montant: 42,
   updatedAt: new Date(),
 };
 

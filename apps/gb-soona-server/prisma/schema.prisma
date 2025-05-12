@@ -162,6 +162,7 @@ model Versement {
   dataVersement DateTime
   document      Document?
   id            Int                 @id @default(autoincrement())
+  montant       Int
   status        EnumVersementStatus
   updatedAt     DateTime            @updatedAt
 }

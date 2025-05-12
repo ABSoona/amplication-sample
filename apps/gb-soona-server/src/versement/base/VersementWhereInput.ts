@@ -69,6 +69,17 @@ class VersementWhereInput {
 
   @ApiProperty({
     required: false,
+    type: IntFilter,
+  })
+  @Type(() => IntFilter)
+  @IsOptional()
+  @Field(() => IntFilter, {
+    nullable: true,
+  })
+  montant?: IntFilter;
+
+  @ApiProperty({
+    required: false,
     enum: EnumVersementStatus,
   })
   @IsEnum(EnumVersementStatus)
