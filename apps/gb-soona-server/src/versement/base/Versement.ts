@@ -17,6 +17,7 @@ import {
   IsDate,
   IsOptional,
   IsInt,
+  Max,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
@@ -65,6 +66,15 @@ class Versement {
   @IsInt()
   @Field(() => Number)
   id!: number;
+
+  @ApiProperty({
+    required: true,
+    type: Number,
+  })
+  @IsInt()
+  @Max(99999999999)
+  @Field(() => Number)
+  montant!: number;
 
   @ApiProperty({
     required: true,

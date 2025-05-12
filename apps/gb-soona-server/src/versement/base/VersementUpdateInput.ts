@@ -12,7 +12,14 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { AideWhereUniqueInput } from "../../aide/base/AideWhereUniqueInput";
-import { ValidateNested, IsOptional, IsDate, IsEnum } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsDate,
+  IsInt,
+  Max,
+  IsEnum,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
 import { EnumVersementStatus } from "./EnumVersementStatus";
@@ -53,6 +60,18 @@ class VersementUpdateInput {
     nullable: true,
   })
   document?: DocumentWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @Max(99999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  montant?: number;
 
   @ApiProperty({
     required: false,

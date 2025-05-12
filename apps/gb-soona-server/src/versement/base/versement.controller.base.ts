@@ -79,6 +79,7 @@ export class VersementControllerBase {
         },
 
         id: true,
+        montant: true,
         status: true,
         updatedAt: true,
       },
@@ -118,6 +119,7 @@ export class VersementControllerBase {
         },
 
         id: true,
+        montant: true,
         status: true,
         updatedAt: true,
       },
@@ -158,6 +160,7 @@ export class VersementControllerBase {
         },
 
         id: true,
+        montant: true,
         status: true,
         updatedAt: true,
       },
@@ -219,6 +222,7 @@ export class VersementControllerBase {
           },
 
           id: true,
+          montant: true,
           status: true,
           updatedAt: true,
         },
@@ -267,6 +271,7 @@ export class VersementControllerBase {
           },
 
           id: true,
+          montant: true,
           status: true,
           updatedAt: true,
         },
