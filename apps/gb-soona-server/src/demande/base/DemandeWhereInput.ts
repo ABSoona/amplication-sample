@@ -21,7 +21,6 @@ import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { DemandeActivityListRelationFilter } from "../../demandeActivity/base/DemandeActivityListRelationFilter";
-import { DemandeStatusHistoryListRelationFilter } from "../../demandeStatusHistory/base/DemandeStatusHistoryListRelationFilter";
 import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
@@ -152,18 +151,6 @@ class DemandeWhereInput {
     nullable: true,
   })
   demandeActivities?: DemandeActivityListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => DemandeStatusHistoryListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => DemandeStatusHistoryListRelationFilter)
-  @IsOptional()
-  @Field(() => DemandeStatusHistoryListRelationFilter, {
-    nullable: true,
-  })
-  demandeStatusHistories?: DemandeStatusHistoryListRelationFilter;
 
   @ApiProperty({
     required: false,

@@ -76,6 +76,12 @@ export class DocumentControllerBase {
               connect: data.typeDocument,
             }
           : undefined,
+
+        versements: data.versements
+          ? {
+              connect: data.versements,
+            }
+          : undefined,
       },
       select: {
         aide: {
@@ -108,6 +114,12 @@ export class DocumentControllerBase {
         },
 
         updatedAt: true,
+
+        versements: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -159,6 +171,12 @@ export class DocumentControllerBase {
         },
 
         updatedAt: true,
+
+        versements: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -211,6 +229,12 @@ export class DocumentControllerBase {
         },
 
         updatedAt: true,
+
+        versements: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -266,6 +290,12 @@ export class DocumentControllerBase {
                 connect: data.typeDocument,
               }
             : undefined,
+
+          versements: data.versements
+            ? {
+                connect: data.versements,
+              }
+            : undefined,
         },
         select: {
           aide: {
@@ -298,6 +328,12 @@ export class DocumentControllerBase {
           },
 
           updatedAt: true,
+
+          versements: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -358,6 +394,12 @@ export class DocumentControllerBase {
           },
 
           updatedAt: true,
+
+          versements: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {

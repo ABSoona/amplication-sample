@@ -18,7 +18,18 @@ import { SortOrder } from "../../util/SortOrder";
   isAbstract: true,
   description: undefined,
 })
-class DemandeStatusHistoryOrderByInput {
+class VersementOrderByInput {
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  aideId?: SortOrder;
+
   @ApiProperty({
     required: false,
     enum: ["asc", "desc"],
@@ -39,7 +50,18 @@ class DemandeStatusHistoryOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  demandeId?: SortOrder;
+  dataVersement?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  documentId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -75,4 +97,4 @@ class DemandeStatusHistoryOrderByInput {
   updatedAt?: SortOrder;
 }
 
-export { DemandeStatusHistoryOrderByInput as DemandeStatusHistoryOrderByInput };
+export { VersementOrderByInput as VersementOrderByInput };

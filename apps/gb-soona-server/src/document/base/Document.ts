@@ -20,6 +20,7 @@ import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Demande } from "../../demande/base/Demande";
 import { TypeDocument } from "../../typeDocument/base/TypeDocument";
+import { Versement } from "../../versement/base/Versement";
 
 @ObjectType()
 class Document {
@@ -92,6 +93,15 @@ class Document {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => Versement,
+  })
+  @ValidateNested()
+  @Type(() => Versement)
+  @IsOptional()
+  versements?: Versement | null;
 }
 
 export { Document as Document };

@@ -12,44 +12,44 @@ import { ACLModule } from "../../auth/acl.module";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { map } from "rxjs";
-import { DemandeStatusHistoryController } from "../demandeStatusHistory.controller";
-import { DemandeStatusHistoryService } from "../demandeStatusHistory.service";
+import { VersementController } from "../versement.controller";
+import { VersementService } from "../versement.service";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
+  dataVersement: new Date(),
   id: 42,
-  status: "exampleStatus",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
+  dataVersement: new Date(),
   id: 42,
-  status: "exampleStatus",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
+    dataVersement: new Date(),
     id: 42,
-    status: "exampleStatus",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
+  dataVersement: new Date(),
   id: 42,
-  status: "exampleStatus",
   updatedAt: new Date(),
 };
 
 const service = {
-  createDemandeStatusHistory() {
+  createVersement() {
     return CREATE_RESULT;
   },
-  demandeStatusHistories: () => FIND_MANY_RESULT,
-  demandeStatusHistory: ({ where }: { where: { id: string } }) => {
+  versements: () => FIND_MANY_RESULT,
+  versement: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
       case existingId:
         return FIND_ONE_RESULT;
@@ -91,18 +91,18 @@ const aclValidateRequestInterceptor = {
   },
 };
 
-describe("DemandeStatusHistory", () => {
+describe("Versement", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         {
-          provide: DemandeStatusHistoryService,
+          provide: VersementService,
           useValue: service,
         },
       ],
-      controllers: [DemandeStatusHistoryController],
+      controllers: [VersementController],
       imports: [ACLModule],
     })
       .overrideGuard(DefaultAuthGuard)
@@ -119,34 +119,36 @@ describe("DemandeStatusHistory", () => {
     await app.init();
   });
 
-  test("POST /demandeStatusHistories", async () => {
+  test("POST /versements", async () => {
     await request(app.getHttpServer())
-      .post("/demandeStatusHistories")
+      .post("/versements")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        dataVersement: CREATE_RESULT.dataVersement.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
 
-  test("GET /demandeStatusHistories", async () => {
+  test("GET /versements", async () => {
     await request(app.getHttpServer())
-      .get("/demandeStatusHistories")
+      .get("/versements")
       .expect(HttpStatus.OK)
       .expect([
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          dataVersement: FIND_MANY_RESULT[0].dataVersement.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
   });
 
-  test("GET /demandeStatusHistories/:id non existing", async () => {
+  test("GET /versements/:id non existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/demandeStatusHistories"}/${nonExistingId}`)
+      .get(`${"/versements"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
       .expect({
         statusCode: HttpStatus.NOT_FOUND,
@@ -155,31 +157,33 @@ describe("DemandeStatusHistory", () => {
       });
   });
 
-  test("GET /demandeStatusHistories/:id existing", async () => {
+  test("GET /versements/:id existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/demandeStatusHistories"}/${existingId}`)
+      .get(`${"/versements"}/${existingId}`)
       .expect(HttpStatus.OK)
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        dataVersement: FIND_ONE_RESULT.dataVersement.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
 
-  test("POST /demandeStatusHistories existing resource", async () => {
+  test("POST /versements existing resource", async () => {
     const agent = request(app.getHttpServer());
     await agent
-      .post("/demandeStatusHistories")
+      .post("/versements")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        dataVersement: CREATE_RESULT.dataVersement.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {
         agent
-          .post("/demandeStatusHistories")
+          .post("/versements")
           .send(CREATE_INPUT)
           .expect(HttpStatus.CONFLICT)
           .expect({

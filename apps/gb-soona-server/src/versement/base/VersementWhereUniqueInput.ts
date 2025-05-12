@@ -10,19 +10,22 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { InputType, Field } from "@nestjs/graphql";
-import { DemandeStatusHistoryWhereUniqueInput } from "../../demandeStatusHistory/base/DemandeStatusHistoryWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
+import { IsInt } from "class-validator";
+import { Transform } from "class-transformer";
 
 @InputType()
-class DemandeStatusHistoryCreateNestedManyWithoutDemandesInput {
-  @Field(() => [DemandeStatusHistoryWhereUniqueInput], {
-    nullable: true,
-  })
+class VersementWhereUniqueInput {
   @ApiProperty({
-    required: false,
-    type: () => [DemandeStatusHistoryWhereUniqueInput],
+    required: true,
+    type: Number,
   })
-  connect?: Array<DemandeStatusHistoryWhereUniqueInput>;
+  @IsInt()
+  @Transform((prop) => parseInt(prop.value), {
+    toClassOnly: true,
+  })
+  @Field(() => Number)
+  id!: number;
 }
 
-export { DemandeStatusHistoryCreateNestedManyWithoutDemandesInput as DemandeStatusHistoryCreateNestedManyWithoutDemandesInput };
+export { VersementWhereUniqueInput as VersementWhereUniqueInput };

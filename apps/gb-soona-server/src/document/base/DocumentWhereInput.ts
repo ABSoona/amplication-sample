@@ -19,6 +19,7 @@ import { JsonFilter } from "../../util/JsonFilter";
 import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { TypeDocumentWhereUniqueInput } from "../../typeDocument/base/TypeDocumentWhereUniqueInput";
+import { VersementWhereUniqueInput } from "../../versement/base/VersementWhereUniqueInput";
 
 @InputType()
 class DocumentWhereInput {
@@ -91,6 +92,18 @@ class DocumentWhereInput {
     nullable: true,
   })
   typeDocument?: TypeDocumentWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => VersementWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => VersementWhereUniqueInput)
+  @IsOptional()
+  @Field(() => VersementWhereUniqueInput, {
+    nullable: true,
+  })
+  versements?: VersementWhereUniqueInput;
 }
 
 export { DocumentWhereInput as DocumentWhereInput };

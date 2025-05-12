@@ -11,46 +11,46 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DemandeStatusHistoryWhereInput } from "./DemandeStatusHistoryWhereInput";
+import { VersementWhereInput } from "./VersementWhereInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
 @InputType()
-class DemandeStatusHistoryListRelationFilter {
+class VersementListRelationFilter {
   @ApiProperty({
     required: false,
-    type: () => DemandeStatusHistoryWhereInput,
+    type: () => VersementWhereInput,
   })
   @ValidateNested()
-  @Type(() => DemandeStatusHistoryWhereInput)
+  @Type(() => VersementWhereInput)
   @IsOptional()
-  @Field(() => DemandeStatusHistoryWhereInput, {
+  @Field(() => VersementWhereInput, {
     nullable: true,
   })
-  every?: DemandeStatusHistoryWhereInput;
+  every?: VersementWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => DemandeStatusHistoryWhereInput,
+    type: () => VersementWhereInput,
   })
   @ValidateNested()
-  @Type(() => DemandeStatusHistoryWhereInput)
+  @Type(() => VersementWhereInput)
   @IsOptional()
-  @Field(() => DemandeStatusHistoryWhereInput, {
+  @Field(() => VersementWhereInput, {
     nullable: true,
   })
-  some?: DemandeStatusHistoryWhereInput;
+  some?: VersementWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => DemandeStatusHistoryWhereInput,
+    type: () => VersementWhereInput,
   })
   @ValidateNested()
-  @Type(() => DemandeStatusHistoryWhereInput)
+  @Type(() => VersementWhereInput)
   @IsOptional()
-  @Field(() => DemandeStatusHistoryWhereInput, {
+  @Field(() => VersementWhereInput, {
     nullable: true,
   })
-  none?: DemandeStatusHistoryWhereInput;
+  none?: VersementWhereInput;
 }
-export { DemandeStatusHistoryListRelationFilter as DemandeStatusHistoryListRelationFilter };
+export { VersementListRelationFilter as VersementListRelationFilter };

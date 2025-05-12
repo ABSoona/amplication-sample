@@ -5,9 +5,9 @@ import { DemandeModule } from "./demande/demande.module";
 import { ContactModule } from "./contact/contact.module";
 import { UserModule } from "./user/user.module";
 import { DocumentModule } from "./document/document.module";
-import { DemandeStatusHistoryModule } from "./demandeStatusHistory/demandeStatusHistory.module";
 import { DemandeActivityModule } from "./demandeActivity/demandeActivity.module";
 import { TypeDocumentModule } from "./typeDocument/typeDocument.module";
+import { VersementModule } from "./versement/versement.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -32,9 +32,9 @@ import { AuthModule } from "./auth/auth.module";
     ContactModule,
     UserModule,
     DocumentModule,
-    DemandeStatusHistoryModule,
     DemandeActivityModule,
     TypeDocumentModule,
+    VersementModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

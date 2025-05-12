@@ -11,20 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DemandeStatusHistoryWhereUniqueInput } from "./DemandeStatusHistoryWhereUniqueInput";
+import { VersementWhereUniqueInput } from "./VersementWhereUniqueInput";
 import { ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 
 @ArgsType()
-class DeleteDemandeStatusHistoryArgs {
+class VersementFindUniqueArgs {
   @ApiProperty({
     required: true,
-    type: () => DemandeStatusHistoryWhereUniqueInput,
+    type: () => VersementWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => DemandeStatusHistoryWhereUniqueInput)
-  @Field(() => DemandeStatusHistoryWhereUniqueInput, { nullable: false })
-  where!: DemandeStatusHistoryWhereUniqueInput;
+  @Type(() => VersementWhereUniqueInput)
+  @Field(() => VersementWhereUniqueInput, { nullable: false })
+  where!: VersementWhereUniqueInput;
 }
 
-export { DeleteDemandeStatusHistoryArgs as DeleteDemandeStatusHistoryArgs };
+export { VersementFindUniqueArgs as VersementFindUniqueArgs };

@@ -16,7 +16,6 @@ import {
   Demande as PrismaDemande,
   Aide as PrismaAide,
   DemandeActivity as PrismaDemandeActivity,
-  DemandeStatusHistory as PrismaDemandeStatusHistory,
   Document as PrismaDocument,
   User as PrismaUser,
   Contact as PrismaContact,
@@ -67,17 +66,6 @@ export class DemandeServiceBase {
         where: { id: parentId },
       })
       .demandeActivities(args);
-  }
-
-  async findDemandeStatusHistories(
-    parentId: number,
-    args: Prisma.DemandeStatusHistoryFindManyArgs
-  ): Promise<PrismaDemandeStatusHistory[]> {
-    return this.prisma.demande
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .demandeStatusHistories(args);
   }
 
   async findDocuments(

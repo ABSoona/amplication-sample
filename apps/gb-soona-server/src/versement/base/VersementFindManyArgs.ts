@@ -11,32 +11,32 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { DemandeStatusHistoryWhereInput } from "./DemandeStatusHistoryWhereInput";
+import { VersementWhereInput } from "./VersementWhereInput";
 import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
-import { DemandeStatusHistoryOrderByInput } from "./DemandeStatusHistoryOrderByInput";
+import { VersementOrderByInput } from "./VersementOrderByInput";
 
 @ArgsType()
-class DemandeStatusHistoryFindManyArgs {
+class VersementFindManyArgs {
   @ApiProperty({
     required: false,
-    type: () => DemandeStatusHistoryWhereInput,
+    type: () => VersementWhereInput,
   })
   @IsOptional()
   @ValidateNested()
-  @Field(() => DemandeStatusHistoryWhereInput, { nullable: true })
-  @Type(() => DemandeStatusHistoryWhereInput)
-  where?: DemandeStatusHistoryWhereInput;
+  @Field(() => VersementWhereInput, { nullable: true })
+  @Type(() => VersementWhereInput)
+  where?: VersementWhereInput;
 
   @ApiProperty({
     required: false,
-    type: [DemandeStatusHistoryOrderByInput],
+    type: [VersementOrderByInput],
   })
   @IsOptional()
   @ValidateNested({ each: true })
-  @Field(() => [DemandeStatusHistoryOrderByInput], { nullable: true })
-  @Type(() => DemandeStatusHistoryOrderByInput)
-  orderBy?: Array<DemandeStatusHistoryOrderByInput>;
+  @Field(() => [VersementOrderByInput], { nullable: true })
+  @Type(() => VersementOrderByInput)
+  orderBy?: Array<VersementOrderByInput>;
 
   @ApiProperty({
     required: false,
@@ -59,4 +59,4 @@ class DemandeStatusHistoryFindManyArgs {
   take?: number;
 }
 
-export { DemandeStatusHistoryFindManyArgs as DemandeStatusHistoryFindManyArgs };
+export { VersementFindManyArgs as VersementFindManyArgs };

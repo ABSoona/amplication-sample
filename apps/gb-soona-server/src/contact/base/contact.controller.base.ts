@@ -559,6 +559,12 @@ export class ContactControllerBase {
         },
 
         updatedAt: true,
+
+        versements: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (results === null) {

@@ -32,6 +32,7 @@ import { Aide } from "../../aide/base/Aide";
 import { Contact } from "../../contact/base/Contact";
 import { Demande } from "../../demande/base/Demande";
 import { TypeDocument } from "../../typeDocument/base/TypeDocument";
+import { Versement } from "../../versement/base/Versement";
 import { DocumentService } from "../document.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Document)
@@ -124,6 +125,12 @@ export class DocumentResolverBase {
               connect: args.data.typeDocument,
             }
           : undefined,
+
+        versements: args.data.versements
+          ? {
+              connect: args.data.versements,
+            }
+          : undefined,
       },
     });
   }
@@ -165,6 +172,12 @@ export class DocumentResolverBase {
           typeDocument: args.data.typeDocument
             ? {
                 connect: args.data.typeDocument,
+              }
+            : undefined,
+
+          versements: args.data.versements
+            ? {
+                connect: args.data.versements,
               }
             : undefined,
         },
@@ -296,6 +309,27 @@ export class DocumentResolverBase {
     @graphql.Parent() parent: Document
   ): Promise<TypeDocument | null> {
     const result = await this.service.getTypeDocument(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Versement, {
+    nullable: true,
+    name: "versements",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Versement",
+    action: "read",
+    possession: "any",
+  })
+  async getVersements(
+    @graphql.Parent() parent: Document
+  ): Promise<Versement | null> {
+    const result = await this.service.getVersements(parent.id);
 
     if (!result) {
       return null;

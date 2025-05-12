@@ -19,31 +19,32 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
-import { DemandeStatusHistory } from "./DemandeStatusHistory";
-import { DemandeStatusHistoryCountArgs } from "./DemandeStatusHistoryCountArgs";
-import { DemandeStatusHistoryFindManyArgs } from "./DemandeStatusHistoryFindManyArgs";
-import { DemandeStatusHistoryFindUniqueArgs } from "./DemandeStatusHistoryFindUniqueArgs";
-import { CreateDemandeStatusHistoryArgs } from "./CreateDemandeStatusHistoryArgs";
-import { UpdateDemandeStatusHistoryArgs } from "./UpdateDemandeStatusHistoryArgs";
-import { DeleteDemandeStatusHistoryArgs } from "./DeleteDemandeStatusHistoryArgs";
-import { Demande } from "../../demande/base/Demande";
-import { DemandeStatusHistoryService } from "../demandeStatusHistory.service";
+import { Versement } from "./Versement";
+import { VersementCountArgs } from "./VersementCountArgs";
+import { VersementFindManyArgs } from "./VersementFindManyArgs";
+import { VersementFindUniqueArgs } from "./VersementFindUniqueArgs";
+import { CreateVersementArgs } from "./CreateVersementArgs";
+import { UpdateVersementArgs } from "./UpdateVersementArgs";
+import { DeleteVersementArgs } from "./DeleteVersementArgs";
+import { Aide } from "../../aide/base/Aide";
+import { Document } from "../../document/base/Document";
+import { VersementService } from "../versement.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
-@graphql.Resolver(() => DemandeStatusHistory)
-export class DemandeStatusHistoryResolverBase {
+@graphql.Resolver(() => Versement)
+export class VersementResolverBase {
   constructor(
-    protected readonly service: DemandeStatusHistoryService,
+    protected readonly service: VersementService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
 
   @graphql.Query(() => MetaQueryPayload)
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "read",
     possession: "any",
   })
-  async _demandeStatusHistoriesMeta(
-    @graphql.Args() args: DemandeStatusHistoryCountArgs
+  async _versementsMeta(
+    @graphql.Args() args: VersementCountArgs
   ): Promise<MetaQueryPayload> {
     const result = await this.service.count(args);
     return {
@@ -52,29 +53,29 @@ export class DemandeStatusHistoryResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.Query(() => [DemandeStatusHistory])
+  @graphql.Query(() => [Versement])
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "read",
     possession: "any",
   })
-  async demandeStatusHistories(
-    @graphql.Args() args: DemandeStatusHistoryFindManyArgs
-  ): Promise<DemandeStatusHistory[]> {
-    return this.service.demandeStatusHistories(args);
+  async versements(
+    @graphql.Args() args: VersementFindManyArgs
+  ): Promise<Versement[]> {
+    return this.service.versements(args);
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.Query(() => DemandeStatusHistory, { nullable: true })
+  @graphql.Query(() => Versement, { nullable: true })
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "read",
     possession: "own",
   })
-  async demandeStatusHistory(
-    @graphql.Args() args: DemandeStatusHistoryFindUniqueArgs
-  ): Promise<DemandeStatusHistory | null> {
-    const result = await this.service.demandeStatusHistory(args);
+  async versement(
+    @graphql.Args() args: VersementFindUniqueArgs
+  ): Promise<Versement | null> {
+    const result = await this.service.versement(args);
     if (result === null) {
       return null;
     }
@@ -82,46 +83,58 @@ export class DemandeStatusHistoryResolverBase {
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
-  @graphql.Mutation(() => DemandeStatusHistory)
+  @graphql.Mutation(() => Versement)
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "create",
     possession: "any",
   })
-  async createDemandeStatusHistory(
-    @graphql.Args() args: CreateDemandeStatusHistoryArgs
-  ): Promise<DemandeStatusHistory> {
-    return await this.service.createDemandeStatusHistory({
+  async createVersement(
+    @graphql.Args() args: CreateVersementArgs
+  ): Promise<Versement> {
+    return await this.service.createVersement({
       ...args,
       data: {
         ...args.data,
 
-        demande: {
-          connect: args.data.demande,
+        aide: {
+          connect: args.data.aide,
         },
+
+        document: args.data.document
+          ? {
+              connect: args.data.document,
+            }
+          : undefined,
       },
     });
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
-  @graphql.Mutation(() => DemandeStatusHistory)
+  @graphql.Mutation(() => Versement)
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "update",
     possession: "any",
   })
-  async updateDemandeStatusHistory(
-    @graphql.Args() args: UpdateDemandeStatusHistoryArgs
-  ): Promise<DemandeStatusHistory | null> {
+  async updateVersement(
+    @graphql.Args() args: UpdateVersementArgs
+  ): Promise<Versement | null> {
     try {
-      return await this.service.updateDemandeStatusHistory({
+      return await this.service.updateVersement({
         ...args,
         data: {
           ...args.data,
 
-          demande: {
-            connect: args.data.demande,
+          aide: {
+            connect: args.data.aide,
           },
+
+          document: args.data.document
+            ? {
+                connect: args.data.document,
+              }
+            : undefined,
         },
       });
     } catch (error) {
@@ -134,17 +147,17 @@ export class DemandeStatusHistoryResolverBase {
     }
   }
 
-  @graphql.Mutation(() => DemandeStatusHistory)
+  @graphql.Mutation(() => Versement)
   @nestAccessControl.UseRoles({
-    resource: "DemandeStatusHistory",
+    resource: "Versement",
     action: "delete",
     possession: "any",
   })
-  async deleteDemandeStatusHistory(
-    @graphql.Args() args: DeleteDemandeStatusHistoryArgs
-  ): Promise<DemandeStatusHistory | null> {
+  async deleteVersement(
+    @graphql.Args() args: DeleteVersementArgs
+  ): Promise<Versement | null> {
     try {
-      return await this.service.deleteDemandeStatusHistory(args);
+      return await this.service.deleteVersement(args);
     } catch (error) {
       if (isRecordNotFoundError(error)) {
         throw new GraphQLError(
@@ -156,19 +169,38 @@ export class DemandeStatusHistoryResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Demande, {
+  @graphql.ResolveField(() => Aide, {
     nullable: true,
-    name: "demande",
+    name: "aide",
   })
   @nestAccessControl.UseRoles({
-    resource: "Demande",
+    resource: "Aide",
     action: "read",
     possession: "any",
   })
-  async getDemande(
-    @graphql.Parent() parent: DemandeStatusHistory
-  ): Promise<Demande | null> {
-    const result = await this.service.getDemande(parent.id);
+  async getAide(@graphql.Parent() parent: Versement): Promise<Aide | null> {
+    const result = await this.service.getAide(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Document, {
+    nullable: true,
+    name: "document",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Document",
+    action: "read",
+    possession: "any",
+  })
+  async getDocument(
+    @graphql.Parent() parent: Versement
+  ): Promise<Document | null> {
+    const result = await this.service.getDocument(parent.id);
 
     if (!result) {
       return null;
