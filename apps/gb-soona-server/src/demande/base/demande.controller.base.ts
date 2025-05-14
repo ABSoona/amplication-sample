@@ -712,6 +712,7 @@ export class DemandeControllerBase {
         },
 
         id: true,
+        name: true,
 
         typeDocument: {
           select: {

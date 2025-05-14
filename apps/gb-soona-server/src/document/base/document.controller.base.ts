@@ -106,6 +106,7 @@ export class DocumentControllerBase {
         },
 
         id: true,
+        name: true,
 
         typeDocument: {
           select: {
@@ -163,6 +164,7 @@ export class DocumentControllerBase {
         },
 
         id: true,
+        name: true,
 
         typeDocument: {
           select: {
@@ -221,6 +223,7 @@ export class DocumentControllerBase {
         },
 
         id: true,
+        name: true,
 
         typeDocument: {
           select: {
@@ -320,6 +323,7 @@ export class DocumentControllerBase {
           },
 
           id: true,
+          name: true,
 
           typeDocument: {
             select: {
@@ -386,6 +390,7 @@ export class DocumentControllerBase {
           },
 
           id: true,
+          name: true,
 
           typeDocument: {
             select: {

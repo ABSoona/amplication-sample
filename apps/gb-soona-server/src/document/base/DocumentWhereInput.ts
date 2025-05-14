@@ -18,6 +18,7 @@ import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueIn
 import { JsonFilter } from "../../util/JsonFilter";
 import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { TypeDocumentWhereUniqueInput } from "../../typeDocument/base/TypeDocumentWhereUniqueInput";
 import { VersementWhereUniqueInput } from "../../versement/base/VersementWhereUniqueInput";
 
@@ -80,6 +81,17 @@ class DocumentWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  name?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

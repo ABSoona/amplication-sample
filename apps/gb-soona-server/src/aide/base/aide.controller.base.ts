@@ -493,6 +493,7 @@ export class AideControllerBase {
         },
 
         id: true,
+        name: true,
 
         typeDocument: {
           select: {

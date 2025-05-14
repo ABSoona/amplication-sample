@@ -551,6 +551,7 @@ export class ContactControllerBase {
         },
 
         id: true,
+        name: true,
 
         typeDocument: {
           select: {

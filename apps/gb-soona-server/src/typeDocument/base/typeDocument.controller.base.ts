@@ -223,6 +223,7 @@ export class TypeDocumentControllerBase {
         },
 
         id: true,
+        name: true,
 
         typeDocument: {
           select: {
