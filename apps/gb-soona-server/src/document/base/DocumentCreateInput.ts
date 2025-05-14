@@ -12,7 +12,12 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { AideWhereUniqueInput } from "../../aide/base/AideWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from "class-validator";
 import { Type } from "class-transformer";
 import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
 import { IsJSONValue } from "../../validators";
@@ -69,6 +74,18 @@ class DocumentCreateInput {
     nullable: true,
   })
   demande?: DemandeWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  name?: string | null;
 
   @ApiProperty({
     required: false,

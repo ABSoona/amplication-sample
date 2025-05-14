@@ -126,11 +126,12 @@ model Document {
   demande        Demande?      @relation(fields: [demandeId], references: [id])
   demandeId      Int?
   id             String        @id @default(cuid())
+  name           String?
   typeDocument   TypeDocument? @relation(fields: [typeDocumentId], references: [id])
   typeDocumentId String?
   updatedAt      DateTime      @updatedAt
-  versements     Versement?    @relation(fields: [versementsId], references: [id])
-  versementsId   Int?          @unique
+  versements     Versement?    @relation(fields: [versementId], references: [id])
+  versementId    Int?
 }
 
 model DemandeActivity {
