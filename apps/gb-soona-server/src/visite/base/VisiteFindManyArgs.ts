@@ -11,32 +11,32 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { VersementWhereInput } from "./VersementWhereInput";
+import { VisiteWhereInput } from "./VisiteWhereInput";
 import { IsOptional, ValidateNested, IsInt } from "class-validator";
 import { Type } from "class-transformer";
-import { VersementOrderByInput } from "./VersementOrderByInput";
+import { VisiteOrderByInput } from "./VisiteOrderByInput";
 
 @ArgsType()
-class VersementFindManyArgs {
+class VisiteFindManyArgs {
   @ApiProperty({
     required: false,
-    type: () => VersementWhereInput,
+    type: () => VisiteWhereInput,
   })
   @IsOptional()
   @ValidateNested()
-  @Field(() => VersementWhereInput, { nullable: true })
-  @Type(() => VersementWhereInput)
-  where?: VersementWhereInput;
+  @Field(() => VisiteWhereInput, { nullable: true })
+  @Type(() => VisiteWhereInput)
+  where?: VisiteWhereInput;
 
   @ApiProperty({
     required: false,
-    type: [VersementOrderByInput],
+    type: [VisiteOrderByInput],
   })
   @IsOptional()
   @ValidateNested({ each: true })
-  @Field(() => [VersementOrderByInput], { nullable: true })
-  @Type(() => VersementOrderByInput)
-  orderBy?: Array<VersementOrderByInput>;
+  @Field(() => [VisiteOrderByInput], { nullable: true })
+  @Type(() => VisiteOrderByInput)
+  orderBy?: Array<VisiteOrderByInput>;
 
   @ApiProperty({
     required: false,
@@ -59,4 +59,4 @@ class VersementFindManyArgs {
   take?: number;
 }
 
-export { VersementFindManyArgs as VersementFindManyArgs };
+export { VisiteFindManyArgs as VisiteFindManyArgs };

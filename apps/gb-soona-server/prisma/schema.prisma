@@ -29,11 +29,10 @@ model Aide {
   suspendue         Boolean?
   typeField         EnumAideTypeField?
   updatedAt         DateTime           @updatedAt
-  versements        Versement[]
 }
 
 model Demande {
-  acteur                   User?                          @relation(name: "acteur", fields: [acteurId], references: [id])
+  acteur                   User?                          @relation(name: "demandesActeurs", fields: [acteurId], references: [id])
   acteurId                 String?
   agesEnfants              String?
   aides                    Aide[]
@@ -67,6 +66,7 @@ model Demande {
   situationProfessionnelle String?
   status                   String?
   updatedAt                DateTime                       @updatedAt
+  visites                  Visite[]
 }
 
 model Contact {
@@ -97,7 +97,7 @@ model User {
   adresseVille        String?
   createdAt           DateTime          @default(now())
   demandeActivities   DemandeActivity[]
-  demandesActeurs     Demande[]         @relation(name: "acteur")
+  demandesActeurs     Demande[]         @relation(name: "demandesActeurs")
   demandesEnPropriete Demande[]         @relation(name: "demandesEnPropriete")
   email               String?           @unique
   firstName           String?
@@ -114,6 +114,7 @@ model User {
   token               String?
   updatedAt           DateTime          @updatedAt
   username            String            @unique
+  visites             Visite[]
 }
 
 model Document {
@@ -130,8 +131,8 @@ model Document {
   typeDocument   TypeDocument? @relation(fields: [typeDocumentId], references: [id])
   typeDocumentId String?
   updatedAt      DateTime      @updatedAt
-  versements     Versement?    @relation(fields: [versementId], references: [id])
-  versementId    Int?
+  visites        Visite?       @relation(fields: [visitesId], references: [id])
+  visitesId      Int?          @unique
 }
 
 model DemandeActivity {
@@ -156,16 +157,18 @@ model TypeDocument {
   updatedAt DateTime   @updatedAt
 }
 
-model Versement {
-  aide          Aide                @relation(fields: [aideId], references: [id])
-  aideId        Int
-  createdAt     DateTime            @default(now())
-  dataVersement DateTime
-  document      Document?
-  id            Int                 @id @default(autoincrement())
-  montant       Int
-  status        EnumVersementStatus
-  updatedAt     DateTime            @updatedAt
+model Visite {
+  acteur     User              @relation(fields: [acteurId], references: [id])
+  acteurId   String
+  createdAt  DateTime          @default(now())
+  dateVisite DateTime?
+  demande    Demande?          @relation(fields: [demandeId], references: [id])
+  demandeId  Int?
+  document   Document?
+  id         Int               @id @default(autoincrement())
+  note       String?
+  status     EnumVisiteStatus?
+  updatedAt  DateTime          @updatedAt
 }
 
 enum EnumAideCrediteur {
@@ -197,7 +200,8 @@ enum EnumDemandeCategorieDemandeur {
   Pauvre
 }
 
-enum EnumVersementStatus {
-  AVerser
-  Verse
+enum EnumVisiteStatus {
+  Programee
+  Realisee
+  Annulee
 }

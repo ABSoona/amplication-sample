@@ -11,32 +11,33 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AideWhereUniqueInput } from "../../aide/base/AideWhereUniqueInput";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import {
   ValidateNested,
   IsOptional,
   IsDate,
-  IsInt,
-  Max,
+  IsString,
+  MaxLength,
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
-import { EnumVersementStatus } from "./EnumVersementStatus";
+import { EnumVisiteStatus } from "./EnumVisiteStatus";
 
 @InputType()
-class VersementUpdateInput {
+class VisiteUpdateInput {
   @ApiProperty({
     required: false,
-    type: () => AideWhereUniqueInput,
+    type: () => UserWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => AideWhereUniqueInput)
+  @Type(() => UserWhereUniqueInput)
   @IsOptional()
-  @Field(() => AideWhereUniqueInput, {
+  @Field(() => UserWhereUniqueInput, {
     nullable: true,
   })
-  aide?: AideWhereUniqueInput;
+  acteur?: UserWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -47,7 +48,19 @@ class VersementUpdateInput {
   @Field(() => Date, {
     nullable: true,
   })
-  dataVersement?: Date;
+  dateVisite?: Date | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DemandeWhereUniqueInput, {
+    nullable: true,
+  })
+  demande?: DemandeWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -63,26 +76,26 @@ class VersementUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: Number,
+    type: String,
   })
-  @IsInt()
-  @Max(99999999999)
+  @IsString()
+  @MaxLength(1000)
   @IsOptional()
-  @Field(() => Number, {
+  @Field(() => String, {
     nullable: true,
   })
-  montant?: number;
+  note?: string | null;
 
   @ApiProperty({
     required: false,
-    enum: EnumVersementStatus,
+    enum: EnumVisiteStatus,
   })
-  @IsEnum(EnumVersementStatus)
+  @IsEnum(EnumVisiteStatus)
   @IsOptional()
-  @Field(() => EnumVersementStatus, {
+  @Field(() => EnumVisiteStatus, {
     nullable: true,
   })
-  status?: "AVerser" | "Verse";
+  status?: "Programee" | "Realisee" | "Annulee" | null;
 }
 
-export { VersementUpdateInput as VersementUpdateInput };
+export { VisiteUpdateInput as VisiteUpdateInput };

@@ -18,7 +18,7 @@ import { SortOrder } from "../../util/SortOrder";
   isAbstract: true,
   description: undefined,
 })
-class VersementOrderByInput {
+class VisiteOrderByInput {
   @ApiProperty({
     required: false,
     enum: ["asc", "desc"],
@@ -28,7 +28,7 @@ class VersementOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  aideId?: SortOrder;
+  acteurId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -50,7 +50,18 @@ class VersementOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  dataVersement?: SortOrder;
+  dateVisite?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  demandeId?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -83,7 +94,7 @@ class VersementOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  montant?: SortOrder;
+  note?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -108,4 +119,4 @@ class VersementOrderByInput {
   updatedAt?: SortOrder;
 }
 
-export { VersementOrderByInput as VersementOrderByInput };
+export { VisiteOrderByInput as VisiteOrderByInput };

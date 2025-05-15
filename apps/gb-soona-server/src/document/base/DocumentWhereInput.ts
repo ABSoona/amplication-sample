@@ -20,7 +20,7 @@ import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueIn
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { TypeDocumentWhereUniqueInput } from "../../typeDocument/base/TypeDocumentWhereUniqueInput";
-import { VersementWhereUniqueInput } from "../../versement/base/VersementWhereUniqueInput";
+import { VisiteWhereUniqueInput } from "../../visite/base/VisiteWhereUniqueInput";
 
 @InputType()
 class DocumentWhereInput {
@@ -107,15 +107,15 @@ class DocumentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => VersementWhereUniqueInput,
+    type: () => VisiteWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => VersementWhereUniqueInput)
+  @Type(() => VisiteWhereUniqueInput)
   @IsOptional()
-  @Field(() => VersementWhereUniqueInput, {
+  @Field(() => VisiteWhereUniqueInput, {
     nullable: true,
   })
-  versements?: VersementWhereUniqueInput;
+  visites?: VisiteWhereUniqueInput;
 }
 
 export { DocumentWhereInput as DocumentWhereInput };

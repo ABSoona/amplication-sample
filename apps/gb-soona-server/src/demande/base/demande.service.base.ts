@@ -17,6 +17,7 @@ import {
   Aide as PrismaAide,
   DemandeActivity as PrismaDemandeActivity,
   Document as PrismaDocument,
+  Visite as PrismaVisite,
   User as PrismaUser,
   Contact as PrismaContact,
 } from "@prisma/client";
@@ -77,6 +78,17 @@ export class DemandeServiceBase {
         where: { id: parentId },
       })
       .documents(args);
+  }
+
+  async findVisites(
+    parentId: number,
+    args: Prisma.VisiteFindManyArgs
+  ): Promise<PrismaVisite[]> {
+    return this.prisma.demande
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .visites(args);
   }
 
   async getActeur(parentId: number): Promise<PrismaUser | null> {

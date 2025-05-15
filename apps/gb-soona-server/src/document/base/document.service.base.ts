@@ -18,7 +18,7 @@ import {
   Contact as PrismaContact,
   Demande as PrismaDemande,
   TypeDocument as PrismaTypeDocument,
-  Versement as PrismaVersement,
+  Visite as PrismaVisite,
 } from "@prisma/client";
 
 import { LocalStorageService } from "src/storage/providers/local/local.storage.service";
@@ -150,11 +150,11 @@ export class DocumentServiceBase {
       .typeDocument();
   }
 
-  async getVersements(parentId: string): Promise<PrismaVersement | null> {
+  async getVisites(parentId: string): Promise<PrismaVisite | null> {
     return this.prisma.document
       .findUnique({
         where: { id: parentId },
       })
-      .versements();
+      .visites();
   }
 }

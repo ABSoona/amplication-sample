@@ -33,7 +33,6 @@ import { Document } from "../../document/base/Document";
 import { EnumAideFrequence } from "./EnumAideFrequence";
 import { EnumAideStatus } from "./EnumAideStatus";
 import { EnumAideTypeField } from "./EnumAideTypeField";
-import { Versement } from "../../versement/base/Versement";
 
 @ObjectType()
 class Aide {
@@ -233,15 +232,6 @@ class Aide {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Versement],
-  })
-  @ValidateNested()
-  @Type(() => Versement)
-  @IsOptional()
-  versements?: Array<Versement>;
 }
 
 export { Aide as Aide };

@@ -77,9 +77,9 @@ export class DocumentControllerBase {
             }
           : undefined,
 
-        versements: data.versements
+        visites: data.visites
           ? {
-              connect: data.versements,
+              connect: data.visites,
             }
           : undefined,
       },
@@ -116,7 +116,7 @@ export class DocumentControllerBase {
 
         updatedAt: true,
 
-        versements: {
+        visites: {
           select: {
             id: true,
           },
@@ -174,7 +174,7 @@ export class DocumentControllerBase {
 
         updatedAt: true,
 
-        versements: {
+        visites: {
           select: {
             id: true,
           },
@@ -233,7 +233,7 @@ export class DocumentControllerBase {
 
         updatedAt: true,
 
-        versements: {
+        visites: {
           select: {
             id: true,
           },
@@ -294,9 +294,9 @@ export class DocumentControllerBase {
               }
             : undefined,
 
-          versements: data.versements
+          visites: data.visites
             ? {
-                connect: data.versements,
+                connect: data.visites,
               }
             : undefined,
         },
@@ -333,7 +333,7 @@ export class DocumentControllerBase {
 
           updatedAt: true,
 
-          versements: {
+          visites: {
             select: {
               id: true,
             },
@@ -400,7 +400,7 @@ export class DocumentControllerBase {
 
           updatedAt: true,
 
-          versements: {
+          visites: {
             select: {
               id: true,
             },

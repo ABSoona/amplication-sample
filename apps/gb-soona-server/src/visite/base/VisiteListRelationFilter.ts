@@ -11,46 +11,46 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { VersementWhereInput } from "./VersementWhereInput";
+import { VisiteWhereInput } from "./VisiteWhereInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
 @InputType()
-class VersementListRelationFilter {
+class VisiteListRelationFilter {
   @ApiProperty({
     required: false,
-    type: () => VersementWhereInput,
+    type: () => VisiteWhereInput,
   })
   @ValidateNested()
-  @Type(() => VersementWhereInput)
+  @Type(() => VisiteWhereInput)
   @IsOptional()
-  @Field(() => VersementWhereInput, {
+  @Field(() => VisiteWhereInput, {
     nullable: true,
   })
-  every?: VersementWhereInput;
+  every?: VisiteWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => VersementWhereInput,
+    type: () => VisiteWhereInput,
   })
   @ValidateNested()
-  @Type(() => VersementWhereInput)
+  @Type(() => VisiteWhereInput)
   @IsOptional()
-  @Field(() => VersementWhereInput, {
+  @Field(() => VisiteWhereInput, {
     nullable: true,
   })
-  some?: VersementWhereInput;
+  some?: VisiteWhereInput;
 
   @ApiProperty({
     required: false,
-    type: () => VersementWhereInput,
+    type: () => VisiteWhereInput,
   })
   @ValidateNested()
-  @Type(() => VersementWhereInput)
+  @Type(() => VisiteWhereInput)
   @IsOptional()
-  @Field(() => VersementWhereInput, {
+  @Field(() => VisiteWhereInput, {
     nullable: true,
   })
-  none?: VersementWhereInput;
+  none?: VisiteWhereInput;
 }
-export { VersementListRelationFilter as VersementListRelationFilter };
+export { VisiteListRelationFilter as VisiteListRelationFilter };

@@ -9,13 +9,10 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { registerEnumType } from "@nestjs/graphql";
-
-export enum EnumVersementStatus {
-  AVerser = "AVerser",
-  Verse = "Verse",
-}
-
-registerEnumType(EnumVersementStatus, {
-  name: "EnumVersementStatus",
-});
+import { Module } from "@nestjs/common";
+import { ACLModule } from "../../auth/acl.module";
+@Module({
+  imports: [ACLModule],
+  exports: [ACLModule],
+})
+export class VisiteModuleBase {}

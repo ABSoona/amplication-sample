@@ -25,6 +25,7 @@ import { Demande } from "../../demande/base/Demande";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+import { Visite } from "../../visite/base/Visite";
 
 @ObjectType()
 class User {
@@ -226,6 +227,15 @@ class User {
   @IsString()
   @Field(() => String)
   username!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Visite],
+  })
+  @ValidateNested()
+  @Type(() => Visite)
+  @IsOptional()
+  visites?: Array<Visite>;
 }
 
 export { User as User };

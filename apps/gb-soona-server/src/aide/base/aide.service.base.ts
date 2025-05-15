@@ -16,7 +16,6 @@ import {
   Aide as PrismaAide,
   DemandeActivity as PrismaDemandeActivity,
   Document as PrismaDocument,
-  Versement as PrismaVersement,
   Contact as PrismaContact,
   Demande as PrismaDemande,
 } from "@prisma/client";
@@ -64,17 +63,6 @@ export class AideServiceBase {
         where: { id: parentId },
       })
       .documents(args);
-  }
-
-  async findVersements(
-    parentId: number,
-    args: Prisma.VersementFindManyArgs
-  ): Promise<PrismaVersement[]> {
-    return this.prisma.aide
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .versements(args);
   }
 
   async getContact(parentId: number): Promise<PrismaContact | null> {

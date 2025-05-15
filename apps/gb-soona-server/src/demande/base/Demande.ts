@@ -30,6 +30,7 @@ import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { Contact } from "../../contact/base/Contact";
 import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
 import { Document } from "../../document/base/Document";
+import { Visite } from "../../visite/base/Visite";
 
 @ObjectType()
 class Demande {
@@ -372,6 +373,15 @@ class Demande {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Visite],
+  })
+  @ValidateNested()
+  @Type(() => Visite)
+  @IsOptional()
+  visites?: Array<Visite>;
 }
 
 export { Demande as Demande };

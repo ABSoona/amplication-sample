@@ -10,37 +10,37 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { InputType, Field } from "@nestjs/graphql";
-import { VersementWhereUniqueInput } from "../../versement/base/VersementWhereUniqueInput";
+import { VisiteWhereUniqueInput } from "../../visite/base/VisiteWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
 
 @InputType()
-class VersementUpdateManyWithoutAidesInput {
-  @Field(() => [VersementWhereUniqueInput], {
+class VisiteUpdateManyWithoutUsersInput {
+  @Field(() => [VisiteWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [VersementWhereUniqueInput],
+    type: () => [VisiteWhereUniqueInput],
   })
-  connect?: Array<VersementWhereUniqueInput>;
+  connect?: Array<VisiteWhereUniqueInput>;
 
-  @Field(() => [VersementWhereUniqueInput], {
+  @Field(() => [VisiteWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [VersementWhereUniqueInput],
+    type: () => [VisiteWhereUniqueInput],
   })
-  disconnect?: Array<VersementWhereUniqueInput>;
+  disconnect?: Array<VisiteWhereUniqueInput>;
 
-  @Field(() => [VersementWhereUniqueInput], {
+  @Field(() => [VisiteWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [VersementWhereUniqueInput],
+    type: () => [VisiteWhereUniqueInput],
   })
-  set?: Array<VersementWhereUniqueInput>;
+  set?: Array<VisiteWhereUniqueInput>;
 }
 
-export { VersementUpdateManyWithoutAidesInput as VersementUpdateManyWithoutAidesInput };
+export { VisiteUpdateManyWithoutUsersInput as VisiteUpdateManyWithoutUsersInput };

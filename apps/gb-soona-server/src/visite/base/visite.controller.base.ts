@@ -18,43 +18,47 @@ import { plainToClass } from "class-transformer";
 import { ApiNestedQuery } from "../../decorators/api-nested-query.decorator";
 import * as nestAccessControl from "nest-access-control";
 import * as defaultAuthGuard from "../../auth/defaultAuth.guard";
-import { VersementService } from "../versement.service";
+import { VisiteService } from "../visite.service";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
-import { VersementCreateInput } from "./VersementCreateInput";
-import { Versement } from "./Versement";
-import { VersementFindManyArgs } from "./VersementFindManyArgs";
-import { VersementWhereUniqueInput } from "./VersementWhereUniqueInput";
-import { VersementUpdateInput } from "./VersementUpdateInput";
+import { VisiteCreateInput } from "./VisiteCreateInput";
+import { Visite } from "./Visite";
+import { VisiteFindManyArgs } from "./VisiteFindManyArgs";
+import { VisiteWhereUniqueInput } from "./VisiteWhereUniqueInput";
+import { VisiteUpdateInput } from "./VisiteUpdateInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
-export class VersementControllerBase {
+export class VisiteControllerBase {
   constructor(
-    protected readonly service: VersementService,
+    protected readonly service: VisiteService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Post()
-  @swagger.ApiCreatedResponse({ type: Versement })
+  @swagger.ApiCreatedResponse({ type: Visite })
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "create",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async createVersement(
-    @common.Body() data: VersementCreateInput
-  ): Promise<Versement> {
-    return await this.service.createVersement({
+  async createVisite(@common.Body() data: VisiteCreateInput): Promise<Visite> {
+    return await this.service.createVisite({
       data: {
         ...data,
 
-        aide: {
-          connect: data.aide,
+        acteur: {
+          connect: data.acteur,
         },
+
+        demande: data.demande
+          ? {
+              connect: data.demande,
+            }
+          : undefined,
 
         document: data.document
           ? {
@@ -63,14 +67,20 @@ export class VersementControllerBase {
           : undefined,
       },
       select: {
-        aide: {
+        acteur: {
           select: {
             id: true,
           },
         },
 
         createdAt: true,
-        dataVersement: true,
+        dateVisite: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
 
         document: {
           select: {
@@ -79,7 +89,7 @@ export class VersementControllerBase {
         },
 
         id: true,
-        montant: true,
+        note: true,
         status: true,
         updatedAt: true,
       },
@@ -88,29 +98,35 @@ export class VersementControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get()
-  @swagger.ApiOkResponse({ type: [Versement] })
-  @ApiNestedQuery(VersementFindManyArgs)
+  @swagger.ApiOkResponse({ type: [Visite] })
+  @ApiNestedQuery(VisiteFindManyArgs)
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "read",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async versements(@common.Req() request: Request): Promise<Versement[]> {
-    const args = plainToClass(VersementFindManyArgs, request.query);
-    return this.service.versements({
+  async visites(@common.Req() request: Request): Promise<Visite[]> {
+    const args = plainToClass(VisiteFindManyArgs, request.query);
+    return this.service.visites({
       ...args,
       select: {
-        aide: {
+        acteur: {
           select: {
             id: true,
           },
         },
 
         createdAt: true,
-        dataVersement: true,
+        dateVisite: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
 
         document: {
           select: {
@@ -119,7 +135,7 @@ export class VersementControllerBase {
         },
 
         id: true,
-        montant: true,
+        note: true,
         status: true,
         updatedAt: true,
       },
@@ -128,30 +144,36 @@ export class VersementControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @common.Get("/:id")
-  @swagger.ApiOkResponse({ type: Versement })
+  @swagger.ApiOkResponse({ type: Visite })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "read",
     possession: "own",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async versement(
-    @common.Param() params: VersementWhereUniqueInput
-  ): Promise<Versement | null> {
-    const result = await this.service.versement({
+  async visite(
+    @common.Param() params: VisiteWhereUniqueInput
+  ): Promise<Visite | null> {
+    const result = await this.service.visite({
       where: params,
       select: {
-        aide: {
+        acteur: {
           select: {
             id: true,
           },
         },
 
         createdAt: true,
-        dataVersement: true,
+        dateVisite: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
 
         document: {
           select: {
@@ -160,7 +182,7 @@ export class VersementControllerBase {
         },
 
         id: true,
-        montant: true,
+        note: true,
         status: true,
         updatedAt: true,
       },
@@ -175,29 +197,35 @@ export class VersementControllerBase {
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
   @common.Patch("/:id")
-  @swagger.ApiOkResponse({ type: Versement })
+  @swagger.ApiOkResponse({ type: Visite })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "update",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async updateVersement(
-    @common.Param() params: VersementWhereUniqueInput,
-    @common.Body() data: VersementUpdateInput
-  ): Promise<Versement | null> {
+  async updateVisite(
+    @common.Param() params: VisiteWhereUniqueInput,
+    @common.Body() data: VisiteUpdateInput
+  ): Promise<Visite | null> {
     try {
-      return await this.service.updateVersement({
+      return await this.service.updateVisite({
         where: params,
         data: {
           ...data,
 
-          aide: {
-            connect: data.aide,
+          acteur: {
+            connect: data.acteur,
           },
+
+          demande: data.demande
+            ? {
+                connect: data.demande,
+              }
+            : undefined,
 
           document: data.document
             ? {
@@ -206,14 +234,20 @@ export class VersementControllerBase {
             : undefined,
         },
         select: {
-          aide: {
+          acteur: {
             select: {
               id: true,
             },
           },
 
           createdAt: true,
-          dataVersement: true,
+          dateVisite: true,
+
+          demande: {
+            select: {
+              id: true,
+            },
+          },
 
           document: {
             select: {
@@ -222,7 +256,7 @@ export class VersementControllerBase {
           },
 
           id: true,
-          montant: true,
+          note: true,
           status: true,
           updatedAt: true,
         },
@@ -238,31 +272,37 @@ export class VersementControllerBase {
   }
 
   @common.Delete("/:id")
-  @swagger.ApiOkResponse({ type: Versement })
+  @swagger.ApiOkResponse({ type: Visite })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "delete",
     possession: "any",
   })
   @swagger.ApiForbiddenResponse({
     type: errors.ForbiddenException,
   })
-  async deleteVersement(
-    @common.Param() params: VersementWhereUniqueInput
-  ): Promise<Versement | null> {
+  async deleteVisite(
+    @common.Param() params: VisiteWhereUniqueInput
+  ): Promise<Visite | null> {
     try {
-      return await this.service.deleteVersement({
+      return await this.service.deleteVisite({
         where: params,
         select: {
-          aide: {
+          acteur: {
             select: {
               id: true,
             },
           },
 
           createdAt: true,
-          dataVersement: true,
+          dateVisite: true,
+
+          demande: {
+            select: {
+              id: true,
+            },
+          },
 
           document: {
             select: {
@@ -271,7 +311,7 @@ export class VersementControllerBase {
           },
 
           id: true,
-          montant: true,
+          note: true,
           status: true,
           updatedAt: true,
         },

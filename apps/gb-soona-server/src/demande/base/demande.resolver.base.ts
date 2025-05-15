@@ -32,6 +32,8 @@ import { DemandeActivityFindManyArgs } from "../../demandeActivity/base/DemandeA
 import { DemandeActivity } from "../../demandeActivity/base/DemandeActivity";
 import { DocumentFindManyArgs } from "../../document/base/DocumentFindManyArgs";
 import { Document } from "../../document/base/Document";
+import { VisiteFindManyArgs } from "../../visite/base/VisiteFindManyArgs";
+import { Visite } from "../../visite/base/Visite";
 import { User } from "../../user/base/User";
 import { Contact } from "../../contact/base/Contact";
 import { DemandeService } from "../demande.service";
@@ -238,6 +240,26 @@ export class DemandeResolverBase {
     @graphql.Args() args: DocumentFindManyArgs
   ): Promise<Document[]> {
     const results = await this.service.findDocuments(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Visite], { name: "visites" })
+  @nestAccessControl.UseRoles({
+    resource: "Visite",
+    action: "read",
+    possession: "any",
+  })
+  async findVisites(
+    @graphql.Parent() parent: Demande,
+    @graphql.Args() args: VisiteFindManyArgs
+  ): Promise<Visite[]> {
+    const results = await this.service.findVisites(parent.id, args);
 
     if (!results) {
       return [];

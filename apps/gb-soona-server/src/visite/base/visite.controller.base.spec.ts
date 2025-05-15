@@ -12,48 +12,48 @@ import { ACLModule } from "../../auth/acl.module";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
 import { map } from "rxjs";
-import { VersementController } from "../versement.controller";
-import { VersementService } from "../versement.service";
+import { VisiteController } from "../visite.controller";
+import { VisiteService } from "../visite.service";
 
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
-  dataVersement: new Date(),
+  dateVisite: new Date(),
   id: 42,
-  montant: 42,
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
-  dataVersement: new Date(),
+  dateVisite: new Date(),
   id: 42,
-  montant: 42,
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
-    dataVersement: new Date(),
+    dateVisite: new Date(),
     id: 42,
-    montant: 42,
+    note: "exampleNote",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
-  dataVersement: new Date(),
+  dateVisite: new Date(),
   id: 42,
-  montant: 42,
+  note: "exampleNote",
   updatedAt: new Date(),
 };
 
 const service = {
-  createVersement() {
+  createVisite() {
     return CREATE_RESULT;
   },
-  versements: () => FIND_MANY_RESULT,
-  versement: ({ where }: { where: { id: string } }) => {
+  visites: () => FIND_MANY_RESULT,
+  visite: ({ where }: { where: { id: string } }) => {
     switch (where.id) {
       case existingId:
         return FIND_ONE_RESULT;
@@ -95,18 +95,18 @@ const aclValidateRequestInterceptor = {
   },
 };
 
-describe("Versement", () => {
+describe("Visite", () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       providers: [
         {
-          provide: VersementService,
+          provide: VisiteService,
           useValue: service,
         },
       ],
-      controllers: [VersementController],
+      controllers: [VisiteController],
       imports: [ACLModule],
     })
       .overrideGuard(DefaultAuthGuard)
@@ -123,36 +123,36 @@ describe("Versement", () => {
     await app.init();
   });
 
-  test("POST /versements", async () => {
+  test("POST /visites", async () => {
     await request(app.getHttpServer())
-      .post("/versements")
+      .post("/visites")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        dataVersement: CREATE_RESULT.dataVersement.toISOString(),
+        dateVisite: CREATE_RESULT.dateVisite.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
 
-  test("GET /versements", async () => {
+  test("GET /visites", async () => {
     await request(app.getHttpServer())
-      .get("/versements")
+      .get("/visites")
       .expect(HttpStatus.OK)
       .expect([
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
-          dataVersement: FIND_MANY_RESULT[0].dataVersement.toISOString(),
+          dateVisite: FIND_MANY_RESULT[0].dateVisite.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
   });
 
-  test("GET /versements/:id non existing", async () => {
+  test("GET /visites/:id non existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/versements"}/${nonExistingId}`)
+      .get(`${"/visites"}/${nonExistingId}`)
       .expect(HttpStatus.NOT_FOUND)
       .expect({
         statusCode: HttpStatus.NOT_FOUND,
@@ -161,33 +161,33 @@ describe("Versement", () => {
       });
   });
 
-  test("GET /versements/:id existing", async () => {
+  test("GET /visites/:id existing", async () => {
     await request(app.getHttpServer())
-      .get(`${"/versements"}/${existingId}`)
+      .get(`${"/visites"}/${existingId}`)
       .expect(HttpStatus.OK)
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
-        dataVersement: FIND_ONE_RESULT.dataVersement.toISOString(),
+        dateVisite: FIND_ONE_RESULT.dateVisite.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
 
-  test("POST /versements existing resource", async () => {
+  test("POST /visites existing resource", async () => {
     const agent = request(app.getHttpServer());
     await agent
-      .post("/versements")
+      .post("/visites")
       .send(CREATE_INPUT)
       .expect(HttpStatus.CREATED)
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
-        dataVersement: CREATE_RESULT.dataVersement.toISOString(),
+        dateVisite: CREATE_RESULT.dateVisite.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {
         agent
-          .post("/versements")
+          .post("/visites")
           .send(CREATE_INPUT)
           .expect(HttpStatus.CONFLICT)
           .expect({

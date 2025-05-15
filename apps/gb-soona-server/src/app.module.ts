@@ -7,7 +7,7 @@ import { UserModule } from "./user/user.module";
 import { DocumentModule } from "./document/document.module";
 import { DemandeActivityModule } from "./demandeActivity/demandeActivity.module";
 import { TypeDocumentModule } from "./typeDocument/typeDocument.module";
-import { VersementModule } from "./versement/versement.module";
+import { VisiteModule } from "./visite/visite.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { SecretsManagerModule } from "./providers/secrets/secretsManager.module";
@@ -34,7 +34,7 @@ import { AuthModule } from "./auth/auth.module";
     DocumentModule,
     DemandeActivityModule,
     TypeDocumentModule,
-    VersementModule,
+    VisiteModule,
     HealthModule,
     PrismaModule,
     SecretsManagerModule,

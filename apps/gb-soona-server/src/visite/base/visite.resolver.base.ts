@@ -19,32 +19,33 @@ import { GqlDefaultAuthGuard } from "../../auth/gqlDefaultAuth.guard";
 import * as common from "@nestjs/common";
 import { AclFilterResponseInterceptor } from "../../interceptors/aclFilterResponse.interceptor";
 import { AclValidateRequestInterceptor } from "../../interceptors/aclValidateRequest.interceptor";
-import { Versement } from "./Versement";
-import { VersementCountArgs } from "./VersementCountArgs";
-import { VersementFindManyArgs } from "./VersementFindManyArgs";
-import { VersementFindUniqueArgs } from "./VersementFindUniqueArgs";
-import { CreateVersementArgs } from "./CreateVersementArgs";
-import { UpdateVersementArgs } from "./UpdateVersementArgs";
-import { DeleteVersementArgs } from "./DeleteVersementArgs";
-import { Aide } from "../../aide/base/Aide";
+import { Visite } from "./Visite";
+import { VisiteCountArgs } from "./VisiteCountArgs";
+import { VisiteFindManyArgs } from "./VisiteFindManyArgs";
+import { VisiteFindUniqueArgs } from "./VisiteFindUniqueArgs";
+import { CreateVisiteArgs } from "./CreateVisiteArgs";
+import { UpdateVisiteArgs } from "./UpdateVisiteArgs";
+import { DeleteVisiteArgs } from "./DeleteVisiteArgs";
+import { User } from "../../user/base/User";
+import { Demande } from "../../demande/base/Demande";
 import { Document } from "../../document/base/Document";
-import { VersementService } from "../versement.service";
+import { VisiteService } from "../visite.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
-@graphql.Resolver(() => Versement)
-export class VersementResolverBase {
+@graphql.Resolver(() => Visite)
+export class VisiteResolverBase {
   constructor(
-    protected readonly service: VersementService,
+    protected readonly service: VisiteService,
     protected readonly rolesBuilder: nestAccessControl.RolesBuilder
   ) {}
 
   @graphql.Query(() => MetaQueryPayload)
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "read",
     possession: "any",
   })
-  async _versementsMeta(
-    @graphql.Args() args: VersementCountArgs
+  async _visitesMeta(
+    @graphql.Args() args: VisiteCountArgs
   ): Promise<MetaQueryPayload> {
     const result = await this.service.count(args);
     return {
@@ -53,29 +54,27 @@ export class VersementResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.Query(() => [Versement])
+  @graphql.Query(() => [Visite])
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "read",
     possession: "any",
   })
-  async versements(
-    @graphql.Args() args: VersementFindManyArgs
-  ): Promise<Versement[]> {
-    return this.service.versements(args);
+  async visites(@graphql.Args() args: VisiteFindManyArgs): Promise<Visite[]> {
+    return this.service.visites(args);
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.Query(() => Versement, { nullable: true })
+  @graphql.Query(() => Visite, { nullable: true })
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "read",
     possession: "own",
   })
-  async versement(
-    @graphql.Args() args: VersementFindUniqueArgs
-  ): Promise<Versement | null> {
-    const result = await this.service.versement(args);
+  async visite(
+    @graphql.Args() args: VisiteFindUniqueArgs
+  ): Promise<Visite | null> {
+    const result = await this.service.visite(args);
     if (result === null) {
       return null;
     }
@@ -83,23 +82,27 @@ export class VersementResolverBase {
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
-  @graphql.Mutation(() => Versement)
+  @graphql.Mutation(() => Visite)
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "create",
     possession: "any",
   })
-  async createVersement(
-    @graphql.Args() args: CreateVersementArgs
-  ): Promise<Versement> {
-    return await this.service.createVersement({
+  async createVisite(@graphql.Args() args: CreateVisiteArgs): Promise<Visite> {
+    return await this.service.createVisite({
       ...args,
       data: {
         ...args.data,
 
-        aide: {
-          connect: args.data.aide,
+        acteur: {
+          connect: args.data.acteur,
         },
+
+        demande: args.data.demande
+          ? {
+              connect: args.data.demande,
+            }
+          : undefined,
 
         document: args.data.document
           ? {
@@ -111,24 +114,30 @@ export class VersementResolverBase {
   }
 
   @common.UseInterceptors(AclValidateRequestInterceptor)
-  @graphql.Mutation(() => Versement)
+  @graphql.Mutation(() => Visite)
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "update",
     possession: "any",
   })
-  async updateVersement(
-    @graphql.Args() args: UpdateVersementArgs
-  ): Promise<Versement | null> {
+  async updateVisite(
+    @graphql.Args() args: UpdateVisiteArgs
+  ): Promise<Visite | null> {
     try {
-      return await this.service.updateVersement({
+      return await this.service.updateVisite({
         ...args,
         data: {
           ...args.data,
 
-          aide: {
-            connect: args.data.aide,
+          acteur: {
+            connect: args.data.acteur,
           },
+
+          demande: args.data.demande
+            ? {
+                connect: args.data.demande,
+              }
+            : undefined,
 
           document: args.data.document
             ? {
@@ -147,17 +156,17 @@ export class VersementResolverBase {
     }
   }
 
-  @graphql.Mutation(() => Versement)
+  @graphql.Mutation(() => Visite)
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "delete",
     possession: "any",
   })
-  async deleteVersement(
-    @graphql.Args() args: DeleteVersementArgs
-  ): Promise<Versement | null> {
+  async deleteVisite(
+    @graphql.Args() args: DeleteVisiteArgs
+  ): Promise<Visite | null> {
     try {
-      return await this.service.deleteVersement(args);
+      return await this.service.deleteVisite(args);
     } catch (error) {
       if (isRecordNotFoundError(error)) {
         throw new GraphQLError(
@@ -169,17 +178,36 @@ export class VersementResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Aide, {
+  @graphql.ResolveField(() => User, {
     nullable: true,
-    name: "aide",
+    name: "acteur",
   })
   @nestAccessControl.UseRoles({
-    resource: "Aide",
+    resource: "User",
     action: "read",
     possession: "any",
   })
-  async getAide(@graphql.Parent() parent: Versement): Promise<Aide | null> {
-    const result = await this.service.getAide(parent.id);
+  async getActeur(@graphql.Parent() parent: Visite): Promise<User | null> {
+    const result = await this.service.getActeur(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Demande, {
+    nullable: true,
+    name: "demande",
+  })
+  @nestAccessControl.UseRoles({
+    resource: "Demande",
+    action: "read",
+    possession: "any",
+  })
+  async getDemande(@graphql.Parent() parent: Visite): Promise<Demande | null> {
+    const result = await this.service.getDemande(parent.id);
 
     if (!result) {
       return null;
@@ -198,7 +226,7 @@ export class VersementResolverBase {
     possession: "any",
   })
   async getDocument(
-    @graphql.Parent() parent: Versement
+    @graphql.Parent() parent: Visite
   ): Promise<Document | null> {
     const result = await this.service.getDocument(parent.id);
 

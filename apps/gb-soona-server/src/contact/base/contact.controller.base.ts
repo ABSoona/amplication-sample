@@ -561,7 +561,7 @@ export class ContactControllerBase {
 
         updatedAt: true,
 
-        versements: {
+        visites: {
           select: {
             id: true,
           },

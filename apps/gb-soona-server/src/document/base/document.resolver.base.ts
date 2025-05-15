@@ -32,7 +32,7 @@ import { Aide } from "../../aide/base/Aide";
 import { Contact } from "../../contact/base/Contact";
 import { Demande } from "../../demande/base/Demande";
 import { TypeDocument } from "../../typeDocument/base/TypeDocument";
-import { Versement } from "../../versement/base/Versement";
+import { Visite } from "../../visite/base/Visite";
 import { DocumentService } from "../document.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Document)
@@ -126,9 +126,9 @@ export class DocumentResolverBase {
             }
           : undefined,
 
-        versements: args.data.versements
+        visites: args.data.visites
           ? {
-              connect: args.data.versements,
+              connect: args.data.visites,
             }
           : undefined,
       },
@@ -175,9 +175,9 @@ export class DocumentResolverBase {
               }
             : undefined,
 
-          versements: args.data.versements
+          visites: args.data.visites
             ? {
-                connect: args.data.versements,
+                connect: args.data.visites,
               }
             : undefined,
         },
@@ -317,19 +317,17 @@ export class DocumentResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Versement, {
+  @graphql.ResolveField(() => Visite, {
     nullable: true,
-    name: "versements",
+    name: "visites",
   })
   @nestAccessControl.UseRoles({
-    resource: "Versement",
+    resource: "Visite",
     action: "read",
     possession: "any",
   })
-  async getVersements(
-    @graphql.Parent() parent: Document
-  ): Promise<Versement | null> {
-    const result = await this.service.getVersements(parent.id);
+  async getVisites(@graphql.Parent() parent: Document): Promise<Visite | null> {
+    const result = await this.service.getVisites(parent.id);
 
     if (!result) {
       return null;
