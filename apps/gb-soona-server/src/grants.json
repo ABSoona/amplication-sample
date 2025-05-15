@@ -631,91 +631,91 @@
   },
   {
     "role": "admin",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "external",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "external",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "external",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "external",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "external",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Versement",
+    "resource": "Visite",
     "action": "read:any",
     "attributes": "*"
   }

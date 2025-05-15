@@ -32,6 +32,9 @@ import { DemandeActivityWhereUniqueInput } from "../../demandeActivity/base/Dema
 import { DemandeFindManyArgs } from "../../demande/base/DemandeFindManyArgs";
 import { Demande } from "../../demande/base/Demande";
 import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
+import { VisiteFindManyArgs } from "../../visite/base/VisiteFindManyArgs";
+import { Visite } from "../../visite/base/Visite";
+import { VisiteWhereUniqueInput } from "../../visite/base/VisiteWhereUniqueInput";
 
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
@@ -792,6 +795,123 @@ export class UserControllerBase {
   ): Promise<void> {
     const data = {
       subordonnes: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @common.Get("/:id/visites")
+  @ApiNestedQuery(VisiteFindManyArgs)
+  @nestAccessControl.UseRoles({
+    resource: "Visite",
+    action: "read",
+    possession: "any",
+  })
+  async findVisites(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Visite[]> {
+    const query = plainToClass(VisiteFindManyArgs, request.query);
+    const results = await this.service.findVisites(params.id, {
+      ...query,
+      select: {
+        acteur: {
+          select: {
+            id: true,
+          },
+        },
+
+        createdAt: true,
+        dateVisite: true,
+
+        demande: {
+          select: {
+            id: true,
+          },
+        },
+
+        document: {
+          select: {
+            id: true,
+          },
+        },
+
+        id: true,
+        note: true,
+        status: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/visites")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async connectVisites(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: VisiteWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      visites: {
+        connect: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/visites")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async updateVisites(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: VisiteWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      visites: {
+        set: body,
+      },
+    };
+    await this.service.updateUser({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/visites")
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  async disconnectVisites(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: VisiteWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      visites: {
         disconnect: body,
       },
     };

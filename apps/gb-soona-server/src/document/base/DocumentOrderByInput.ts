@@ -127,7 +127,7 @@ class DocumentOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  versementsId?: SortOrder;
+  visitesId?: SortOrder;
 }
 
 export { DocumentOrderByInput as DocumentOrderByInput };

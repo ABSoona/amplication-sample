@@ -9,20 +9,20 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { ArgsType, Field } from "@nestjs/graphql";
+import { InputType, Field } from "@nestjs/graphql";
+import { VisiteWhereUniqueInput } from "../../visite/base/VisiteWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
-import { VersementWhereInput } from "./VersementWhereInput";
-import { Type } from "class-transformer";
 
-@ArgsType()
-class VersementCountArgs {
+@InputType()
+class VisiteCreateNestedManyWithoutUsersInput {
+  @Field(() => [VisiteWhereUniqueInput], {
+    nullable: true,
+  })
   @ApiProperty({
     required: false,
-    type: () => VersementWhereInput,
+    type: () => [VisiteWhereUniqueInput],
   })
-  @Field(() => VersementWhereInput, { nullable: true })
-  @Type(() => VersementWhereInput)
-  where?: VersementWhereInput;
+  connect?: Array<VisiteWhereUniqueInput>;
 }
 
-export { VersementCountArgs as VersementCountArgs };
+export { VisiteCreateNestedManyWithoutUsersInput as VisiteCreateNestedManyWithoutUsersInput };

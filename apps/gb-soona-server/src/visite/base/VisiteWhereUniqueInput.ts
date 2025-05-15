@@ -15,7 +15,7 @@ import { IsInt } from "class-validator";
 import { Transform } from "class-transformer";
 
 @InputType()
-class VersementWhereUniqueInput {
+class VisiteWhereUniqueInput {
   @ApiProperty({
     required: true,
     type: Number,
@@ -28,4 +28,4 @@ class VersementWhereUniqueInput {
   id!: number;
 }
 
-export { VersementWhereUniqueInput as VersementWhereUniqueInput };
+export { VisiteWhereUniqueInput as VisiteWhereUniqueInput };

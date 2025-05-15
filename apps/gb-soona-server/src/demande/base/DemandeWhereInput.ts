@@ -24,6 +24,7 @@ import { DemandeActivityListRelationFilter } from "../../demandeActivity/base/De
 import { DocumentListRelationFilter } from "../../document/base/DocumentListRelationFilter";
 import { IntFilter } from "../../util/IntFilter";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { VisiteListRelationFilter } from "../../visite/base/VisiteListRelationFilter";
 
 @InputType()
 class DemandeWhereInput {
@@ -361,6 +362,18 @@ class DemandeWhereInput {
     nullable: true,
   })
   updatedAt?: DateTimeFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => VisiteListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => VisiteListRelationFilter)
+  @IsOptional()
+  @Field(() => VisiteListRelationFilter, {
+    nullable: true,
+  })
+  visites?: VisiteListRelationFilter;
 }
 
 export { DemandeWhereInput as DemandeWhereInput };

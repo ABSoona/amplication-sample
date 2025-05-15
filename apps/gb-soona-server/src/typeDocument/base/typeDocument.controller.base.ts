@@ -233,7 +233,7 @@ export class TypeDocumentControllerBase {
 
         updatedAt: true,
 
-        versements: {
+        visites: {
           select: {
             id: true,
           },

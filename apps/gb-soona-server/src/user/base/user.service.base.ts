@@ -16,6 +16,7 @@ import {
   User as PrismaUser,
   DemandeActivity as PrismaDemandeActivity,
   Demande as PrismaDemande,
+  Visite as PrismaVisite,
 } from "@prisma/client";
 
 import { PasswordService } from "../../auth/password.service";
@@ -109,6 +110,17 @@ export class UserServiceBase {
         where: { id: parentId },
       })
       .subordonnes(args);
+  }
+
+  async findVisites(
+    parentId: string,
+    args: Prisma.VisiteFindManyArgs
+  ): Promise<PrismaVisite[]> {
+    return this.prisma.user
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .visites(args);
   }
 
   async getSuperieur(parentId: string): Promise<PrismaUser | null> {

@@ -11,30 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ArgsType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { VersementWhereUniqueInput } from "./VersementWhereUniqueInput";
+import { VisiteWhereUniqueInput } from "./VisiteWhereUniqueInput";
 import { ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
-import { VersementUpdateInput } from "./VersementUpdateInput";
 
 @ArgsType()
-class UpdateVersementArgs {
+class DeleteVisiteArgs {
   @ApiProperty({
     required: true,
-    type: () => VersementWhereUniqueInput,
+    type: () => VisiteWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => VersementWhereUniqueInput)
-  @Field(() => VersementWhereUniqueInput, { nullable: false })
-  where!: VersementWhereUniqueInput;
-
-  @ApiProperty({
-    required: true,
-    type: () => VersementUpdateInput,
-  })
-  @ValidateNested()
-  @Type(() => VersementUpdateInput)
-  @Field(() => VersementUpdateInput, { nullable: false })
-  data!: VersementUpdateInput;
+  @Type(() => VisiteWhereUniqueInput)
+  @Field(() => VisiteWhereUniqueInput, { nullable: false })
+  where!: VisiteWhereUniqueInput;
 }
 
-export { UpdateVersementArgs as UpdateVersementArgs };
+export { DeleteVisiteArgs as DeleteVisiteArgs };

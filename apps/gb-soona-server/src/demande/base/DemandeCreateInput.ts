@@ -30,6 +30,7 @@ import { EnumDemandeCategorieDemandeur } from "./EnumDemandeCategorieDemandeur";
 import { ContactWhereUniqueInput } from "../../contact/base/ContactWhereUniqueInput";
 import { DemandeActivityCreateNestedManyWithoutDemandesInput } from "./DemandeActivityCreateNestedManyWithoutDemandesInput";
 import { DocumentCreateNestedManyWithoutDemandesInput } from "./DocumentCreateNestedManyWithoutDemandesInput";
+import { VisiteCreateNestedManyWithoutDemandesInput } from "./VisiteCreateNestedManyWithoutDemandesInput";
 
 @InputType()
 class DemandeCreateInput {
@@ -361,6 +362,18 @@ class DemandeCreateInput {
     nullable: true,
   })
   status?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => VisiteCreateNestedManyWithoutDemandesInput,
+  })
+  @ValidateNested()
+  @Type(() => VisiteCreateNestedManyWithoutDemandesInput)
+  @IsOptional()
+  @Field(() => VisiteCreateNestedManyWithoutDemandesInput, {
+    nullable: true,
+  })
+  visites?: VisiteCreateNestedManyWithoutDemandesInput;
 }
 
 export { DemandeCreateInput as DemandeCreateInput };

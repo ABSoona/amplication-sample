@@ -11,38 +11,52 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { AideWhereUniqueInput } from "../../aide/base/AideWhereUniqueInput";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
-import { DateTimeFilter } from "../../util/DateTimeFilter";
+import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
+import { DemandeWhereUniqueInput } from "../../demande/base/DemandeWhereUniqueInput";
 import { DocumentWhereUniqueInput } from "../../document/base/DocumentWhereUniqueInput";
 import { IntFilter } from "../../util/IntFilter";
-import { EnumVersementStatus } from "./EnumVersementStatus";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { EnumVisiteStatus } from "./EnumVisiteStatus";
 
 @InputType()
-class VersementWhereInput {
+class VisiteWhereInput {
   @ApiProperty({
     required: false,
-    type: () => AideWhereUniqueInput,
+    type: () => UserWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => AideWhereUniqueInput)
+  @Type(() => UserWhereUniqueInput)
   @IsOptional()
-  @Field(() => AideWhereUniqueInput, {
+  @Field(() => UserWhereUniqueInput, {
     nullable: true,
   })
-  aide?: AideWhereUniqueInput;
+  acteur?: UserWhereUniqueInput;
 
   @ApiProperty({
     required: false,
-    type: DateTimeFilter,
+    type: DateTimeNullableFilter,
   })
-  @Type(() => DateTimeFilter)
+  @Type(() => DateTimeNullableFilter)
   @IsOptional()
-  @Field(() => DateTimeFilter, {
+  @Field(() => DateTimeNullableFilter, {
     nullable: true,
   })
-  dataVersement?: DateTimeFilter;
+  dateVisite?: DateTimeNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => DemandeWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => DemandeWhereUniqueInput)
+  @IsOptional()
+  @Field(() => DemandeWhereUniqueInput, {
+    nullable: true,
+  })
+  demande?: DemandeWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -69,25 +83,25 @@ class VersementWhereInput {
 
   @ApiProperty({
     required: false,
-    type: IntFilter,
+    type: StringNullableFilter,
   })
-  @Type(() => IntFilter)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => IntFilter, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  montant?: IntFilter;
+  note?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
-    enum: EnumVersementStatus,
+    enum: EnumVisiteStatus,
   })
-  @IsEnum(EnumVersementStatus)
+  @IsEnum(EnumVisiteStatus)
   @IsOptional()
-  @Field(() => EnumVersementStatus, {
+  @Field(() => EnumVisiteStatus, {
     nullable: true,
   })
-  status?: "AVerser" | "Verse";
+  status?: "Programee" | "Realisee" | "Annulee";
 }
 
-export { VersementWhereInput as VersementWhereInput };
+export { VisiteWhereInput as VisiteWhereInput };

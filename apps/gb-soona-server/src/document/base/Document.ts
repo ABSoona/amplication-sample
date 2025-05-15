@@ -26,7 +26,7 @@ import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Demande } from "../../demande/base/Demande";
 import { TypeDocument } from "../../typeDocument/base/TypeDocument";
-import { Versement } from "../../versement/base/Versement";
+import { Visite } from "../../visite/base/Visite";
 
 @ObjectType()
 class Document {
@@ -114,12 +114,12 @@ class Document {
 
   @ApiProperty({
     required: false,
-    type: () => Versement,
+    type: () => Visite,
   })
   @ValidateNested()
-  @Type(() => Versement)
+  @Type(() => Visite)
   @IsOptional()
-  versements?: Versement | null;
+  visites?: Visite | null;
 }
 
 export { Document as Document };
