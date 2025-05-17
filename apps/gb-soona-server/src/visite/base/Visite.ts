@@ -56,13 +56,12 @@ class Visite {
   dateVisite!: Date | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => Demande,
   })
   @ValidateNested()
   @Type(() => Demande)
-  @IsOptional()
-  demande?: Demande | null;
+  demande?: Demande;
 
   @ApiProperty({
     required: false,

@@ -54,11 +54,9 @@ export class VisiteControllerBase {
           connect: data.acteur,
         },
 
-        demande: data.demande
-          ? {
-              connect: data.demande,
-            }
-          : undefined,
+        demande: {
+          connect: data.demande,
+        },
 
         document: data.document
           ? {
@@ -221,11 +219,9 @@ export class VisiteControllerBase {
             connect: data.acteur,
           },
 
-          demande: data.demande
-            ? {
-                connect: data.demande,
-              }
-            : undefined,
+          demande: {
+            connect: data.demande,
+          },
 
           document: data.document
             ? {
