@@ -98,11 +98,9 @@ export class VisiteResolverBase {
           connect: args.data.acteur,
         },
 
-        demande: args.data.demande
-          ? {
-              connect: args.data.demande,
-            }
-          : undefined,
+        demande: {
+          connect: args.data.demande,
+        },
 
         document: args.data.document
           ? {
@@ -133,11 +131,9 @@ export class VisiteResolverBase {
             connect: args.data.acteur,
           },
 
-          demande: args.data.demande
-            ? {
-                connect: args.data.demande,
-              }
-            : undefined,
+          demande: {
+            connect: args.data.demande,
+          },
 
           document: args.data.document
             ? {

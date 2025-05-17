@@ -60,7 +60,7 @@ class VisiteUpdateInput {
   @Field(() => DemandeWhereUniqueInput, {
     nullable: true,
   })
-  demande?: DemandeWhereUniqueInput | null;
+  demande?: DemandeWhereUniqueInput;
 
   @ApiProperty({
     required: false,

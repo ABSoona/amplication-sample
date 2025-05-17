@@ -48,16 +48,13 @@ class VisiteCreateInput {
   dateVisite?: Date | null;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => DemandeWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => DemandeWhereUniqueInput)
-  @IsOptional()
-  @Field(() => DemandeWhereUniqueInput, {
-    nullable: true,
-  })
-  demande?: DemandeWhereUniqueInput | null;
+  @Field(() => DemandeWhereUniqueInput)
+  demande!: DemandeWhereUniqueInput;
 
   @ApiProperty({
     required: false,
